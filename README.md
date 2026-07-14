@@ -1,290 +1,127 @@
-# AI-Assisted Software Development with VS Code, ChatGPT & Markdown
+::: {align="center"}
+`<picture>`{=html}
+`<source media="(prefers-color-scheme: dark)" srcset="images/banner-dark.png">`{=html}
+`<source media="(prefers-color-scheme: light)" srcset="images/banner-light.png">`{=html}
+`<img alt="AI-Assisted Software Development" src="images/banner-light.svg" width="100%">`{=html}
+`</picture>`{=html}
 
-> Learn modern software development by building real applications using AI, Markdown, Git, and VS Code.
+# 🚀 AI-Assisted Software Development
 
----
+### **Build Better Software. Faster. Smarter. Together with AI.**
 
-## 📖 About This Project
+*A complete, hands-on guide to modern AI-assisted software engineering*
 
-This repository contains an open-source book that teaches a modern, AI-assisted approach to software development.
+[![Book](https://img.shields.io/badge/Book-36%20Chapters-6f42c1?style=for-the-badge)](#-book-roadmap)
+[![Projects](https://img.shields.io/badge/Projects-5-success?style=for-the-badge)](#-real-world-projects)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+:::
 
-Instead of jumping directly into writing code, you'll learn how professional teams use **requirements**, **architecture**, **documentation**, **Git**, and **AI assistants** together to build maintainable software.
+------------------------------------------------------------------------
 
-Throughout this book, we will build a complete application from scratch while documenting every decision using Markdown.
+## 👋 Welcome
 
-Whether you're a student, business analyst, software engineer, or hobbyist, this repository will teach you a repeatable workflow that can be applied to projects of any size.
+Software engineering is evolving rapidly, and AI is changing how we
+design, build, test, deploy, and maintain software.
 
----
+This repository accompanies the **AI-Assisted Software Development**
+book and focuses on a simple principle:
 
-# Who This Book Is For
+> **AI is a force multiplier---not a replacement for engineering
+> judgement.**
 
-This book is intended for:
+You'll learn how to combine strong software engineering fundamentals
+with modern AI tools to build software that is reliable, secure,
+maintainable, and production-ready.
 
-- Students learning software development
-- Business Analysts moving into software engineering
-- Software Developers adopting AI-assisted development
-- Solution Architects
-- Technical Writers
-- Open Source Contributors
-- Anyone interested in modern software engineering workflows
+------------------------------------------------------------------------
 
-No previous experience with AI-assisted development is required.
+# ✨ What You'll Learn
 
----
+-   🤖 Large Language Models (LLMs)
+-   💬 Prompt Engineering
+-   🧠 Context Engineering
+-   🔍 Retrieval-Augmented Generation (RAG)
+-   🔌 Model Context Protocol (MCP)
+-   🤝 AI Agents
+-   💻 ChatGPT, Codex, GitHub Copilot, Cursor, Claude & Gemini
+-   🏗️ Software Architecture
+-   🧪 Testing, Debugging & Code Reviews
+-   🚀 CI/CD & Production Deployment
+-   🔒 AI Security & Governance
 
-# What You'll Learn
+------------------------------------------------------------------------
 
-By the end of this book, you will be able to:
+# 📚 Book Roadmap
 
-- Design software before writing code
-- Write professional requirements in Markdown
-- Create user stories and acceptance criteria
-- Design scalable software architectures
-- Build REST APIs
-- Develop frontend applications
-- Write automated tests
-- Debug efficiently using AI
-- Use Git and GitHub professionally
-- Deploy applications using Docker
-- Maintain project documentation
-- Collaborate effectively with AI assistants
+  Part     Topics
+  -------- -------------------------
+  Part 1   Foundations
+  Part 2   AI-Assisted Development
+  Part 3   Professional Workflows
+  Part 4   Advanced AI Engineering
+  Part 5   Real-World Projects
+  Part 6   Best Practices & Future
 
----
+**36 publication-ready chapters** with labs, diagrams, examples, and
+complete projects.
 
-# Technologies Used
+------------------------------------------------------------------------
 
-Examples throughout this book will use:
+# 🛠️ Real-World Projects
 
-- Visual Studio Code
-- ChatGPT
-- Git
-- GitHub
-- Markdown
-- Mermaid
-- Python
-- FastAPI
-- React
-- SQLite
-- PostgreSQL
-- Docker
-- pytest
-- Playwright
+-   ✅ Command-Line Task Manager
+-   ✅ Production REST API
+-   ✅ Full-Stack Web Application
+-   ✅ AI-Native Knowledge Assistant
+-   ✅ Production Deployment Pipeline
 
----
+------------------------------------------------------------------------
 
-# Course Philosophy
+# 📂 Repository Structure
 
-Traditional software development often looks like this:
-
-```text
-Idea
- ↓
-Write Code
- ↓
-Fix Bugs
-```
-
-Modern AI-assisted development looks like this:
-
-```text
-Idea
- ↓
-Requirements
- ↓
-Architecture
- ↓
-Planning
- ↓
-AI-Assisted Implementation
- ↓
-Testing
- ↓
-Refactoring
- ↓
-Deployment
- ↓
-Documentation
-```
-
-Documentation becomes the **source of truth**.
-
-Code becomes one output of a well-defined engineering process.
-
----
-
-# Repository Structure
-
-```text
-book/
-    All chapters
-
-assets/
-    Images
-    Screenshots
-    Diagrams
-
+``` text
+chapters/
+code/
+diagrams/
+figures/
+labs/
+prompts/
+solutions/
 templates/
-    Reusable Markdown templates
-
-sample-project/
-    Complete application built throughout the book
-
-scripts/
-    Helper scripts
-
-.github/
-    GitHub workflows
+images/
+README.md
 ```
 
----
+------------------------------------------------------------------------
 
-# Book Roadmap
+# 🚀 Getting Started
 
-## Part 1 – Foundations
+1.  Clone the repository.
+2.  Read the chapters in order.
+3.  Complete the labs.
+4.  Build the companion projects.
+5.  Apply the techniques in your own software.
 
-- Development Environment
-- Visual Studio Code
-- Git & GitHub
-- Markdown
-- AI-Assisted Development
+------------------------------------------------------------------------
 
-## Part 2 – Planning
+# 🤝 Contributing
 
-- Product Vision
-- Requirements
-- User Stories
-- Acceptance Criteria
+Contributions are welcome! Please read **CONTRIBUTING.md** before
+opening an issue or pull request.
 
-## Part 3 – Architecture
+------------------------------------------------------------------------
 
-- System Design
-- Database Design
-- API Design
-- Security
+# ⭐ Support
 
-## Part 4 – Backend Development
+If you found this repository useful:
 
-- FastAPI
-- Authentication
-- Database
-- REST APIs
+-   ⭐ Star the repository
+-   🍴 Fork it
+-   💬 Share it with your team
+-   🚀 Build something with it
 
-## Part 5 – Frontend Development
+------------------------------------------------------------------------
 
-- React
-- Routing
-- User Interface
-- Markdown Editor
-
-## Part 6 – Quality
-
-- Unit Testing
-- Integration Testing
-- Playwright
-- AI-Assisted Debugging
-
-## Part 7 – Deployment
-
-- Docker
-- GitHub Actions
-- CI/CD
-- Production Deployment
-
----
-
-# Sample Project
-
-Throughout this book we will build a complete documentation portal.
-
-Features include:
-
-- User Authentication
-- Dashboard
-- Knowledge Base
-- Categories
-- Markdown Articles
-- Search
-- Administration
-- REST API
-- Responsive UI
-- Docker Deployment
-
-Each chapter extends the project.
-
----
-
-# Learning Approach
-
-Every chapter follows the same structure.
-
-1. Learning Objectives
-2. Theory
-3. Practical Exercise
-4. AI Prompt Library
-5. Expected Results
-6. Git Commit
-7. Common Mistakes
-8. Exercises
-9. Summary
-
----
-
-# Repository Status
-
-Current Progress
-
-- [ ] Repository Created
-- [ ] Development Environment
-- [ ] Foundations
-- [ ] Planning
-- [ ] Architecture
-- [ ] Backend
-- [ ] Frontend
-- [ ] Testing
-- [ ] Deployment
-- [ ] Book Complete
-
----
-
-# Contributing
-
-Contributions are welcome.
-
-Future contributions may include:
-
-- Typographical corrections
-- Additional exercises
-- Improved diagrams
-- Better prompts
-- Sample projects
-- Additional chapters
-
-See `CONTRIBUTING.md` for more information.
-
----
-
-# License
-
-The code examples and book content are licensed as described in the `LICENSE` file.
-
----
-
-# Acknowledgements
-
-This project is inspired by modern software engineering practices, open-source communities, and the growing field of AI-assisted software development.
-
-Thank you to everyone who contributes ideas, feedback, and improvements.
-
----
-
-# Support the Project
-
-If you find this project useful:
-
-- ⭐ Star the repository
-- 🍴 Fork the repository
-- 🛠 Build the sample project
-- 📖 Read the book
-- 💡 Share your feedback
-
-Happy coding!
+::: {align="center"}
+## 💙 Build responsibly. Learn continuously. Ship confidently.
+:::
