@@ -1,0 +1,64 @@
+site_name: AI Assisted Development Book — Volume 1
+site_description: A publication-ready guide to AI-assisted software engineering
+site_author: Ashwin
+repo_url: https://github.com/ashwinkrpi/ai-assisted-development-book
+repo_name: ashwinkrpi/ai-assisted-development-book
+
+docs_dir: chapters
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+
+nav:
+  - "Volume 1 — Chapter 1: Introduction": 01-foundations/01-introduction.md
+  - "Draft — Chapter 2: Why AI Is Transforming Software Development": 01-foundations/02-why-ai-is-transforming-software-development.md
+  - "Draft — Chapter 3: Understanding Large Language Models": 01-foundations/03-understanding-large-language-models.md
+  - "Draft — Chapter 4: The AI-Assisted Development Lifecycle": 01-foundations/04-ai-assisted-software-development-lifecycle.md
+  - "Draft — Chapter 5: Building Your Development Environment": 01-foundations/05-building-your-ai-assisted-development-environment.md
+  - "Draft — Chapter 6: Your First AI-Assisted Project": 01-foundations/06-your-first-ai-assisted-software-project.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+      title: On this page
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ashwinkrpi
