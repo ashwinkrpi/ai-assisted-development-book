@@ -1,29 +1,65 @@
-# Chapter 27 – Context Engineering
+# Chapter 27 -- AI for Backend Development
 
-> *Prompt engineering asks better questions. Context engineering supplies better information.*
+> **Goal:** Apply AI effectively to ai for backend development.
 
-## Learning Objectives
-- Build reusable context packages.
-- Optimize context for engineering tasks.
-- Reduce ambiguity in AI interactions.
+## Learning Outcomes
 
-## Context Layers
-- Project
-- Architecture
-- Task
-- Code
-- Conversation
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-## Engineering Insight
-> Well-managed context is a long-term engineering asset.
+------------------------------------------------------------------------
 
-## Common Mistakes
-- Outdated project summaries
-- Excessive irrelevant context
-- Missing coding standards
+## Overview
 
-## Hands-On Lab
-Create reusable context files for a production repository.
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
+```
+
+## Commands
+
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
+
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
+
+## Best Practices
+
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
 
 ## Summary
-Context engineering is fundamental for reliable AI-assisted development.
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

@@ -1,48 +1,52 @@
-# Chapter 17 – Working Effectively with ChatGPT
+# Chapter 17 -- Working with APIs Using AI
 
-> *ChatGPT is most valuable when used as a collaborative engineering partner rather than a code generator.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Use ChatGPT throughout the SDLC.
-- Structure long engineering conversations.
-- Review and validate AI recommendations.
+## Learning Outcomes
 
-## Effective Workflow
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-1. Define the objective.
-2. Share project context.
-3. Explore alternatives.
-4. Implement incrementally.
-5. Test and refine.
-6. Document decisions.
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
+```
+
+## Commands
+
+``` bash
+git status
+pytest
+ruff check .
+```
+
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code
+-   Terminal
+-   Git or application output
 
 ## Best Practices
 
-- Keep conversations focused.
-- Ask for assumptions.
-- Request trade-off analysis.
-- Validate generated code independently.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Engineering Insight
+## Summary
 
-> High-quality conversations produce high-quality engineering outcomes.
-
-## Common Mistakes
-
-- Starting with implementation instead of requirements.
-- Mixing unrelated topics.
-- Assuming project knowledge that was never provided.
-
-## Hands-On Lab
-
-Use ChatGPT to analyse an existing module, propose improvements, implement one enhancement, generate tests, and document the change.
-
-## Chapter Summary
-
-ChatGPT excels at analysis, explanation, design discussions, documentation, and iterative implementation when supported by good context.
-
-## Review Questions
-
-1. Why provide project context?
-2. When should conversations be restarted?
-3. Why ask for assumptions before implementation?
+Use AI to improve productivity while maintaining engineering quality.

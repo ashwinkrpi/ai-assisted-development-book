@@ -1,96 +1,52 @@
-# Chapter 11 – AI-Assisted Requirements Engineering
+# Chapter 11 -- GitHub and CI/CD with AI
 
-> *Successful software projects begin with clear requirements. AI helps engineers discover ambiguity, identify gaps, and improve communication—but humans remain responsible for defining what should be built.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Explain the role of AI in requirements engineering.
-- Transform business goals into structured requirements.
-- Identify ambiguity, assumptions, and edge cases.
-- Produce user stories and acceptance criteria with AI assistance.
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-## Why Requirements Matter
+## Overview
 
-Defects introduced during requirements analysis are among the most expensive to correct later in the software lifecycle. AI is particularly effective at reviewing natural language, highlighting inconsistencies, and suggesting missing scenarios.
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
 
-## Requirements Workflow
+## Example Prompt
 
-```mermaid
-flowchart LR
-A[Business Goal]-->B[Stakeholder Interviews]
-B-->C[AI Analysis]
-C-->D[Functional Requirements]
-D-->E[Acceptance Criteria]
-E-->F[Backlog]
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## Functional vs Non-Functional Requirements
+## Commands
 
-| Type | Examples |
-|------|----------|
-| Functional | Login, search, reporting |
-| Non-functional | Security, performance, scalability, availability |
+``` bash
+git status
+pytest
+ruff check .
+```
 
-Both categories should be captured before implementation begins.
+## Hands-on Lab
 
-## AI-Assisted Techniques
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-Use AI to:
+## Suggested Screenshots
 
-- Rewrite ambiguous requirements.
-- Identify missing stakeholders.
-- Suggest edge cases.
-- Generate user stories.
-- Draft acceptance criteria.
-- Produce a glossary of business terms.
+-   VS Code
+-   Terminal
+-   Git or application output
 
-Always validate AI suggestions with domain experts.
+## Best Practices
 
-## User Stories
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-A complete user story should include:
+## Summary
 
-- Persona
-- Goal
-- Business value
-- Acceptance criteria
-- Dependencies
-- Assumptions
-
-## Engineering Insight
-
-> AI improves requirement quality by asking better questions—not by replacing conversations with stakeholders.
-
-## Common Mistakes
-
-- Writing implementation details instead of requirements.
-- Ignoring non-functional requirements.
-- Missing acceptance criteria.
-- Assuming AI understands business rules.
-- Skipping stakeholder validation.
-
-## Hands-On Lab
-
-Choose an existing feature and:
-
-1. Rewrite the requirements.
-2. Generate user stories.
-3. Create acceptance criteria.
-4. Identify edge cases.
-5. Review the results with a stakeholder or teammate.
-
-## Chapter Summary
-
-AI is a valuable assistant during requirements engineering because it accelerates analysis, improves clarity, and highlights omissions. High-quality software still depends on collaboration between engineers, stakeholders, and domain experts.
-
-## Review Questions
-
-1. Why are requirements critical?
-2. What is the difference between functional and non-functional requirements?
-3. How can AI improve requirement quality?
-4. Why should acceptance criteria be defined early?
-5. Why must stakeholders validate AI-assisted requirements?
-
-## Preview
-
-Chapter 12 explores AI-assisted architecture and system design, showing how AI can evaluate design alternatives, identify trade-offs, and support architectural decision-making.
+Use AI to improve productivity while maintaining engineering quality.

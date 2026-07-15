@@ -1,24 +1,66 @@
-# Chapter 28 – Memory and Knowledge Management
+# Chapter 28 -- AI for Mobile Application Development
 
-> *Engineering organizations succeed when knowledge is preserved instead of repeatedly rediscovered.*
+> **Goal:** Apply AI effectively to ai for mobile application
+> development.
 
-## Learning Objectives
-- Organize engineering knowledge.
-- Build reusable memory systems.
-- Support AI with structured documentation.
+## Learning Outcomes
 
-## Knowledge Sources
-- ADRs
-- READMEs
-- Wikis
-- Runbooks
-- Design documents
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-## Engineering Insight
-> AI becomes more valuable as organizational knowledge improves.
+------------------------------------------------------------------------
 
-## Hands-On Lab
-Create a knowledge repository that supports AI-assisted onboarding.
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
+```
+
+## Commands
+
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
+
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
+
+## Best Practices
+
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
 
 ## Summary
-Persistent knowledge improves engineering quality and AI effectiveness.
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

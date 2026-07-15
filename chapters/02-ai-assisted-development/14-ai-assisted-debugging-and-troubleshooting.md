@@ -1,58 +1,52 @@
-# Chapter 14 – AI-Assisted Debugging and Troubleshooting
+# Chapter 14 -- Secure Software Development with AI
 
-> *Debugging is the process of understanding why software behaves differently from expectations. AI accelerates diagnosis, but engineers confirm the root cause.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Use AI to investigate defects.
-- Analyse stack traces and logs.
-- Build repeatable debugging workflows.
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-## Debugging Workflow
+## Overview
 
-```mermaid
-flowchart LR
-A[Bug Report]-->B[Reproduce]
-B-->C[Collect Logs]
-C-->D[AI Analysis]
-D-->E[Root Cause]
-E-->F[Fix]
-F-->G[Regression Tests]
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## AI Can Help
+## Commands
 
-- Explain exceptions.
-- Summarise logs.
-- Suggest hypotheses.
-- Identify suspicious code paths.
-- Recommend regression tests.
+``` bash
+git status
+pytest
+ruff check .
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> Fix the cause—not the symptom.
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-## Common Mistakes
+## Suggested Screenshots
 
-- Asking AI to guess without logs.
-- Skipping reproduction.
-- Ignoring monitoring data.
-- Deploying fixes without regression tests.
+-   VS Code
+-   Terminal
+-   Git or application output
 
-## Hands-On Lab
+## Best Practices
 
-Investigate a failing unit test, document the root cause, implement the fix, and add a regression test.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Chapter Summary
+## Summary
 
-AI reduces investigation time, while systematic debugging practices ensure reliable fixes.
-
-## Review Questions
-
-1. Why reproduce defects first?
-2. Why analyse logs?
-3. What is a regression test?
-
-## Preview
-
-Chapter 15 introduces AI-assisted software testing and quality assurance.
+Use AI to improve productivity while maintaining engineering quality.

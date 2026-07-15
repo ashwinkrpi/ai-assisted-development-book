@@ -1,35 +1,65 @@
-# Chapter 33 – Real-World Project: Building a Full-Stack Web Application
+# Chapter 33 -- AI for Open Source Contributions
 
-> *Modern software combines frontend, backend, databases, testing, and deployment into one engineering workflow.*
+> **Goal:** Apply AI effectively to ai for open source contributions.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Coordinate AI across the full stack.
-- Build reusable frontend and backend components.
-- Deploy a production-ready web application.
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-```mermaid
-flowchart LR
-Browser-->Frontend-->Backend-->Database
+------------------------------------------------------------------------
+
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Core Features
+## Commands
 
-- Authentication
-- Dashboard
-- Project management
-- Responsive UI
-- REST API
-- Automated tests
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> Full-stack productivity depends on maintaining architectural consistency across every layer.
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
 
-## Hands-On Lab
+## Suggested Screenshots
 
-Extend the application with notifications, file uploads, and role-based access.
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
 
-## Chapter Summary
+## Best Practices
 
-AI accelerates full-stack development while disciplined engineering ensures long-term maintainability.
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
+
+## Summary
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

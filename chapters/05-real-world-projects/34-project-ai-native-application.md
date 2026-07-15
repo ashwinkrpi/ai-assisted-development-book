@@ -1,38 +1,65 @@
-# Chapter 34 – Real-World Project: Building an AI-Native Application
+# Chapter 34 -- AI for Technical Writing
 
-> *AI-native systems treat language models as core architectural components rather than optional features.*
+> **Goal:** Apply AI effectively to ai for technical writing.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Build an AI-native application.
-- Integrate RAG, MCP, and AI agents.
-- Measure AI quality and reliability.
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-```mermaid
-flowchart LR
-User-->Frontend-->Backend
-Backend-->LLM
-Backend-->VectorDB
-Backend-->MCP
+------------------------------------------------------------------------
+
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Features
+## Commands
 
-- Conversational interface
-- Repository search
-- Documentation assistant
-- Tool integration
-- Conversation history
-- Evaluation metrics
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> AI-native architecture requires observability, governance, and continuous evaluation.
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
 
-## Hands-On Lab
+## Suggested Screenshots
 
-Extend the assistant with authentication, feedback collection, and analytics.
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
 
-## Chapter Summary
+## Best Practices
 
-This project demonstrates modern AI-native software architecture.
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
+
+## Summary
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

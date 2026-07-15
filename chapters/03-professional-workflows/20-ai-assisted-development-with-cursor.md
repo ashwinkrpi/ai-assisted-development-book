@@ -1,42 +1,52 @@
-# Chapter 20 – AI-Assisted Development with Cursor
+# Chapter 20 -- Capstone Project
 
-> *Repository-aware AI enables developers to work across multiple files with greater context.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Use repository-aware AI workflows.
-- Refactor code safely across projects.
-- Validate multi-file AI changes.
+## Learning Outcomes
 
-## Repository Workflow
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-```mermaid
-flowchart LR
-A[Repository]-->B[Context Analysis]
-B-->C[Suggested Changes]
-C-->D[Test]
-D-->E[Review]
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
+
+## Commands
+
+``` bash
+git status
+pytest
+ruff check .
+```
+
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code
+-   Terminal
+-   Git or application output
 
 ## Best Practices
 
-- Share project context before requesting changes.
-- Review cross-file edits carefully.
-- Validate architectural consistency.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Engineering Insight
+## Summary
 
-> Context-aware tools amplify productivity when repositories remain well organised.
-
-## Common Mistakes
-
-- Large cross-file edits without testing.
-- Ignoring architectural conventions.
-- Missing dependency updates.
-
-## Hands-On Lab
-
-Refactor a small repository and verify all affected tests pass.
-
-## Chapter Summary
-
-Repository-aware assistants improve large-scale development when supported by disciplined review and testing.
+Use AI to improve productivity while maintaining engineering quality.

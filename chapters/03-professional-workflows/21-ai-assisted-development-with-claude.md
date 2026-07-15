@@ -1,34 +1,52 @@
-# Chapter 21 – AI-Assisted Development with Claude
+# Chapter 21 -- Monitoring and Observability with AI
 
-> *Long-context AI excels at analysing large codebases and technical documentation.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Analyse architecture with long-context AI.
-- Review design documents efficiently.
-- Produce technical summaries.
+## Learning Outcomes
 
-## Suitable Tasks
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-- Architecture reviews
-- ADR analysis
-- Migration planning
-- Documentation improvement
-- Codebase comprehension
+## Overview
 
-## Engineering Insight
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
 
-> Long-context reasoning complements editor-based coding tools rather than replacing them.
+## Example Prompt
 
-## Common Mistakes
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
+```
 
-- Treating summaries as complete verification.
-- Omitting supporting documentation.
-- Skipping architectural review.
+## Commands
 
-## Hands-On Lab
+``` bash
+git status
+pytest
+ruff check .
+```
 
-Review an architecture document, identify risks, and produce an executive summary.
+## Hands-on Lab
 
-## Chapter Summary
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-Claude-style long-context models are valuable for engineering analysis, documentation, and architecture discussions.
+## Suggested Screenshots
+
+-   VS Code
+-   Terminal
+-   Git or application output
+
+## Best Practices
+
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
+
+## Summary
+
+Use AI to improve productivity while maintaining engineering quality.

@@ -1,39 +1,65 @@
-# Chapter 35 – Real-World Project: Deploying AI-Native Applications
+# Chapter 35 -- AI Productivity Workflows
 
-> *Reliable AI systems require production engineering as much as intelligent models.*
+> **Goal:** Apply AI effectively to ai productivity workflows.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Deploy AI-native applications.
-- Monitor quality, cost, and performance.
-- Build resilient production systems.
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-```mermaid
-flowchart LR
-Internet-->LoadBalancer-->API
-API-->VectorDB
-API-->LLM
-API-->Monitoring
+------------------------------------------------------------------------
+
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Production Topics
+## Commands
 
-- Containers
-- Kubernetes
-- Monitoring
-- Logging
-- Secrets
-- Cost management
-- Disaster recovery
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> Successful AI systems are measured by reliability, security, and maintainability rather than model capability alone.
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
 
-## Hands-On Lab
+## Suggested Screenshots
 
-Deploy the AI Knowledge Assistant to a container platform, configure dashboards, and perform a production readiness review.
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
 
-## Chapter Summary
+## Best Practices
 
-Operating AI-native systems successfully requires combining software engineering discipline with AI-specific operational practices.
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
+
+## Summary
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

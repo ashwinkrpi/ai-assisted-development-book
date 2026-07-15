@@ -1,36 +1,65 @@
-# Chapter 32 – Real-World Project: Building a Production-Ready REST API
+# Chapter 32 -- AI for Machine Learning Projects
 
-> *Production software requires architecture, testing, security, and operational discipline—not just working code.*
+> **Goal:** Apply AI effectively to ai for machine learning projects.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Build a layered REST API.
-- Apply authentication and validation.
-- Automate testing and deployment.
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-```mermaid
-flowchart LR
-Client-->API-->Service-->Repository-->Database
+------------------------------------------------------------------------
+
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Project Features
+## Commands
 
-- CRUD operations
-- JWT authentication
-- Validation
-- PostgreSQL
-- OpenAPI
-- Docker
-- CI/CD
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> APIs become maintainable through clear separation of concerns.
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
 
-## Hands-On Lab
+## Suggested Screenshots
 
-Deploy the API using containers and configure an automated CI pipeline.
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
 
-## Chapter Summary
+## Best Practices
 
-This project demonstrates end-to-end AI-assisted backend development.
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
+
+## Summary
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

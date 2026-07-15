@@ -1,31 +1,65 @@
-# Chapter 26 – Retrieval-Augmented Generation (RAG)
+# Chapter 26 -- AI for Frontend Development
 
-> *Reliable AI answers begin with reliable knowledge.*
+> **Goal:** Apply AI effectively to ai for frontend development.
 
-## Learning Objectives
-- Understand RAG architecture.
-- Build document retrieval pipelines.
-- Improve answer quality with external knowledge.
+## Learning Outcomes
 
-```mermaid
-flowchart LR
-Query-->Retriever
-Retriever-->VectorDB
-VectorDB-->Model
-Model-->Answer
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
+
+------------------------------------------------------------------------
+
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Key Concepts
-- Chunking
-- Embeddings
-- Retrieval
-- Grounded responses
+## Commands
 
-## Engineering Insight
-> Retrieval reduces hallucinations by grounding responses in trusted sources.
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
 
-## Hands-On Lab
-Index project documentation and answer engineering questions using retrieved context.
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
+
+## Best Practices
+
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
 
 ## Summary
-RAG combines language models with searchable knowledge to improve accuracy.
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

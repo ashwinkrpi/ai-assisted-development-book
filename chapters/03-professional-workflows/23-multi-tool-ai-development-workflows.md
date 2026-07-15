@@ -1,47 +1,52 @@
-# Chapter 23 – Multi-Tool AI Development Workflows
+# Chapter 23 -- Collaborating with AI
 
-> *Professional teams achieve the best results by combining specialised AI tools within a disciplined engineering workflow.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Select the right AI tool for each task.
-- Transfer context between tools.
-- Build repeatable multi-tool workflows.
+## Learning Outcomes
 
-## Workflow
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-```mermaid
-flowchart LR
-A[Requirements]-->B[Chat Assistant]
-B-->C[IDE AI]
-C-->D[Agent]
-D-->E[Testing]
-E-->F[Documentation]
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## Tool Selection
+## Commands
 
-| Activity | Typical Tool |
-|---|---|
-| Requirements | Conversational AI |
-| Coding | IDE assistant |
-| Repository changes | Coding agent |
-| Architecture | Long-context AI |
-| Research | Multimodal AI |
+``` bash
+git status
+pytest
+ruff check .
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> AI tools are complementary. Productivity comes from orchestration rather than relying on a single assistant.
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-## Common Mistakes
+## Suggested Screenshots
 
-- Using one tool for every task.
-- Losing project context when switching tools.
-- Skipping validation between stages.
+-   VS Code
+-   Terminal
+-   Git or application output
 
-## Hands-On Lab
+## Best Practices
 
-Complete one feature using multiple AI tools and compare productivity, quality, and review effort.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Chapter Summary
+## Summary
 
-A structured multi-tool workflow allows engineering teams to combine the strengths of specialised AI systems while preserving software quality.
+Use AI to improve productivity while maintaining engineering quality.

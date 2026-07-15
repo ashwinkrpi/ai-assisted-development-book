@@ -1,50 +1,65 @@
-# Chapter 31 – Real-World Project: Building a Personal Task Manager
+# Chapter 31 -- AI for Data Engineering
 
-> *The best way to master AI-assisted development is to build complete software from idea to deployment.*
+> **Goal:** Apply AI effectively to ai for data engineering.
 
-## Learning Objectives
-- Apply the complete AI-assisted SDLC.
-- Build software incrementally.
-- Validate every AI-generated artifact.
+## Learning Outcomes
 
-## Project Overview
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-Develop a command-line Task Manager with:
+------------------------------------------------------------------------
 
-- Task CRUD
-- Search
-- Priorities
-- Persistent storage
-- Automated tests
-- Documentation
+## Overview
 
-```mermaid
-flowchart LR
-Requirements-->Design-->Implementation-->Testing-->Documentation-->Release
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Project Workflow
+## Commands
 
-1. Gather requirements.
-2. Design the architecture.
-3. Implement one feature at a time.
-4. Test continuously.
-5. Review and document every iteration.
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> Small, tested increments consistently outperform large AI-generated implementations.
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
 
-## Common Mistakes
+## Suggested Screenshots
 
-- Skipping requirements.
-- Building too many features before testing.
-- Ignoring documentation.
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
 
-## Hands-On Lab
+## Best Practices
 
-Extend the project with reminders, due dates, recurring tasks, and CSV export.
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
 
-## Chapter Summary
+------------------------------------------------------------------------
 
-This project demonstrates how AI integrates into every stage of software development while engineers remain responsible for quality.
+## Summary
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

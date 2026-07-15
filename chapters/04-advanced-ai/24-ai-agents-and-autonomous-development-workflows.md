@@ -1,31 +1,52 @@
-# Chapter 24 – AI Agents and Autonomous Development Workflows
+# Chapter 24 -- Troubleshooting AI-Generated Code
 
-> *AI agents extend assistance beyond conversation by executing multi-step engineering workflows under human supervision.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Understand AI agents and autonomous workflows.
-- Design safe approval-based automation.
-- Apply human oversight to autonomous development.
+## Learning Outcomes
 
-```mermaid
-flowchart LR
-A[Goal]-->B[Planning Agent]
-B-->C[Tool Execution]
-C-->D[Tests]
-D-->E[Human Approval]
-E-->F[Merge]
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
+
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## Engineering Insight
-> Autonomy increases productivity only when paired with clear approval gates.
+## Commands
 
-## Common Mistakes
-- Unlimited tool access
-- Missing rollback plans
-- No human review
+``` bash
+git status
+pytest
+ruff check .
+```
 
-## Hands-On Lab
-Configure an agent to implement a small feature, run tests, and prepare a pull request for review.
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code
+-   Terminal
+-   Git or application output
+
+## Best Practices
+
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
 ## Summary
-Agents automate repetitive engineering workflows while humans retain accountability.
+
+Use AI to improve productivity while maintaining engineering quality.

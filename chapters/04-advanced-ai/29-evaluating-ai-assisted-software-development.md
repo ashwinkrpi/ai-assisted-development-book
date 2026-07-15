@@ -1,29 +1,65 @@
-# Chapter 29 – Evaluating AI-Assisted Software Development
+# Chapter 29 -- AI for Cloud Development
 
-> *AI success is measured by engineering outcomes, not generated code.*
+> **Goal:** Apply AI effectively to ai for cloud development.
 
-## Learning Objectives
-- Measure AI effectiveness.
-- Define engineering metrics.
-- Continuously improve workflows.
+## Learning Outcomes
 
-## Metrics
-- Lead time
-- Defect rate
-- Review effort
-- Test coverage
-- Developer satisfaction
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-```mermaid
-flowchart LR
-Metrics-->Analysis-->Improvement-->Workflow
+------------------------------------------------------------------------
+
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Engineering Insight
-> Productivity without quality is not progress.
+## Commands
 
-## Hands-On Lab
-Compare a manually implemented feature with an AI-assisted implementation using objective metrics.
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
+
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
+
+## Best Practices
+
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
 
 ## Summary
-Continuous measurement enables sustainable AI adoption.
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

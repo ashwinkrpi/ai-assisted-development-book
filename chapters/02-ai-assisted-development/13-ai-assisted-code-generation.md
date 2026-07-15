@@ -1,60 +1,52 @@
-# Chapter 13 – AI-Assisted Code Generation
+# Chapter 13 -- Working with Databases Using AI
 
-> *Generating code is the beginning of engineering, not the end.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Generate production-quality code incrementally.
-- Review and validate AI-generated implementations.
-- Apply coding standards and testing before acceptance.
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-## Principles
+## Overview
 
-Generate one logical component at a time. Prefer interfaces before implementations. Review every generated change using automated tests, static analysis, and peer review.
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
 
-```mermaid
-flowchart LR
-A[Requirements]-->B[Design]
-B-->C[Generate Component]
-C-->D[Test]
-D-->E[Review]
-E-->F[Refactor]
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## Recommended Workflow
+## Commands
 
-1. Generate a small component.
-2. Compile and run tests.
-3. Review readability.
-4. Check security.
-5. Refactor if required.
-6. Commit.
+``` bash
+git status
+pytest
+ruff check .
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> Small, reviewable changes consistently outperform large AI-generated commits.
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-## Common Mistakes
+## Suggested Screenshots
 
-- Generating complete applications.
-- Ignoring compiler warnings.
-- Skipping tests.
-- Accepting duplicated code.
+-   VS Code
+-   Terminal
+-   Git or application output
 
-## Hands-On Lab
+## Best Practices
 
-Implement a CRUD service one endpoint at a time, validating each change before continuing.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Chapter Summary
+## Summary
 
-AI accelerates implementation, but production-quality software still depends on disciplined review, testing, and refactoring.
-
-## Review Questions
-
-1. Why generate incrementally?
-2. Why test every change?
-3. When should refactoring occur?
-
-## Preview
-
-Chapter 14 focuses on AI-assisted debugging and troubleshooting.
+Use AI to improve productivity while maintaining engineering quality.

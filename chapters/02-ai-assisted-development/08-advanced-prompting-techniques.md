@@ -1,92 +1,171 @@
+# Chapter 8 -- AI-Assisted Debugging and Code Review
 
-# Chapter 8 – Advanced Prompting Techniques for Professional Software Engineering
+> **Goal:** Learn how to use AI effectively to debug, review, and
+> improve software without replacing engineering judgment.
 
-> *Professional AI-assisted development is an iterative conversation. Advanced prompting provides the structure needed to solve complex engineering problems reliably.*
+------------------------------------------------------------------------
 
-## Learning Objectives
+# Learning Outcomes
 
-- Decompose complex engineering tasks.
-- Produce structured AI outputs.
-- Build reusable prompt libraries.
-- Improve consistency across projects.
+After this chapter you will be able to:
 
-## Moving Beyond Basic Prompts
+-   Debug code with AI
+-   Perform AI-assisted code reviews
+-   Generate useful unit tests
+-   Verify AI-generated fixes
 
-Complex software projects benefit from iterative prompting rather than one-shot requests. Break work into small, verifiable tasks and validate every stage before continuing.
+------------------------------------------------------------------------
 
-## Decomposition
+# 1. AI Debugging Workflow
 
-```mermaid
-flowchart LR
-A[Requirements]-->B[Architecture]
-B-->C[Implementation]
-C-->D[Testing]
-D-->E[Documentation]
+Use this four-step workflow instead of asking **"Fix my code."**
+
+``` text
+Problem
+↓
+Context
+↓
+Error Message
+↓
+Expected Behaviour
 ```
 
-## Structured Outputs
+Example prompt:
 
-Request responses with:
+``` text
+Role: Senior Python Engineer
 
-1. Assumptions
-2. Risks
-3. Alternatives
-4. Recommended solution
-5. Implementation plan
-6. Test strategy
+Application:
+Inventory API
 
-## Prompt Libraries
+Problem:
+Creating an order returns HTTP 500.
 
-Maintain reusable prompts for:
+Error:
+IntegrityError: duplicate key value
 
-- Requirements
-- Architecture
-- Code generation
-- Testing
-- Documentation
-- Code review
+Task:
+Explain the root cause, suggest a fix,
+update the code, and generate regression tests.
+```
 
-Version them alongside your source code.
+![Debug Workflow](images/ch08/debug-workflow.svg)
 
-## Constraint-Driven Prompting
+------------------------------------------------------------------------
 
-Specify:
+# 2. AI Code Review
 
-- Language
-- Framework
-- Coding standards
-- Security requirements
-- Performance expectations
-- Output format
+Ask AI to review code using a checklist.
 
-## Engineering Insight
+``` text
+Review this module for:
 
-> Reusable prompts become valuable engineering assets that improve consistency across teams.
+- Correctness
+- Security
+- Performance
+- Readability
+- Error handling
+- Test coverage
 
-## Common Mistakes
+Categorise findings as Critical,
+High, Medium or Low.
+```
 
-- Missing project constraints
-- Mixing unrelated tasks
-- Ignoring assumptions
-- Failing to iterate
-- Not versioning prompt templates
+------------------------------------------------------------------------
 
-## Hands-On Lab
+# 3. Generate Better Tests
 
-Create a prompt library for an existing repository and compare results before and after standardising prompts.
+Prompt:
 
-## Chapter Summary
+``` text
+Generate pytest tests covering:
 
-Advanced prompting combines decomposition, structured outputs, reusable templates, and explicit constraints to produce more reliable engineering results.
+- Happy path
+- Invalid input
+- Boundary cases
+- Exceptions
+- Mock external services
+```
 
-## Review Questions
+Always execute the generated tests locally before accepting them.
 
-1. Why decompose engineering tasks?
-2. What are structured outputs?
-3. Why version prompt libraries?
-4. Which constraints improve prompt quality?
-5. How do prompt templates improve consistency?
+------------------------------------------------------------------------
 
-## Preview
+# 4. Review → Fix → Verify
 
-Chapter 9 introduces context management and demonstrates how project context influences AI-assisted software development.
+``` mermaid
+flowchart LR
+A[Source Code]-->B[AI Review]
+B-->C[Developer Review]
+C-->D[Apply Fix]
+D-->E[Run Tests]
+E-->F[Merge]
+```
+
+AI should support---not replace---human review.
+
+------------------------------------------------------------------------
+
+# Hands-on Lab
+
+A FastAPI endpoint crashes with:
+
+``` text
+ValueError: Invalid UUID
+```
+
+Create a prompt asking the AI to:
+
+1.  Explain the exception.
+2.  Identify the faulty code.
+3.  Suggest multiple fixes.
+4.  Update the implementation.
+5.  Generate regression tests.
+
+------------------------------------------------------------------------
+
+# Useful Commands
+
+``` bash
+pytest
+
+pytest -v
+
+ruff check .
+
+black .
+
+git diff
+
+git commit -m "Fix order validation"
+```
+
+------------------------------------------------------------------------
+
+# Suggested Screenshots
+
+Include the following screenshots from your own environment:
+
+1.  VS Code with the error highlighted.
+2.  Terminal running `pytest`.
+3.  Git diff after applying the AI-generated fix.
+4.  Pull Request showing the final review.
+
+------------------------------------------------------------------------
+
+# Best Practices
+
+-   Include the complete error message.
+-   Mention framework and language versions.
+-   Ask for an explanation before requesting a fix.
+-   Verify every generated change.
+-   Never merge AI-generated code without review.
+
+------------------------------------------------------------------------
+
+# Summary
+
+AI can significantly reduce debugging and code review time when supplied
+with sufficient context. Treat AI as a collaborative engineering
+assistant, verify every recommendation, and rely on automated tests
+before merging changes.

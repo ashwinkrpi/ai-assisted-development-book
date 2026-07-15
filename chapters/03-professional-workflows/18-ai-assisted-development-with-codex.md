@@ -1,51 +1,52 @@
-# Chapter 18 – AI-Assisted Development with Codex
+# Chapter 18 -- Using AI with Containers
 
-> *Agentic coding tools extend AI beyond conversation by planning and applying changes directly within a codebase.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Understand agent-assisted development.
-- Use Codex-style workflows safely.
-- Apply review gates before accepting automated changes.
+## Learning Outcomes
 
-## Agent Workflow
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-```mermaid
-flowchart LR
-A[Task]-->B[Plan]
-B-->C[Modify Files]
-C-->D[Run Tests]
-D-->E[Human Review]
-E-->F[Merge]
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## Safe Practices
+## Commands
 
-- Review execution plans.
-- Limit permissions.
-- Require automated tests.
-- Validate security-sensitive changes.
-- Approve before merging.
+``` bash
+git status
+pytest
+ruff check .
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> Automation should reduce repetitive work while preserving human accountability.
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-## Common Mistakes
+## Suggested Screenshots
 
-- Allowing unrestricted repository access.
-- Skipping execution plan reviews.
-- Merging automated changes without testing.
+-   VS Code
+-   Terminal
+-   Git or application output
 
-## Hands-On Lab
+## Best Practices
 
-Use an agentic coding tool to refactor a small project, inspect every proposed change, execute the test suite, and review the resulting pull request.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Chapter Summary
+## Summary
 
-Agent-assisted development accelerates engineering tasks, but disciplined review, testing, and approval remain essential for production software.
-
-## Review Questions
-
-1. How do coding agents differ from conversational AI?
-2. Why review execution plans?
-3. Which changes always require human approval?
+Use AI to improve productivity while maintaining engineering quality.

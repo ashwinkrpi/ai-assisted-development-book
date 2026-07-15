@@ -1,69 +1,52 @@
-# Chapter 15 – AI-Assisted Testing and Quality Assurance
+# Chapter 15 -- Maintaining Software with AI
 
-> *AI can generate tests quickly, but only thoughtful test design produces confidence in software quality.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
+## Learning Outcomes
 
-- Generate effective automated tests with AI.
-- Design balanced testing strategies.
-- Review AI-generated test suites.
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-## Testing Pyramid
+## Overview
 
-```mermaid
-flowchart TD
-A[End-to-End Tests]
-B[Integration Tests]
-C[Unit Tests]
-C-->B
-B-->A
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## AI-Assisted Testing
+## Commands
 
-Use AI to create:
+``` bash
+git status
+pytest
+ruff check .
+```
 
-- Unit tests
-- Integration tests
-- Boundary tests
-- Regression tests
-- Test documentation
+## Hands-on Lab
 
-Review every generated assertion and expected outcome.
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-## Quality Checklist
+## Suggested Screenshots
 
-- Requirements covered
-- Edge cases tested
-- Negative scenarios included
-- Readable test names
-- Independent execution
+-   VS Code
+-   Terminal
+-   Git or application output
 
-## Engineering Insight
+## Best Practices
 
-> Tests are executable specifications of expected behaviour.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Common Mistakes
+## Summary
 
-- Measuring quality by test count alone.
-- Ignoring edge cases.
-- Accepting flaky tests.
-- Not maintaining tests.
-
-## Hands-On Lab
-
-Expand an existing test suite to improve coverage, then compare manual and AI-generated tests.
-
-## Chapter Summary
-
-AI accelerates testing, but engineers remain responsible for selecting meaningful scenarios and maintaining reliable test suites.
-
-## Review Questions
-
-1. Why are unit tests important?
-2. What makes a good regression test?
-3. Why review AI-generated tests?
-
-## End of Part 2
-
-The next chapter begins professional AI-assisted development workflows in modern IDEs.
+Use AI to improve productivity while maintaining engineering quality.

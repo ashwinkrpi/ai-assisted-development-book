@@ -1,37 +1,65 @@
-# Chapter 30 – AI Governance, Security, and Responsible Use
+# Chapter 30 -- AI for DevOps Automation
 
-> *Responsible AI adoption requires governance, security, transparency, and accountability.*
+> **Goal:** Apply AI effectively to ai for devops automation.
 
-## Learning Objectives
-- Establish AI governance policies.
-- Protect confidential information.
-- Manage AI-related risks.
+## Learning Outcomes
 
-## Governance Framework
+-   Use AI to accelerate common tasks
+-   Execute essential commands
+-   Validate generated output
 
-```mermaid
-flowchart TD
-Policy-->Standards-->Review-->Monitoring-->Improvement
+------------------------------------------------------------------------
+
+## Overview
+
+Use AI to generate initial solutions, review the results, run tests, and
+refine the implementation before committing changes.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+
+Task:
+Complete the requested work.
+
+Requirements:
+- Explain important decisions
+- Follow project conventions
+- Generate tests where appropriate
 ```
 
-## Core Principles
-- Human accountability
-- Privacy
-- Security
-- Auditability
-- Compliance
-- Continuous monitoring
+## Commands
 
-## Engineering Insight
-> Governance enables innovation by establishing safe operating boundaries.
+``` bash
+git status
+git add .
+git commit -m "Update project"
+pytest
+```
 
-## Common Mistakes
-- Sharing secrets with AI
-- Missing approval processes
-- Ignoring compliance requirements
+## Hands-on Lab
 
-## Hands-On Lab
-Draft an AI governance policy for a software engineering team covering tool usage, data protection, review processes, and monitoring.
+Complete a small exercise related to this chapter, verify the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code workspace
+-   Terminal execution
+-   Generated output or application
+-   Git history
+
+## Best Practices
+
+-   Review every AI-generated change
+-   Keep prompts specific
+-   Test before committing
+-   Document important decisions
+
+------------------------------------------------------------------------
 
 ## Summary
-Strong governance ensures AI remains a trustworthy engineering capability rather than an unmanaged risk.
+
+AI improves productivity when combined with careful review, testing, and
+continuous learning.

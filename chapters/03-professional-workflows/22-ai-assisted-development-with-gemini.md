@@ -1,45 +1,52 @@
-# Chapter 22 – AI-Assisted Development with Gemini
+# Chapter 22 -- Performance Optimization with AI
 
-> *Multimodal AI expands software engineering beyond text by combining code, diagrams, screenshots, and documentation.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Use multimodal AI effectively.
-- Analyse diagrams and UI designs.
-- Combine research with engineering decisions.
+## Learning Outcomes
 
-## Multimodal Workflow
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-```mermaid
-flowchart LR
-A[Diagram]
-B[Documentation]
-C[Code]
-A-->D[Gemini]
-B-->D
-C-->D
-D-->E[Engineering Recommendation]
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
+
+## Commands
+
+``` bash
+git status
+pytest
+ruff check .
+```
+
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code
+-   Terminal
+-   Git or application output
 
 ## Best Practices
 
-- Supply diagrams with supporting documentation.
-- Verify research using authoritative sources.
-- Separate factual findings from assumptions.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Engineering Insight
+## Summary
 
-> Combining multiple forms of context often produces better engineering decisions than code alone.
-
-## Common Mistakes
-
-- Analysing screenshots without requirements.
-- Ignoring version differences.
-- Accepting external information without verification.
-
-## Hands-On Lab
-
-Review a UI mock-up and produce implementation guidance with supporting documentation.
-
-## Chapter Summary
-
-Multimodal AI strengthens architecture reviews, UI analysis, documentation, and technical research.
+Use AI to improve productivity while maintaining engineering quality.

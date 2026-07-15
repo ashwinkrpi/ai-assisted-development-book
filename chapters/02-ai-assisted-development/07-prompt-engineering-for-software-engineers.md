@@ -1,157 +1,189 @@
+# Chapter 7 -- Prompt Engineering for Software Engineers
 
-# Chapter 7 – Prompt Engineering for Software Engineers
+> **Goal:** Learn to write effective prompts for day-to-day software
+> development.
 
-> *The quality of AI-assisted software development depends less on asking clever questions and more on providing clear context, precise objectives, and measurable outcomes.*
+## Learning Outcomes
 
-## Learning Objectives
+After this chapter you can:
 
-After completing this chapter you will be able to:
+-   Write structured prompts
+-   Generate better code
+-   Refactor safely
+-   Generate tests
+-   Review AI output critically
 
-- Write prompts that produce reliable engineering results.
-- Structure prompts for analysis, design, implementation, and review.
-- Reduce ambiguity and improve AI response quality.
-- Build reusable prompt templates for software projects.
+------------------------------------------------------------------------
 
----
+## 1. The Prompt Formula
 
-# 7.1 What Is Prompt Engineering?
+A good software prompt contains five parts:
 
-Prompt engineering is the practice of communicating with AI systems in a structured way to achieve predictable, high-quality results.
+``` text
+Role
+Task
+Context
+Constraints
+Output
+```
 
-For software engineers, a prompt should communicate:
+Example:
 
-- Business objective
-- Technical context
-- Constraints
-- Expected output
-- Validation criteria
-
-The goal is not to "trick" the model but to reduce ambiguity.
-
----
-
-# 7.2 Anatomy of an Effective Prompt
-
-A professional engineering prompt usually contains:
-
-1. **Role** – Who should the AI act as?
-2. **Context** – What project or system is involved?
-3. **Task** – What should be accomplished?
-4. **Constraints** – What rules must be followed?
-5. **Output Format** – How should the response be presented?
-6. **Validation** – How should the result be checked?
-
----
-
-# 7.3 Example
-
-Instead of:
-
-> Generate a login system.
-
-Use:
-
-```text
-Act as a senior backend engineer.
-
-Project:
-Spring Boot REST API
+``` text
+Role: Senior Python Engineer
 
 Task:
-Design a secure login endpoint using JWT authentication.
+Create a REST API for books.
+
+Context:
+Python 3.13
+FastAPI
+PostgreSQL
 
 Constraints:
-- Follow OWASP recommendations.
-- Use layered architecture.
-- Explain trade-offs before generating code.
-- Generate one component at a time.
-- Recommend unit and integration tests.
+• Type hints
+• PEP 8
+• JWT Authentication
+• pytest tests
+
+Output:
+Project structure followed by source files.
 ```
 
----
+![Prompt Anatomy](images/ch07/prompt-anatomy.svg)
 
-# 7.4 Prompt Patterns
+------------------------------------------------------------------------
 
-| Pattern | Purpose |
-|---------|---------|
-| Explain | Understand existing systems |
-| Compare | Evaluate alternatives |
-| Design | Produce architecture proposals |
-| Generate | Create code or documentation |
-| Review | Identify improvements |
-| Refactor | Improve maintainability |
-| Test | Generate validation scenarios |
+## 2. Prompting Tips
 
-Choose the pattern that matches the engineering task.
+✔ Give project context.
 
----
+✔ Specify versions.
 
-# 7.5 Iterative Prompting
+✔ State coding standards.
 
-Professional developers rarely solve a feature with a single prompt.
+✔ Request tests.
 
-A better workflow is:
+✔ Define the expected output.
 
-```mermaid
+❌ Avoid prompts like:
+
+``` text
+Write login code.
+```
+
+Instead:
+
+``` text
+Create a secure login API using FastAPI with JWT,
+password hashing using bcrypt, structured logging,
+pytest tests and OpenAPI documentation.
+```
+
+------------------------------------------------------------------------
+
+## 3. Common Development Prompts
+
+### Generate Code
+
+``` text
+Implement a FastAPI CRUD service for Products.
+Include validation, logging and unit tests.
+```
+
+### Refactor
+
+``` text
+Refactor without changing behaviour.
+Improve readability and remove duplication.
+```
+
+### Debug
+
+``` text
+Explain this stack trace, identify the root cause,
+fix the bug and generate regression tests.
+```
+
+### Documentation
+
+``` text
+Generate developer documentation in Markdown
+including installation and API examples.
+```
+
+------------------------------------------------------------------------
+
+## 4. Working Iteratively
+
+``` mermaid
 flowchart LR
-A[Requirements] --> B[Design]
-B --> C[Implementation]
-C --> D[Testing]
-D --> E[Review]
-E --> F[Refinement]
+A[Prompt]-->B[AI Output]
+B-->C[Review]
+C-->D[Improve Prompt]
+D-->B
 ```
 
-Each prompt builds on the previous result.
+Do not expect the first response to be perfect. Iterate until the
+solution meets your requirements.
 
----
+------------------------------------------------------------------------
 
-# Engineering Insight
+## 5. Hands-on Lab
 
-> Better prompts do not replace engineering knowledge—they amplify it.
+Create a prompt that generates a Task Manager REST API.
 
----
+Requirements:
 
-# Common Mistakes
+-   Python 3.13
+-   FastAPI
+-   SQLite
+-   JWT Authentication
+-   CRUD Operations
+-   Docker
+-   pytest
 
-- Asking for complete applications in one request.
-- Omitting project context.
-- Failing to specify constraints.
-- Accepting the first answer without review.
-- Ignoring testing and validation.
+Compare your prompt with the example earlier in this chapter.
 
----
+------------------------------------------------------------------------
 
-# Hands-On Lab
+## Commands
 
-Rewrite three prompts from your own projects using the structure introduced in this chapter.
+``` bash
+python -m venv .venv
+source .venv/bin/activate
+pip install fastapi uvicorn pytest
+uvicorn app.main:app --reload
+```
 
-Compare:
+------------------------------------------------------------------------
 
-- Response quality
-- Number of revisions
-- Accuracy
-- Completeness
+## Screenshot
 
-Document what improved.
+Capture the following after completing the lab:
 
----
+-   VS Code Explorer showing the project
+-   FastAPI Swagger UI (`http://127.0.0.1:8000/docs`)
+-   Terminal running `pytest`
 
-# Chapter Summary
+> These screenshots should be created from your own environment so they
+> remain current.
 
-Prompt engineering is a communication skill rather than a programming skill. Clear objectives, complete context, explicit constraints, and iterative refinement enable AI systems to produce more accurate and maintainable engineering outcomes.
+------------------------------------------------------------------------
 
----
+## Best Practices
 
-# Review Questions
+-   Be specific.
+-   Include context.
+-   State constraints.
+-   Ask for tests.
+-   Review all generated code.
+-   Never paste secrets into prompts.
 
-1. What are the six elements of an effective engineering prompt?
-2. Why is context important?
-3. When should iterative prompting be preferred?
-4. Name four prompt patterns.
-5. Why should prompts include validation criteria?
+------------------------------------------------------------------------
 
----
+## Summary
 
-# Preview
-
-Chapter 8 explores advanced prompting techniques, including chain-of-thought alternatives, decomposition, structured outputs, and prompt libraries for professional software engineering.
+Prompt engineering is the skill of writing clear technical instructions
+for AI assistants. Treat prompts like software specifications: provide
+context, define constraints, and iterate on the results.

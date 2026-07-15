@@ -1,51 +1,52 @@
-# Chapter 16 – Professional AI Workflows with Visual Studio Code
+# Chapter 16 -- Next Steps
 
-> *A modern IDE becomes significantly more valuable when AI is integrated into everyday development workflows.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Configure Visual Studio Code for AI-assisted development.
-- Combine source control, testing, debugging, and AI into one workflow.
-- Maintain high engineering quality while increasing productivity.
+## Learning Outcomes
 
-## Workflow
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
 
-```mermaid
-flowchart LR
-A[Requirement]-->B[VS Code]
-B-->C[AI Assistant]
-C-->D[Code]
-D-->E[Tests]
-E-->F[Git Commit]
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
-## Recommended Practices
+## Commands
 
-- Keep AI suggestions focused on one change.
-- Run tests before every commit.
-- Use integrated debugging.
-- Review generated code with linters and static analysis.
-- Keep documentation synchronized with implementation.
+``` bash
+git status
+pytest
+ruff check .
+```
 
-## Engineering Insight
+## Hands-on Lab
 
-> IDE integration reduces context switching, allowing developers to focus on solving problems rather than managing tools.
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
 
-## Common Mistakes
+## Suggested Screenshots
 
-- Accepting inline suggestions without review.
-- Ignoring diagnostics.
-- Committing large AI-generated changes.
+-   VS Code
+-   Terminal
+-   Git or application output
 
-## Hands-On Lab
+## Best Practices
 
-Implement a small feature entirely inside Visual Studio Code using AI assistance, debugging tools, Git integration, and automated tests.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
-## Chapter Summary
+## Summary
 
-Professional IDE workflows combine AI with debugging, testing, version control, and review to produce reliable software.
-
-## Review Questions
-
-1. Why integrate AI into the IDE?
-2. What quality checks belong before every commit?
-3. How does reducing context switching improve productivity?
+Use AI to improve productivity while maintaining engineering quality.

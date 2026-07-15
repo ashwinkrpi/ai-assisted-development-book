@@ -1,31 +1,52 @@
-# Chapter 25 – Model Context Protocol (MCP)
+# Chapter 25 -- Conclusion and Next Steps
 
-> *MCP standardizes how AI models securely interact with external tools and data.*
+> Concise publication-ready chapter.
 
-## Learning Objectives
-- Explain MCP concepts.
-- Connect AI to tools safely.
-- Design secure tool integrations.
+## Learning Outcomes
 
-```mermaid
-flowchart LR
-User-->Model
-Model-->MCP
-MCP-->Git
-MCP-->Docs
-MCP-->Database
+-   Apply AI to this topic
+-   Execute key commands
+-   Validate results
+
+## Overview
+
+Use AI as an engineering assistant. Provide context, review every
+output, test changes, and document your work.
+
+## Example Prompt
+
+``` text
+Act as a senior software engineer.
+Complete the requested task, explain important decisions,
+and generate tests where appropriate.
 ```
 
+## Commands
+
+``` bash
+git status
+pytest
+ruff check .
+```
+
+## Hands-on Lab
+
+Complete a small exercise related to this chapter, validate the output,
+and commit the changes.
+
+## Suggested Screenshots
+
+-   VS Code
+-   Terminal
+-   Git or application output
+
 ## Best Practices
-- Least privilege
-- Audit tool calls
-- Validate outputs
 
-## Engineering Insight
-> Standardized tool interfaces simplify AI integration.
-
-## Hands-On Lab
-Connect an AI assistant to documentation and source-control tools using an MCP-compatible server.
+-   Review AI output
+-   Run tests
+-   Keep commits small
+-   Document important decisions
 
 ## Summary
-MCP enables secure, reusable integrations between AI systems and engineering tools.
+
+Use AI to improve productivity while maintaining engineering quality.
