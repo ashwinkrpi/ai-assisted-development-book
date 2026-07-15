@@ -1,3 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://ashwinkrpi.github.io/ai-assisted-development-book/</loc>
+         <lastmod>2026-07-15</lastmod>
+    </url>
+    <url>
+         <loc>https://ashwinkrpi.github.io/ai-assisted-development-book/01-foundations/01-introduction/</loc>
+         <lastmod>2026-07-15</lastmod>
+    </url>
+    <url>
+         <loc>https://ashwinkrpi.github.io/ai-assisted-development-book/01-foundations/02-why-ai-is-transforming-software-development/</loc>
+         <lastmod>2026-07-15</lastmod>
+    </url>
+    <url>
+         <loc>https://ashwinkrpi.github.io/ai-assisted-development-book/01-foundations/03-understanding-large-language-models/</loc>
+         <lastmod>2026-07-15</lastmod>
+    </url>
+    <url>
+         <loc>https://ashwinkrpi.github.io/ai-assisted-development-book/01-foundations/04-ai-assisted-software-development-lifecycle/</loc>
+         <lastmod>2026-07-15</lastmod>
+    </url>
+    <url>
+         <loc>https://ashwinkrpi.github.io/ai-assisted-development-book/01-foundations/05-building-your-ai-assisted-development-environment/</loc>
+         <lastmod>2026-07-15</lastmod>
+    </url>
+    <url>
+         <loc>https://ashwinkrpi.github.io/ai-assisted-development-book/01-foundations/06-your-first-ai-assisted-software-project/</loc>
+         <lastmod>2026-07-15</lastmod>
+    </url>
 </urlset>
