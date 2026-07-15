@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="220">
-<rect x="40" y="70" width="180" height="70" fill="#E8F0FE" stroke="#333"/>
-<text x="130" y="112" text-anchor="middle" font-size="22">AI</text>
-<line x1="220" y1="105" x2="340" y2="105" stroke="#333" stroke-width="2"/>
-<rect x="340" y="70" width="320" height="70" fill="#E8F5E9" stroke="#333"/>
-<text x="500" y="112" text-anchor="middle" font-size="18">Chapter 28</text>
-</svg>
