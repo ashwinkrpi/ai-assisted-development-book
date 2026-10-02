@@ -22,7 +22,7 @@ Each of these innovations freed engineers from repetitive work so they could spe
 
 Generative AI continues that pattern, but it reaches further than any single tool before it. Earlier tools automated *mechanical* tasks — compiling, deploying, merging. AI assists with tasks that are closer to *cognitive* work: reasoning about a problem, communicating intent, comprehending unfamiliar code, drafting documentation, and proposing implementations. That's a meaningfully different kind of leverage, and it's why the change AI brings feels larger than the sum of the tasks it automates.
 
-The result of this shift is not fewer engineers. It's engineers who can turn a given amount of time into more delivered value — provided the engineering discipline around that work holds up, which is the theme this book keeps returning to.
+The goal of this shift is not fewer engineers. It's engineers who can turn a given amount of time into more delivered value. Whether that actually happens depends on the engineering discipline around the work (and, as Section 2.7 shows, the evidence so far is mixed), which is the theme this book keeps returning to.
 
 ---
 
@@ -83,19 +83,31 @@ Consider a financial institution maintaining a fifteen-year-old application with
 4. Documentation drafts are generated from the actual code behavior, then corrected where the AI misread intent.
 5. Engineers validate every recommendation against production behavior and business rules before acting on it.
 
-What changes here is important to state precisely: the engineering work itself — the judgment calls, the validation, the risk assessment — does not go away. What shrinks dramatically is the *discovery* phase: the weeks of unassisted reading that used to precede any real engineering decision. That's a genuine, measurable productivity gain, and it's representative of where AI tends to pay off most in real organizations.
+What changes here is important to state precisely: the engineering work itself — the judgment calls, the validation, the risk assessment — does not go away. What can shrink is the *discovery* phase: the weeks of unassisted reading that used to precede any real engineering decision. Faster comprehension of unfamiliar code is one of the most commonly reported benefits of AI tools, but how much time it saves depends on the codebase and the team, so measure it rather than assume it.
 
 ---
 
 ## 2.6 Adoption Principles
 
-Teams that get durable value out of AI tools, rather than a short-lived productivity bump followed by a quality problem, tend to follow a consistent set of principles:
+To get durable value out of AI tools, rather than a short-lived productivity bump followed by a quality problem, follow these principles:
 
 1. **Start with low-risk tasks.** Documentation, test scaffolding, and code explanation are good entry points precisely because a mistake is cheap to catch and correct.
 2. **Establish review standards before scaling up usage.** Decide, as a team, what level of review AI-generated code requires — and hold to it even when it's inconvenient.
 3. **Protect confidential data.** Understand what your AI tooling does with the code and data you send it, and set clear policies about what can and can't be shared with which tools.
 4. **Measure productivity and quality together, not either in isolation.** Faster delivery that increases defect rates isn't a win; it's a cost shifted downstream.
 5. **Continuously improve prompts, context, and workflows** as a team practice — treat this the same way you'd treat any other engineering process that benefits from iteration.
+
+---
+
+## 2.7 What the Research Says
+
+Claims about AI productivity range from "ten times faster" to "no gain at all." The research so far supports neither extreme, and the results depend heavily on the task and the developer:
+
+- **Small, well-defined tasks can get much faster.** In a 2023 controlled experiment, developers using GitHub Copilot finished a small JavaScript task (writing an HTTP server) 55.8% faster than developers without it.
+- **Experienced developers on their own large projects can get slower.** In a 2025 randomized study by METR, 16 experienced open-source developers took 19% longer to complete real tasks in their own repositories when they could use AI tools. They expected AI to speed them up by 24%, and afterward still believed it had sped them up by about 20%.
+- **Individual speed doesn't automatically mean team delivery improves.** Google's 2024 DORA report found that most respondents felt more productive with AI, but higher AI adoption was associated with slightly lower software delivery throughput and noticeably lower delivery stability.
+
+Two lessons follow. First, how fast AI *feels* is not a reliable measure of whether it helps — the METR participants were wrong about their own speed. Second, results depend on context: the type of task, how well the developer knows the codebase, and how the team reviews and tests AI output. This is why Section 2.6 says to measure productivity and quality together, and why the lab below asks you to keep a log.
 
 ---
 
@@ -163,7 +175,7 @@ As you go, keep a simple log with two columns: **where AI clearly saved time**, 
 
 Artificial intelligence represents a new productivity layer for software engineering — one that acts on cognitive work, not just mechanical work, which is why its impact reaches further than earlier tooling revolutions. Its greatest contribution is reducing the time spent on repetitive, information-intensive tasks, freeing engineers to spend more of their attention on architecture, quality, security, and business outcomes.
 
-Teams that combine strong engineering fundamentals with disciplined, outcome-measured AI workflows consistently outperform teams relying on either humans alone or AI alone. That combination — not the tools by themselves — is what actually drives the productivity gains organizations are investing for.
+The evidence on productivity is still mixed: some studies find large speedups on small, well-defined tasks, while others find that AI slowed experienced developers down or hurt delivery stability. This book's position is that strong engineering fundamentals combined with disciplined, outcome-measured AI workflows give a team the best chance of real gains — and that you should measure whether you're getting them, not assume it.
 
 ---
 
@@ -174,6 +186,15 @@ Teams that combine strong engineering fundamentals with disciplined, outcome-mea
 3. Why do architecture, testing, and requirements engineering become *more* important, not less, as AI adoption increases?
 4. List five organizational drivers behind AI adoption, and the business outcome each one targets.
 5. Using the legacy modernization case study, describe which parts of the engineering effort AI actually reduced — and which parts it left unchanged.
+6. Why might a developer believe AI made them faster even when it didn't? What would you measure to find out?
+
+---
+
+## Further Reading
+
+- Sida Peng et al., ["The Impact of AI on Developer Productivity: Evidence from GitHub Copilot"](https://arxiv.org/abs/2302.06590), 2023.
+- Joel Becker et al. (METR), ["Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"](https://arxiv.org/abs/2507.09089), 2025.
+- Google DORA, [*Accelerate State of DevOps Report 2024*](https://dora.dev/research/2024/dora-report/). See the chapter on AI adoption.
 
 ---
 
