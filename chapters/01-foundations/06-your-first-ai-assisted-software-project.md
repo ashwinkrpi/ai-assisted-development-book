@@ -67,12 +67,58 @@ notes-manager/
 │       ├── service.py
 │       └── cli.py
 ├── tests/
-│   └── test_service.py
+│   ├── test_service.py
+│   └── test_cli.py
 ├── README.md
 └── pyproject.toml
 ```
 
 This matches the recommended layout from Chapter 5 — `src/` for the package, `tests/` alongside it, nothing scattered at the repository root.
+
+`pyproject.toml` describes the project to Python's packaging tools. It names the package, declares `pytest` as a development dependency, and creates a `notes` command that runs the `main` function in `cli.py`:
+
+```toml
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "notes-manager"
+version = "0.1.0"
+description = "A simple command-line notes manager with local JSON persistence"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+notes = "notes_manager.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+```
+
+The `pythonpath` setting lets pytest import the package from `src/`, so the tests run without any extra setup.
+
+Install the project into a *virtual environment*, a private folder of Python packages for this project only, so nothing you install here affects other projects:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate      # on Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+```
+
+The `-e` flag makes the install *editable*: the `notes` command runs your source files directly, so changes take effect without reinstalling. The `notes` command won't work until you write `cli.py` in Step 6.
+
+The install also creates a `src/notes_manager.egg-info/` folder of package metadata, and running Python and pytest creates `__pycache__/` and `.pytest_cache/` folders. All of these are generated, so keep them out of git:
+
+```bash
+printf ".venv/\n*.egg-info/\n__pycache__/\n.pytest_cache/\n" > .gitignore
+git add pyproject.toml .gitignore src/notes_manager/__init__.py
+git commit -m "Add project skeleton and pyproject.toml"
+```
 
 ---
 
@@ -200,6 +246,10 @@ class NoteNotFoundError(Exception):
     pass
 
 
+class AmbiguousNoteIdError(Exception):
+    pass
+
+
 class NoteService:
     """Business logic layer, independent of storage and CLI details."""
 
@@ -217,6 +267,19 @@ class NoteService:
         if note is None:
             raise NoteNotFoundError(f"No note found with id {note_id}")
         return note
+
+    def find_by_prefix(self, prefix: str) -> Note:
+        """Return the one note whose id starts with prefix."""
+        if not prefix:
+            raise ValueError("Note id prefix cannot be empty")
+        matches = [n for n in self.repository.list_all() if n.id.startswith(prefix)]
+        if not matches:
+            raise NoteNotFoundError(f"No note found starting with {prefix}")
+        if len(matches) > 1:
+            raise AmbiguousNoteIdError(
+                f"{len(matches)} notes start with {prefix}; type more of the id"
+            )
+        return matches[0]
 
     def list_notes(self) -> list[Note]:
         return self.repository.list_all()
@@ -254,6 +317,8 @@ git commit -m "Add note service with validation and search"
 
 The empty-title validation is a good example of a requirement that's easy for AI to skip if you don't ask for it explicitly, and easy to forget to test if you don't notice it's missing — which is exactly why it's called out here and covered directly in the test suite below.
 
+`find_by_prefix` lets users type the first few characters of a note's ID instead of the whole UUID. It refuses a prefix that matches more than one note. The obvious version, "take the first match", would let `notes delete a` silently delete whichever note starting with `a` happened to be stored first.
+
 ---
 
 ## 6.5 Step 5 — Tests
@@ -264,8 +329,9 @@ Business logic isolated from I/O (Section 6.4) means these tests run against a r
 # tests/test_service.py
 import pytest
 from pathlib import Path
+from notes_manager.models import Note
 from notes_manager.repository import NoteRepository
-from notes_manager.service import NoteService, NoteNotFoundError
+from notes_manager.service import AmbiguousNoteIdError, NoteNotFoundError, NoteService
 
 
 @pytest.fixture
@@ -286,8 +352,48 @@ class TestCreateNote:
             service.create_note("   ", "Body")
 
 
+class TestGetAndListNotes:
+    def test_get_returns_saved_note(self, service):
+        note = service.create_note("Title", "Body")
+        assert service.get_note(note.id) == note
+
+    def test_get_raises_for_missing_note(self, service):
+        with pytest.raises(NoteNotFoundError):
+            service.get_note("does-not-exist")
+
+    def test_list_is_empty_at_start(self, service):
+        assert service.list_notes() == []
+
+    def test_list_returns_all_notes(self, service):
+        service.create_note("First", "a")
+        service.create_note("Second", "b")
+        assert [n.title for n in service.list_notes()] == ["First", "Second"]
+
+
+class TestFindByPrefix:
+    def test_finds_unique_prefix(self, service):
+        note = service.create_note("Title", "Body")
+        assert service.find_by_prefix(note.id[:8]).id == note.id
+
+    def test_rejects_ambiguous_prefix(self, service):
+        service.repository.add(Note(title="One", body="", id="abc111"))
+        service.repository.add(Note(title="Two", body="", id="abc222"))
+        with pytest.raises(AmbiguousNoteIdError):
+            service.find_by_prefix("abc")
+
+    def test_raises_for_unknown_prefix(self, service):
+        with pytest.raises(NoteNotFoundError):
+            service.find_by_prefix("zzz")
+
+
 class TestEditNote:
     def test_edit_updates_title_and_body(self, service):
+        note = service.create_note("Original", "old body")
+        updated = service.edit_note(note.id, title="Changed", body="new body")
+        assert updated.title == "Changed"
+        assert updated.body == "new body"
+
+    def test_edit_title_only_keeps_body(self, service):
         note = service.create_note("Original", "body")
         updated = service.edit_note(note.id, title="Changed")
         assert updated.title == "Changed"
@@ -319,28 +425,36 @@ class TestSearchNotes:
         assert len(service.search_notes("raspberry")) == 1
 ```
 
-Run it — this output is from actually running this exact suite against this exact code, not a hypothetical:
+Run the service tests. The output below was pasted from a real run of this code:
 
 ```bash
-export PYTHONPATH=src
-python3 -m pytest tests/ -v
+python3 -m pytest tests/test_service.py -v --no-header
 ```
 
 ```text
 ============================= test session starts ==============================
-platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
-collected 12 items
+collecting ... collected 15 items
 
-tests/test_service.py::TestCreateNote::test_creates_note_with_title_and_body PASSED [  8%]
-tests/test_service.py::TestCreateNote::test_rejects_empty_title PASSED   [ 16%]
-tests/test_service.py::TestEditNote::test_edit_updates_title_and_body PASSED [ 41%]
-tests/test_service.py::TestEditNote::test_edit_raises_for_missing_note PASSED [ 50%]
-tests/test_service.py::TestDeleteNote::test_delete_removes_note PASSED   [ 66%]
-tests/test_service.py::TestSearchNotes::test_search_matches_title PASSED [ 83%]
-tests/test_service.py::TestSearchNotes::test_search_matches_body PASSED  [ 91%]
+tests/test_service.py::TestCreateNote::test_creates_note_with_title_and_body PASSED [  6%]
+tests/test_service.py::TestCreateNote::test_rejects_empty_title PASSED   [ 13%]
+tests/test_service.py::TestGetAndListNotes::test_get_returns_saved_note PASSED [ 20%]
+tests/test_service.py::TestGetAndListNotes::test_get_raises_for_missing_note PASSED [ 26%]
+tests/test_service.py::TestGetAndListNotes::test_list_is_empty_at_start PASSED [ 33%]
+tests/test_service.py::TestGetAndListNotes::test_list_returns_all_notes PASSED [ 40%]
+tests/test_service.py::TestFindByPrefix::test_finds_unique_prefix PASSED [ 46%]
+tests/test_service.py::TestFindByPrefix::test_rejects_ambiguous_prefix PASSED [ 53%]
+tests/test_service.py::TestFindByPrefix::test_raises_for_unknown_prefix PASSED [ 60%]
+tests/test_service.py::TestEditNote::test_edit_updates_title_and_body PASSED [ 66%]
+tests/test_service.py::TestEditNote::test_edit_title_only_keeps_body PASSED [ 73%]
+tests/test_service.py::TestEditNote::test_edit_raises_for_missing_note PASSED [ 80%]
+tests/test_service.py::TestDeleteNote::test_delete_removes_note PASSED   [ 86%]
+tests/test_service.py::TestSearchNotes::test_search_matches_title PASSED [ 93%]
+tests/test_service.py::TestSearchNotes::test_search_matches_body PASSED  [100%]
 
-============================== 12 passed in 0.04s ==============================
+============================== 15 passed in 0.05s ==============================
 ```
+
+`--no-header` hides the lines that show your Python version and file paths, so your output should match this apart from the timing.
 
 ```bash
 git add tests/test_service.py
@@ -357,7 +471,7 @@ import argparse
 import sys
 from pathlib import Path
 from .repository import NoteRepository
-from .service import NoteService, NoteNotFoundError
+from .service import AmbiguousNoteIdError, NoteNotFoundError, NoteService
 
 DEFAULT_STORAGE = Path.home() / ".notes-manager" / "notes.json"
 
@@ -405,21 +519,17 @@ def main(argv=None) -> int:
             notes = service.list_notes()
             print("No notes yet." if not notes else "\n".join(format_note(n) for n in notes))
         elif args.command == "edit":
-            matches = [n for n in service.list_notes() if n.id.startswith(args.id)]
-            if not matches:
-                raise NoteNotFoundError(f"No note found starting with {args.id}")
-            note = service.edit_note(matches[0].id, title=args.title, body=args.body)
+            match = service.find_by_prefix(args.id)
+            note = service.edit_note(match.id, title=args.title, body=args.body)
             print(f"Updated note {note.id[:8]}")
         elif args.command == "delete":
-            matches = [n for n in service.list_notes() if n.id.startswith(args.id)]
-            if not matches:
-                raise NoteNotFoundError(f"No note found starting with {args.id}")
-            service.delete_note(matches[0].id)
-            print(f"Deleted note {args.id}")
+            match = service.find_by_prefix(args.id)
+            service.delete_note(match.id)
+            print(f"Deleted note {match.id[:8]}")
         elif args.command == "search":
             results = service.search_notes(args.query)
             print("No matches." if not results else "\n".join(format_note(n) for n in results))
-    except (NoteNotFoundError, ValueError) as e:
+    except (NoteNotFoundError, AmbiguousNoteIdError, ValueError) as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1
     return 0
@@ -434,35 +544,145 @@ git add src/notes_manager/cli.py
 git commit -m "Add CLI layer for notes manager"
 ```
 
+`main` returns `0` on success and `1` on an error. The `notes` command that `pyproject.toml` creates passes that number back to your shell as the exit code, which is how scripts and CI tell success from failure.
+
+The CLI needs tests too. Calling `main([...])` with a list of arguments runs the CLI inside the test process. pytest's `capsys` fixture captures what it prints, and `tmp_path` gives each test its own storage file:
+
+```python
+# tests/test_cli.py
+import pytest
+from pathlib import Path
+from notes_manager.cli import main
+from notes_manager.models import Note
+from notes_manager.repository import NoteRepository
+
+
+@pytest.fixture
+def storage(tmp_path: Path) -> Path:
+    return tmp_path / "notes.json"
+
+
+def run(storage: Path, *args: str) -> int:
+    return main(["--storage", str(storage), *args])
+
+
+def test_add_then_list(storage, capsys):
+    assert run(storage, "add", "Groceries", "milk") == 0
+    assert run(storage, "list") == 0
+    out = capsys.readouterr().out
+    assert "Created note" in out
+    assert "Groceries" in out
+
+
+def test_list_when_empty(storage, capsys):
+    assert run(storage, "list") == 0
+    assert capsys.readouterr().out == "No notes yet.\n"
+
+
+def test_edit_by_prefix(storage, capsys):
+    run(storage, "add", "Old", "body")
+    note_id = NoteRepository(storage).list_all()[0].id
+    assert run(storage, "edit", note_id[:8], "--title", "New") == 0
+    assert NoteRepository(storage).get(note_id).title == "New"
+
+
+def test_delete_unknown_id_fails(storage, capsys):
+    assert run(storage, "delete", "zzz") == 1
+    assert "Error: No note found" in capsys.readouterr().err
+
+
+def test_delete_ambiguous_prefix_deletes_nothing(storage, capsys):
+    repo = NoteRepository(storage)
+    repo.add(Note(title="One", body="", id="abc111"))
+    repo.add(Note(title="Two", body="", id="abc222"))
+    assert run(storage, "delete", "abc") == 1
+    assert "2 notes start with abc" in capsys.readouterr().err
+    assert len(repo.list_all()) == 2
+
+
+def test_search_reports_no_matches(storage, capsys):
+    run(storage, "add", "Groceries", "milk")
+    capsys.readouterr()
+    assert run(storage, "search", "report") == 0
+    assert capsys.readouterr().out == "No matches.\n"
+```
+
+The last two tests in the file check error handling: an unknown ID and an ambiguous prefix must both fail with exit code `1`, and the ambiguous one must not delete anything. Run the whole suite:
+
+```bash
+python3 -m pytest --no-header
+```
+
+```text
+============================= test session starts ==============================
+collected 21 items
+
+tests/test_cli.py ......                                                 [ 28%]
+tests/test_service.py ...............                                    [100%]
+
+============================== 21 passed in 0.07s ==============================
+```
+
+```bash
+git add tests/test_cli.py
+git commit -m "Add CLI tests"
+```
+
 ### Trying it out
 
-This is real output from running the finished CLI:
+With the project installed (Step 1), the `notes` command is on your path. These examples use `--storage demo.json` so they don't touch your real notes in `~/.notes-manager/`. This is real output from the finished CLI. Your IDs and timestamps will be different:
 
 ```bash
-python3 -m notes_manager.cli --storage /tmp/notes-test.json add "Groceries" "Milk, eggs, bread"
-python3 -m notes_manager.cli --storage /tmp/notes-test.json add "Pi5 Project" "Set up Hermes scheduling pipeline"
-python3 -m notes_manager.cli --storage /tmp/notes-test.json list
+notes --storage demo.json add "Groceries" "Milk, eggs, bread"
+notes --storage demo.json add "Book club" "Read chapter 6 by Friday"
+notes --storage demo.json list
 ```
 
 ```text
-Created note 136c7649
-Created note b2d838d7
-[136c7649] Groceries
+Created note adacf9c0
+Created note 2b224d33
+[adacf9c0] Groceries
     Milk, eggs, bread
-    updated: 2026-07-15T07:49:49.071143+00:00
-[b2d838d7] Pi5 Project
-    Set up Hermes scheduling pipeline
-    updated: 2026-07-15T07:49:49.139655+00:00
+    updated: 2026-10-02T18:02:39.893221+00:00
+[2b224d33] Book club
+    Read chapter 6 by Friday
+    updated: 2026-10-02T18:02:39.963146+00:00
 ```
 
 ```bash
-python3 -m notes_manager.cli --storage /tmp/notes-test.json search "pi5"
+notes --storage demo.json search "milk"
 ```
 
 ```text
-[b2d838d7] Pi5 Project
-    Set up Hermes scheduling pipeline
-    updated: 2026-07-15T07:49:49.139655+00:00
+[adacf9c0] Groceries
+    Milk, eggs, bread
+    updated: 2026-10-02T18:02:39.893221+00:00
+```
+
+`edit` and `delete` accept any unique start of an ID:
+
+```bash
+notes --storage demo.json edit adac --body "Milk, eggs, bread, coffee"
+notes --storage demo.json delete 2b22
+notes --storage demo.json list
+```
+
+```text
+Updated note adacf9c0
+Deleted note 2b224d33
+[adacf9c0] Groceries
+    Milk, eggs, bread, coffee
+    updated: 2026-10-02T18:02:43.897872+00:00
+```
+
+Deleting the same note again fails, with exit code `1`:
+
+```bash
+notes --storage demo.json delete 2b22
+```
+
+```text
+Error: No note found starting with 2b22
 ```
 
 > **Screenshot placeholder:** Capture your own terminal running these same commands, plus `edit` and `delete`, and insert it here in the published version alongside this verified transcript.
@@ -480,20 +700,24 @@ A simple command-line notes manager with local JSON persistence.
 
 ## Install
 
-    pip install -e .
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -e ".[dev]"
 
 ## Usage
 
     notes add "Title" "Body text"
     notes list
     notes search "keyword"
-    notes edit <id-prefix> --title "New title"
+    notes edit <id-prefix> --title "New title" --body "New body"
     notes delete <id-prefix>
+
+Notes are stored in `~/.notes-manager/notes.json`. Use `--storage <file>`
+before the command to use a different file.
 
 ## Development
 
-    export PYTHONPATH=src
-    python3 -m pytest tests/ -v
+    python3 -m pytest
 ```
 
 ```bash
@@ -505,7 +729,7 @@ git commit -m "Add project README"
 
 ## Engineering Insight
 
-> Small iterations combined with continuous testing produce more reliable AI-assisted software than one-shot generation — the seven commits in this chapter could have been one AI-generated dump, and the difference in review quality between those two approaches is the entire argument of this book.
+> Small iterations combined with continuous testing produce more reliable AI-assisted software than one-shot generation — the eight commits in this chapter could have been one AI-generated dump, and the difference in review quality between those two approaches is the entire argument of this book.
 
 ---
 

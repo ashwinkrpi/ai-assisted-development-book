@@ -1,0 +1,20 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "notes-manager"
+version = "0.1.0"
+description = "A simple command-line notes manager with local JSON persistence"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+notes = "notes_manager.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
