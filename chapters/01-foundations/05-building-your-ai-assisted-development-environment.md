@@ -134,7 +134,11 @@ gh api -X PATCH /repos/{owner}/{repo} \
   -f security_and_analysis[secret_scanning_push_protection][status]=enabled
 ```
 
-Or via the UI: **Settings → Code security and analysis → Secret scanning → Enable**, and turn on **Push protection** alongside it so a secret is blocked *before* it lands in history, not just flagged after.
+Or via the UI: open the repository's **Settings**, find the code security page (currently **Advanced Security**; GitHub renames these menus from time to time), enable **Secret Protection**, and turn on **Push protection** alongside it so a secret is blocked *before* it lands in history, not just flagged after.
+
+Check availability before you rely on this. Secret scanning and push protection are free for public repositories. For private repositories, they need a paid add-on (GitHub Secret Protection, part of what used to be called GitHub Advanced Security) on an organization plan. If you can't enable them, a local pre-commit secret scanner is a reasonable substitute.
+
+Also know what push protection actually catches: it matches secrets against patterns for known providers (cloud keys, tokens from popular services, and so on). A random string you made up won't be blocked, and neither will a provider's key format that GitHub doesn't support. It reduces risk; it doesn't replace keeping secrets out of your code.
 
 A `.gitignore` that actually excludes the common leak vectors is the first line of defense:
 
@@ -176,8 +180,8 @@ ollama list
 ```
 
 ```text
-NAME            ID              SIZE      MODIFIED
-hermes3:8b      a1b2c3d4e5f6    4.7 GB    2 minutes ago
+NAME          ID              SIZE      MODIFIED
+hermes3:8b    4f6b83f30b62    4.7 GB    3 seconds ago
 ```
 
 ```bash
@@ -185,21 +189,30 @@ hermes3:8b      a1b2c3d4e5f6    4.7 GB    2 minutes ago
 ollama run hermes3:8b "Explain what a context window is in one sentence."
 ```
 
+```text
+A context window, in the context of natural language processing, refers to
+a fixed number of words surrounding a target word or token that is used to
+provide additional information for understanding and analyzing the text.
+```
+
+(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an LLM that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.
+
 For editor integration, the [Continue](https://continue.dev) VS Code extension can point at a local Ollama endpoint instead of a cloud API:
 
-```json
-// .continue/config.json
-{
-  "models": [
-    {
-      "title": "Hermes 3 (Local Pi5)",
-      "provider": "ollama",
-      "model": "hermes3:8b",
-      "apiBase": "http://<pi5-ip>:11434"
-    }
-  ]
-}
+```yaml
+# ~/.continue/config.yaml
+name: Local Pi 5
+version: 0.0.1
+schema: v1
+
+models:
+  - name: Hermes 3 (Local Pi 5)
+    provider: ollama
+    model: hermes3:8b
+    apiBase: http://<pi5-ip>:11434
 ```
+
+Continue's configuration format has changed over time (older guides use a `config.json` file), so check [Continue's Ollama documentation](https://docs.continue.dev/customize/model-providers/top-level/ollama) for the current format before copying this. If Ollama runs on the same machine as your editor, you can leave out `apiBase`. If it runs on another machine, as here, Ollama has to be started with `OLLAMA_HOST=0.0.0.0:11434` so it accepts connections from the network — only do that on a network you trust.
 
 This is the same local stack referenced in Chapter 3's discussion of context windows. Local models are a different design point from cloud APIs, not a lesser version of the same thing, and this book treats both as legitimate parts of a professional toolkit, depending on the constraint you're optimizing for.
 
@@ -217,9 +230,9 @@ Adopt these habits, and automate the ones that can be automated rather than rely
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.9
+    rev: v0.16.10  # run `pre-commit autoupdate` to move to the latest release
     hooks:
-      - id: ruff
+      - id: ruff-check
         args: [--fix]
       - id: ruff-format
 ```
@@ -260,7 +273,7 @@ Set up a new development workstation (or a clean directory simulating one) with 
 3. Build the project and run its test suite with a single command.
 4. Make a small change, commit it, and confirm the pre-commit hook runs formatting automatically.
 5. Use an AI assistant — cloud or local — to explain an unfamiliar module in the project, and check its explanation against the actual code.
-6. Enable secret scanning and push protection on the repository, and confirm it blocks a deliberately-committed fake secret (e.g., a string that matches an API key pattern but isn't real).
+6. Enable secret scanning and push protection on the repository (use a public test repository if your private repositories don't have Secret Protection; see Section 5.5). Then try to push a commit containing a fake secret and confirm the push is blocked. Push protection only recognizes supported provider patterns, so a made-up string won't trigger it: the fake value has to match the format of a real provider's token. Never use a real credential for this test.
 
 Document the full setup in a `SETUP.md` so another developer — or a future you, on a new machine — can reproduce it from a cold start.
 
