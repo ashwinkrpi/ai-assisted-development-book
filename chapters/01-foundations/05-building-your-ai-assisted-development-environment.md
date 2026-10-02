@@ -112,7 +112,7 @@ project/
 └── README.md
 ```
 
-A consistent layout makes it easier for both humans and AI to understand your repository — when you paste "here's my project structure" into a prompt, a predictable layout means the model can make correct assumptions about where things live instead of guessing. This is also why `.env.example` (committed) versus `.env` (gitignored, never committed) is worth calling out explicitly: it documents the required configuration shape without leaking actual secrets, and it's a pattern AI assistants recognize and respect when generating code that reads environment variables.
+A consistent layout makes it easier for both humans and AI to understand your repository — when you paste "here's my project structure" into a [prompt](../glossary.md#prompt), a predictable layout means the model can make correct assumptions about where things live instead of guessing. This is also why `.env.example` (committed) versus `.env` (gitignored, never committed) is worth calling out explicitly: it documents the required configuration shape without leaking actual secrets, and it's a pattern AI assistants recognize and respect when generating code that reads environment variables.
 
 ---
 
@@ -195,7 +195,7 @@ a fixed number of words surrounding a target word or token that is used to
 provide additional information for understanding and analyzing the text.
 ```
 
-(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an LLM that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.
+(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an [LLM](../glossary.md#llm) that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.
 
 For editor integration, the [Continue](https://continue.dev) VS Code extension can point at a local Ollama endpoint instead of a cloud API:
 
@@ -243,7 +243,7 @@ pre-commit install
 ```
 
 4. **Document architectural decisions** as you make them — a lightweight `docs/decisions/0001-use-sqlite-for-local-cache.md` per significant choice is enough; the format matters far less than the habit.
-5. **Maintain project context for AI** — a short `CLAUDE.md` or `.cursorrules` file describing your conventions means every session starts with the right context instead of you re-explaining it each time.
+5. **Maintain project context for AI** — a short context file such as `CLAUDE.md` or `AGENTS.md` describing your conventions means every session starts with the right context instead of you re-explaining it each time. Chapter 4, Section 4.5 explains what to put in one.
 6. **Review every generated change** — this is the one habit every other chapter in this book keeps returning to, because skipping it is where things go wrong.
 
 ---

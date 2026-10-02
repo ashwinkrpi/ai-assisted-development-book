@@ -10,6 +10,7 @@ By the end of this chapter, you will be able to:
 - Build a repeatable AI-assisted engineering workflow you can apply to any feature.
 - Define and enforce quality gates that keep humans in control of every consequential decision.
 - Integrate testing, documentation, and review into every iteration — not as separate, deferrable steps.
+- Work safely with AI [agents](../glossary.md#agent): review diffs, choose permission settings, keep tasks small, and give the agent a context file.
 
 ---
 
@@ -45,7 +46,7 @@ Every stage benefits from AI assistance, and every stage also requires human ver
 
 ### Requirements
 
-Use AI to stress-test a specification before any code is written — identifying ambiguity, conflicting requirements, missing acceptance criteria, unconsidered stakeholders, and edge cases. A concrete prompt pattern that works well:
+Use AI to stress-test a specification before any code is written — identifying ambiguity, conflicting requirements, missing acceptance criteria, unconsidered stakeholders, and edge cases. A concrete [prompt](../glossary.md#prompt) pattern that works well:
 
 ```
 Here is a draft user story:
@@ -76,6 +77,8 @@ a simple database-backed job table with a polling worker. For each,
 cover: operational complexity, cost at this scale, failure handling,
 and what changes if volume grows 10x.
 ```
+
+If some of those names are new to you, you don't need them for the rest of this book. They're here because a realistic architecture prompt names the real options. In brief: **Django** is a Python web framework. **EC2** is Amazon's service for renting virtual servers. **Celery** is a Python library for running tasks in the background, and **Redis** is an in-memory data store it often uses as a queue. **SQS** is Amazon's managed message queue, and **Lambda** is Amazon's service for running a function on demand without managing a server. The point of the prompt is the structure: describe your current setup and scale, name the options, and list the criteria you'll compare them on.
 
 ### Implementation
 
@@ -174,7 +177,9 @@ code below — do not describe behavior the code doesn't actually implement.
 [paste endpoint code]
 ```
 
-That last sentence is doing real work — it's a direct countermeasure against the hallucination behavior covered in Chapter 3, applied specifically to documentation generation, where a plausible but wrong claim is especially costly because readers trust docs by default.
+(**Flask** is a small Python web framework; an endpoint is a function that handles requests to one URL.)
+
+That last sentence is doing real work — it's a direct countermeasure against the [hallucination](../glossary.md#hallucination) behavior covered in Chapter 3, applied specifically to documentation generation, where a plausible but wrong claim is especially costly because readers trust docs by default.
 
 ### Review
 
@@ -273,6 +278,36 @@ This workflow can't require a review on its own, because a CI job can't approve 
 
 ---
 
+## 4.5 Working with AI Agents
+
+The workflow so far works with any AI tool. [Agentic tools](../glossary.md#agent), which read your repository, run commands and edit files themselves (see Chapter 0, Section 0.2), need some extra habits, because they can change many files before you've looked at any of them.
+
+**Review the diff, not the chat.** An agent's summary of what it did ("I added validation and updated the tests") is a description, not evidence. It can be incomplete or wrong. What matters is what actually changed in your files. Before you keep an agent's work, read the diff, in your editor's source-control view or with:
+
+```bash
+git status
+git diff
+```
+
+Check that every changed file was meant to change. Watch for edits you didn't ask for, deleted tests, and loosened checks, such as a test assertion weakened so that it passes.
+
+**Choose how much the agent can do without asking.** Most agentic tools have permission settings or modes. Typically you can choose between:
+
+- asking before every file edit and command;
+- allowing file edits automatically but asking before running commands;
+- a planning or read-only mode, where the agent proposes a plan and changes nothing;
+- running without asking, sometimes with an automated check in place of you.
+
+The names differ between tools (Claude Code, for example, calls these *permission modes*), so check your tool's documentation. Start with the agent asking before it acts, and allow more only for kinds of action you've seen it handle well. Commands that delete files, change git history, install packages or touch anything outside your project deserve the most caution.
+
+**Keep tasks small.** Give an agent one well-defined task at a time, the same size you'd put in one commit: "add input validation to `create_note` and a test for an empty title," not "build the notes app." Small tasks produce diffs you can actually review. Commit after each task you've reviewed, so you can roll back the next one if it goes wrong.
+
+**Give the agent a context file.** Agents start each session knowing nothing about your project's conventions. A context file in the repository fixes that: a short Markdown file with your build and test commands, coding conventions, and rules such as "never commit directly to `main`." Many tools read one automatically when a session starts, for example `CLAUDE.md` for Claude Code, `.github/copilot-instructions.md` for GitHub Copilot, and `AGENTS.md`, a shared format that many tools support. Like a [system prompt](../glossary.md#system-prompt), it shapes every response without you repeating it. Keep it short and accurate, and update it when your conventions change. Chapter 5, Section 5.7 comes back to this habit.
+
+**Keep running the tests yourself.** Agents often run your tests and report that they pass. Run them yourself before committing. It's quick, and it confirms the agent ran the right tests, on the final version of the code.
+
+---
+
 ## Engineering Insight
 
 > AI should shorten feedback loops — not remove them.
@@ -286,6 +321,7 @@ This workflow can't require a review on its own, because a CI job can't approve 
 - Skipping documentation because AI "can generate it later" — later rarely comes, and undocumented AI-assisted code is harder to trust than undocumented hand-written code, precisely because no one is certain what was verified.
 - Merging generated code without running the test suite against it.
 - Treating AI recommendations — architectural or otherwise — as design decisions rather than as one input to a decision a human still needs to make.
+- Accepting an agent's summary of its changes without reading the diff.
 
 ---
 
@@ -334,6 +370,7 @@ AI is most effective when embedded in a disciplined engineering lifecycle, contr
 3. Which SDLC phases benefit most from AI assistance, and which require the closest human scrutiny?
 4. Why should implementations proceed incrementally, and what does a well-structured commit history reveal about whether that happened?
 5. Describe a complete AI-assisted workflow for a new feature, including which quality gate applies at each step.
+6. Why is an agent's description of its changes not enough to review them? What should you look at instead?
 
 ---
 
