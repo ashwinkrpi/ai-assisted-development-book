@@ -50,10 +50,10 @@ AI-assisted development did not appear in isolation. It's the latest step in a l
 
 | Era | Breakthrough | Result |
 |---|---|---|
-| 1950s | Machine code | Direct, unabstracted hardware programming |
-| 1960s | Assembly language | Modest gains in readability and productivity |
-| 1970s–80s | High-level languages (C, Pascal, later C++) | Business- and application-oriented software becomes practical |
-| 1990s | IDEs and debuggers | Faster iteration, fewer manual build steps |
+| Late 1940s–1950s | Machine code, then assembly language | Programming moves from raw numbers to readable mnemonics |
+| 1950s | First high-level languages (FORTRAN, 1957; COBOL, 1959) | Scientific and business programs written in terms of the problem, not the machine |
+| 1970s–80s | Structured and systems languages (C, Pascal, later C++) | Portable, maintainable systems and application software |
+| 1980s–90s | IDEs and debuggers | Faster iteration, fewer manual build steps |
 | 2000s | Distributed version control (Git) | Real team collaboration at scale |
 | 2010s | Cloud infrastructure and DevOps | Continuous delivery, elastic infrastructure |
 | 2020s | Generative AI | Machine participation across the entire SDLC |
@@ -86,7 +86,7 @@ The operative word is **assisted**. AI proposes; engineers decide. That distinct
 
 ## 1.4 Human and AI: Complementary Strengths
 
-Human engineers and AI systems are good at different things, and the most productive teams design their workflows around that difference rather than ignoring it.
+Human engineers and AI systems are good at different things, and it pays to design your workflow around that difference rather than ignoring it.
 
 | Human Engineers | AI Systems |
 |---|---|
@@ -95,7 +95,7 @@ Human engineers and AI systems are good at different things, and the most produc
 | Weigh trade-offs against long-term maintainability | Automate repetitive, mechanical work |
 | Own quality, delivery, and consequences | Accelerate the first draft of almost any engineering artifact |
 
-A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code and documentation, works extremely fast, never gets tired — and still needs their work reviewed before it ships. That mental model, more than any specific prompting technique, is what determines whether a team gets consistent value out of AI tools or gets burned by them.
+A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code and documentation, works extremely fast, never gets tired — and still needs their work reviewed before it ships. In this book's view, that mental model matters more than any specific prompting technique for getting consistent value out of AI tools instead of getting burned by them.
 
 ---
 
@@ -147,7 +147,7 @@ Consider a request that lands in almost every backend engineer's queue at some p
 
 > "Implement password reset."
 
-**A poor workflow** treats this as a single prompt: ask the AI to generate the entire feature — endpoint, email delivery, token handling, and frontend form — in one pass, skim the output, and merge it. This is where AI-assisted development goes wrong most often, not because the AI is incapable, but because a security-sensitive, multi-component feature was never actually decomposed or reviewed at the level it needs.
+**A poor workflow** treats this as a single prompt: ask the AI to generate the entire feature — endpoint, email delivery, token handling, and frontend form — in one pass, skim the output, and merge it. This is a common way for AI-assisted development to go wrong, not because the AI is incapable, but because a security-sensitive, multi-component feature was never actually decomposed or reviewed at the level it needs.
 
 **A professional workflow** looks different:
 
@@ -236,6 +236,15 @@ That combination — human expertise, supported by intelligent tools, without ev
 3. Name five stages of the SDLC where AI can add value, and one specific risk to watch for at each stage.
 4. List three genuine strengths and three recurring limitations of current AI systems.
 5. Using the password reset case study, explain why iterative, reviewed development produces more reliable outcomes than one-shot generation — even when the same AI tool is used in both cases.
+
+---
+
+## Further Reading
+
+Research on how much AI tools help developers is still young, and the results are mixed. Chapter 2, Section 2.7 discusses these studies in more detail.
+
+- Sida Peng et al., ["The Impact of AI on Developer Productivity: Evidence from GitHub Copilot"](https://arxiv.org/abs/2302.06590), 2023. A controlled experiment in which developers with an AI assistant finished a small, well-defined task 55.8% faster.
+- Joel Becker et al. (METR), ["Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"](https://arxiv.org/abs/2507.09089), 2025. A randomized study in which experienced developers working on their own large projects took 19% longer with AI tools, although they believed it had sped them up.
 
 ---
 
