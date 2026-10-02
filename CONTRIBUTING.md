@@ -96,8 +96,8 @@ from a real run.
 Please include:
 
 -   Clear description
--   Expected behaviour
--   Actual behaviour
+-   Expected behavior
+-   Actual behavior
 -   Steps to reproduce
 -   Screenshots (if applicable)
 -   Environment details
