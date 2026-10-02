@@ -16,7 +16,9 @@ By the end of this chapter, you will be able to:
 
 ## 3.1 Why Software Engineers Should Understand This
 
-Modern AI assistants appear to "understand" programming languages, system architecture, and human intent. They don't — not in the sense that a compiler understands syntax or a database understands a schema. An LLM is a statistical model of language, and everything it produces, including code, is generated one token at a time based on probability, not by executing logic or checking facts against a source of truth.
+Modern AI assistants appear to "understand" programming languages, system architecture, and human intent. Whatever you call what they do, it isn't understanding in the sense that a compiler understands syntax or a database understands a schema. An LLM is a statistical model of language, and everything it produces, including code, is generated one token at a time based on probability, not by executing logic or checking facts against a source of truth.
+
+Many current models are marketed as "reasoning" or "thinking" models. These models generate intermediate steps — working through the problem in text — before giving a final answer, and that often improves results on multi-step problems such as debugging or math. But those steps are produced by the same token-by-token mechanism. They can contain mistakes, and a well-written chain of reasoning doesn't guarantee a correct conclusion. Treat a reasoning model's output as a better draft, not as a verified one.
 
 That distinction isn't philosophical — it has direct, practical consequences. It explains why a model can write a syntactically perfect function that calls a method which doesn't exist. It explains why the same question can get a slightly different answer twice. And it explains why the fix for many "the AI got this wrong" situations isn't a better model — it's better context, or a verification step you skipped. Understanding the mechanism turns AI from something you either trust blindly or distrust reflexively into a tool you can use with calibrated confidence.
 
@@ -26,9 +28,11 @@ That distinction isn't philosophical — it has direct, practical consequences. 
 
 A **Large Language Model (LLM)** is a neural network trained on very large collections of text and code. During training, it learns statistical relationships between **tokens** — the sub-word units (roughly, word fragments and code symbols) that models operate on instead of raw text.
 
-At inference time, the model doesn't retrieve stored facts or execute logic. It predicts the single most probable next token, appends it, and repeats — generating a response one token at a time based on everything that came before it in the context window.
+At inference time, the model doesn't look up stored facts or execute logic. For each step, it computes a probability for every token in its vocabulary — how likely each one is to come next, given everything already in the context window. The application then picks one token from that distribution, appends it, and repeats, building the response one token at a time.
 
-A concrete way to see this: tokenizers are usually available as libraries you can run yourself. Here's what tokenization actually looks like for a short piece of code, using OpenAI's open-source `tiktoken` library (a reasonable stand-in for how most modern LLMs tokenize, including Claude's family of models):
+The picking step is called **sampling**. Settings such as **temperature** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same prompt can produce different answers on different runs. That's expected behavior, not a malfunction.
+
+Before any of this happens, text has to be split into tokens by a **tokenizer**. Each model family has its own tokenizer, so the same text can produce different token counts in different models. To see the idea, here's a short piece of code run through OpenAI's open-source `tiktoken` library. It's used here only because it's easy to install; other models, including Claude, split text differently, so treat the exact numbers as illustrative of the idea rather than as a count for the model you use:
 
 ```bash
 pip install tiktoken
@@ -52,21 +56,21 @@ for t in tokens:
 ```text
 Text: 'def add(a, b):\n    return a + b'
 Token count: 11
-Token IDs: [755, 909, 2948, 11, 293, 997, 262, 471, 264, 489, 293]
-  755   ->  'def'
-  909   ->  ' add'
-  2948  ->  '(a'
-  11    ->  ','
-  293   ->  ' b'
-  997   ->  '):\n'
-  262   ->  '    '
-  471   ->  'return'
-  264   ->  ' a'
-  489   ->  ' +'
-  293   ->  ' b'
+Token IDs: [755, 923, 2948, 11, 293, 997, 262, 471, 264, 489, 293]
+     755  ->  'def'
+     923  ->  ' add'
+    2948  ->  '(a'
+      11  ->  ','
+     293  ->  ' b'
+     997  ->  '):\n'
+     262  ->  '   '
+     471  ->  ' return'
+     264  ->  ' a'
+     489  ->  ' +'
+     293  ->  ' b'
 ```
 
-Notice that "words" and tokens don't line up one-to-one — `def add(a, b):` becomes several tokens, some of them partial words or punctuation clusters. This matters practically because context windows, API pricing, and "how much can I paste into one prompt" are all measured in tokens, not characters or words. A 3,000-line file is not automatically safe to paste into a single prompt just because it "looks" manageable — check the token count.
+(Output from `tiktoken` 0.14.0.) Notice that "words" and tokens don't line up one-to-one. `def add(a, b):` becomes several tokens, some of them partial words or punctuation clusters, and the four-space indent is split between a three-space token and the space at the start of `' return'`. This matters because context windows, API pricing, and "how much can I paste into one prompt" are all measured in tokens, not characters or words. A 3,000-line file is not automatically safe to paste into a single prompt just because it "looks" manageable. Check the token count, ideally with the tokenizer or token-counting tool your provider offers.
 
 The model is not searching the internet or reading your repository unless a tool explicitly gives it that capability — file access, web search, or a connected code index. Absent that, everything it produces comes from patterns learned during training plus whatever you've put directly into the current context window.
 
@@ -95,26 +99,58 @@ A **context window** is the total amount of text (measured in tokens) a model ca
 - Retrieved documents or file contents
 - Tool outputs (search results, command output, etc.)
 
-When the total exceeds the model's context window, something has to give — usually the oldest parts of the conversation stop influencing the response, even though they're technically still "there" in the chat history you can scroll back to. This is a common source of a specific, recognizable failure: a long coding session where the model suddenly seems to forget a constraint you mentioned an hour ago. It didn't forget conceptually — that information simply fell outside the window that actually gets used to generate the next token.
+When the total would exceed the model's context window, something has to give, and different tools handle it differently:
 
-You can observe this directly. If you're working with a local model via Ollama, you can inspect and set the context window explicitly:
+- **Truncating** — dropping the oldest messages or the start of the input, often silently.
+- **Summarizing or compacting** — replacing older parts of the conversation with a shorter summary, which keeps the gist but loses detail.
+- **Returning an error** — refusing the request until you shorten it, which is common when calling a model's API directly.
+
+In the first two cases, the earlier messages are usually still visible in the chat history you can scroll back to, even though the model no longer sees them in full. This is a common source of a recognizable failure: a long coding session where the model suddenly seems to forget a constraint you mentioned an hour ago. The information was dropped or summarized away before the model generated its next response.
+
+A full context isn't the only problem. Even when everything fits, research has found that models tend to use information at the beginning and end of a long context more reliably than information buried in the middle (see Further Reading). Putting the most important constraints near the end of your prompt, or restating them, is a cheap way to work around this.
+
+You can see the context budget directly with a local model. If you're using Ollama, you can inspect a model's settings like this:
 
 ```bash
-ollama show hermes3 --modelfile
+ollama show hermes3:8b
 ```
 
 ```text
-FROM hermes3:8b
-PARAMETER num_ctx 8192
-PARAMETER stop "<|im_end|>"
-TEMPLATE """{{ .System }}
-<|im_start|>user
-{{ .Prompt }}<|im_end|>
-<|im_start|>assistant
-"""
+  Model
+    architecture        llama
+    parameters          8.0B
+    context length      131072
+    embedding length    4096
+    quantization        Q4_0
+
+  Capabilities
+    completion
+    tools
+
+  Parameters
+    stop    "<|im_start|>"
+    stop    "<|im_end|>"
+
+  License
+    META LLAMA 3 COMMUNITY LICENSE AGREEMENT
+    Meta Llama 3 Version Release Date: April 18, 2024
+    ...
 ```
 
-The `num_ctx` parameter here — 8,192 tokens by default for this model — is the entire budget shared across system prompt, conversation history, and generated response. On resource-constrained hardware like a Raspberry Pi 5, this is a real, practical constraint, not an abstract one: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.
+The `context length` of 131,072 tokens is the most this model *can* handle. It isn't what you get by default. Send the model a prompt, then check what Ollama actually loaded:
+
+```bash
+ollama ps
+```
+
+```text
+NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL
+hermes3:8b    4f6b83f30b62    4.9 GB    100% CPU     4096       4 minutes from now
+```
+
+(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default context length based on the GPU memory it finds, and a machine with no GPU memory, like the Pi, gets the smallest default: 4,096 tokens. That number is the entire budget, shared across the system prompt, conversation history, and the generated response. Defaults like this change between Ollama versions, so check with `ollama ps` rather than assuming.
+
+You can raise the limit for a single session with `/set parameter num_ctx 8192` inside `ollama run`, by passing `num_ctx` in the `options` of an API request, or for the whole server with the `OLLAMA_CONTEXT_LENGTH` environment variable. A larger context needs more memory, though, and on resource-constrained hardware like a Raspberry Pi 5 that's a real limit: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.
 
 ---
 
@@ -232,7 +268,7 @@ print(f"Tokens: {len(tokens)}")
 print(f"Ratio: {len(code) / len(tokens):.2f} chars/token")
 ```
 
-Compare the character count to the token count. This ratio is what you're actually budgeting against when you paste large files into a prompt.
+Compare the character count to the token count. This ratio is roughly what you're budgeting against when you paste large files into a prompt. The exact count will differ for the model you actually use, because it has its own tokenizer.
 
 **Step 2 — Trigger a hallucination deliberately.** Pick a library you know well and ask an AI assistant to show you a method or flag that sounds plausible but doesn't exist (for example, a made-up flag on a CLI tool you use often). Note how confidently it's presented, then verify against the real documentation or `--help` output.
 
@@ -246,7 +282,7 @@ Record your findings for all three steps — this is the beginning of your own c
 
 ## Chapter Summary
 
-Large Language Models are probabilistic systems trained to predict the next token in a sequence — not databases, not compilers, and not reasoning engines in the traditional sense. That mechanism explains both their remarkable fluency and their most common failure mode, hallucination. Engineers who understand tokens, context windows, and why hallucinations occur are far better equipped to provide good context, ask precise questions, and know exactly where verification is non-negotiable.
+Large Language Models are probabilistic systems trained to predict the next token in a sequence — not databases and not compilers. Even "reasoning" models that work through a problem step by step generate those steps the same way, so their reasoning can be wrong too. That mechanism explains both their remarkable fluency and their most common failure mode, hallucination. Engineers who understand tokens, context windows, and why hallucinations occur are far better equipped to provide good context, ask precise questions, and know exactly where verification is non-negotiable.
 
 ---
 
@@ -257,6 +293,14 @@ Large Language Models are probabilistic systems trained to predict the next toke
 3. Why do hallucinations occur, and why can't they simply be "fixed" with a better model?
 4. What is a context window, and what practical problem does exceeding it cause?
 5. List five practices from this chapter that measurably improve the quality of AI-generated software, and explain why each one works.
+
+---
+
+## Further Reading
+
+- Nelson F. Liu et al., ["Lost in the Middle: How Language Models Use Long Contexts"](https://arxiv.org/abs/2307.03172), *Transactions of the Association for Computational Linguistics*, 2023. The source for the finding in Section 3.4 that models use information in the middle of a long context less reliably.
+- [Ollama documentation: context length](https://docs.ollama.com/context-length). How Ollama chooses a default context length and how to change it.
+- [`tiktoken` on GitHub](https://github.com/openai/tiktoken). The tokenizer library used in Section 3.2.
 
 ---
 
