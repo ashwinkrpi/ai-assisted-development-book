@@ -505,6 +505,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#preview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -841,6 +852,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#preview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -916,22 +938,22 @@
 </thead>
 <tbody>
 <tr>
-<td>1950s</td>
-<td>Machine code</td>
-<td>Direct, unabstracted hardware programming</td>
+<td>Late 1940s–1950s</td>
+<td>Machine code, then assembly language</td>
+<td>Programming moves from raw numbers to readable mnemonics</td>
 </tr>
 <tr>
-<td>1960s</td>
-<td>Assembly language</td>
-<td>Modest gains in readability and productivity</td>
+<td>1950s</td>
+<td>First high-level languages (FORTRAN, 1957; COBOL, 1959)</td>
+<td>Scientific and business programs written in terms of the problem, not the machine</td>
 </tr>
 <tr>
 <td>1970s–80s</td>
-<td>High-level languages (C, Pascal, later C++)</td>
-<td>Business- and application-oriented software becomes practical</td>
+<td>Structured and systems languages (C, Pascal, later C++)</td>
+<td>Portable, maintainable systems and application software</td>
 </tr>
 <tr>
-<td>1990s</td>
+<td>1980s–90s</td>
 <td>IDEs and debuggers</td>
 <td>Faster iteration, fewer manual build steps</td>
 </tr>
@@ -972,7 +994,7 @@
 <p>The operative word is <strong>assisted</strong>. AI proposes; engineers decide. That distinction is the difference between a productivity tool and a liability.</p>
 <hr />
 <h2 id="14-human-and-ai-complementary-strengths">1.4 Human and AI: Complementary Strengths<a class="headerlink" href="#14-human-and-ai-complementary-strengths" title="Permanent link">&para;</a></h2>
-<p>Human engineers and AI systems are good at different things, and the most productive teams design their workflows around that difference rather than ignoring it.</p>
+<p>Human engineers and AI systems are good at different things, and it pays to design your workflow around that difference rather than ignoring it.</p>
 <table>
 <thead>
 <tr>
@@ -999,7 +1021,7 @@
 </tr>
 </tbody>
 </table>
-<p>A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code and documentation, works extremely fast, never gets tired — and still needs their work reviewed before it ships. That mental model, more than any specific prompting technique, is what determines whether a team gets consistent value out of AI tools or gets burned by them.</p>
+<p>A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code and documentation, works extremely fast, never gets tired — and still needs their work reviewed before it ships. In this book's view, that mental model matters more than any specific prompting technique for getting consistent value out of AI tools instead of getting burned by them.</p>
 <hr />
 <h2 id="15-ai-across-the-sdlc">1.5 AI Across the SDLC<a class="headerlink" href="#15-ai-across-the-sdlc" title="Permanent link">&para;</a></h2>
 <p>AI can contribute at every stage of the software development lifecycle, though the nature of that contribution — and the amount of scrutiny it needs — changes from stage to stage.</p>
@@ -1041,7 +1063,7 @@
 <blockquote>
 <p>"Implement password reset."</p>
 </blockquote>
-<p><strong>A poor workflow</strong> treats this as a single prompt: ask the AI to generate the entire feature — endpoint, email delivery, token handling, and frontend form — in one pass, skim the output, and merge it. This is where AI-assisted development goes wrong most often, not because the AI is incapable, but because a security-sensitive, multi-component feature was never actually decomposed or reviewed at the level it needs.</p>
+<p><strong>A poor workflow</strong> treats this as a single prompt: ask the AI to generate the entire feature — endpoint, email delivery, token handling, and frontend form — in one pass, skim the output, and merge it. This is a common way for AI-assisted development to go wrong, not because the AI is incapable, but because a security-sensitive, multi-component feature was never actually decomposed or reviewed at the level it needs.</p>
 <p><strong>A professional workflow</strong> looks different:</p>
 <ol>
 <li><strong>Clarify requirements.</strong> Does "reset" mean an emailed link, an emailed one-time code, or an SMS code? What's the token expiry? Is there a rate limit on reset requests?</li>
@@ -1113,6 +1135,13 @@
 <li>List three genuine strengths and three recurring limitations of current AI systems.</li>
 <li>Using the password reset case study, explain why iterative, reviewed development produces more reliable outcomes than one-shot generation — even when the same AI tool is used in both cases.</li>
 </ol>
+<hr />
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<p>Research on how much AI tools help developers is still young, and the results are mixed. Chapter 2, Section 2.7 discusses these studies in more detail.</p>
+<ul>
+<li>Sida Peng et al., <a href="https://arxiv.org/abs/2302.06590">"The Impact of AI on Developer Productivity: Evidence from GitHub Copilot"</a>, 2023. A controlled experiment in which developers with an AI assistant finished a small, well-defined task 55.8% faster.</li>
+<li>Joel Becker et al. (METR), <a href="https://arxiv.org/abs/2507.09089">"Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"</a>, 2025. A randomized study in which experienced developers working on their own large projects took 19% longer with AI tools, although they believed it had sped them up.</li>
+</ul>
 <hr />
 <h2 id="preview">Preview<a class="headerlink" href="#preview" title="Permanent link">&para;</a></h2>
 <p>Chapter 2 examines <strong>why AI is transforming software development</strong>, looking at the technical, economic, and organizational forces driving this shift — and what they mean for how professional engineering teams actually work day to day.</p>

@@ -559,6 +559,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#preview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -841,6 +852,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#preview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -886,13 +908,15 @@
 </ul>
 <hr />
 <h2 id="31-why-software-engineers-should-understand-this">3.1 Why Software Engineers Should Understand This<a class="headerlink" href="#31-why-software-engineers-should-understand-this" title="Permanent link">&para;</a></h2>
-<p>Modern AI assistants appear to "understand" programming languages, system architecture, and human intent. They don't — not in the sense that a compiler understands syntax or a database understands a schema. An LLM is a statistical model of language, and everything it produces, including code, is generated one token at a time based on probability, not by executing logic or checking facts against a source of truth.</p>
+<p>Modern AI assistants appear to "understand" programming languages, system architecture, and human intent. Whatever you call what they do, it isn't understanding in the sense that a compiler understands syntax or a database understands a schema. An LLM is a statistical model of language, and everything it produces, including code, is generated one token at a time based on probability, not by executing logic or checking facts against a source of truth.</p>
+<p>Many current models are marketed as "reasoning" or "thinking" models. These models generate intermediate steps — working through the problem in text — before giving a final answer, and that often improves results on multi-step problems such as debugging or math. But those steps are produced by the same token-by-token mechanism. They can contain mistakes, and a well-written chain of reasoning doesn't guarantee a correct conclusion. Treat a reasoning model's output as a better draft, not as a verified one.</p>
 <p>That distinction isn't philosophical — it has direct, practical consequences. It explains why a model can write a syntactically perfect function that calls a method which doesn't exist. It explains why the same question can get a slightly different answer twice. And it explains why the fix for many "the AI got this wrong" situations isn't a better model — it's better context, or a verification step you skipped. Understanding the mechanism turns AI from something you either trust blindly or distrust reflexively into a tool you can use with calibrated confidence.</p>
 <hr />
 <h2 id="32-what-is-a-large-language-model">3.2 What Is a Large Language Model?<a class="headerlink" href="#32-what-is-a-large-language-model" title="Permanent link">&para;</a></h2>
 <p>A <strong>Large Language Model (LLM)</strong> is a neural network trained on very large collections of text and code. During training, it learns statistical relationships between <strong>tokens</strong> — the sub-word units (roughly, word fragments and code symbols) that models operate on instead of raw text.</p>
-<p>At inference time, the model doesn't retrieve stored facts or execute logic. It predicts the single most probable next token, appends it, and repeats — generating a response one token at a time based on everything that came before it in the context window.</p>
-<p>A concrete way to see this: tokenizers are usually available as libraries you can run yourself. Here's what tokenization actually looks like for a short piece of code, using OpenAI's open-source <code>tiktoken</code> library (a reasonable stand-in for how most modern LLMs tokenize, including Claude's family of models):</p>
+<p>At inference time, the model doesn't look up stored facts or execute logic. For each step, it computes a probability for every token in its vocabulary — how likely each one is to come next, given everything already in the context window. The application then picks one token from that distribution, appends it, and repeats, building the response one token at a time.</p>
+<p>The picking step is called <strong>sampling</strong>. Settings such as <strong>temperature</strong> control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same prompt can produce different answers on different runs. That's expected behavior, not a malfunction.</p>
+<p>Before any of this happens, text has to be split into tokens by a <strong>tokenizer</strong>. Each model family has its own tokenizer, so the same text can produce different token counts in different models. To see the idea, here's a short piece of code run through OpenAI's open-source <code>tiktoken</code> library. It's used here only because it's easy to install; other models, including Claude, split text differently, so treat the exact numbers as illustrative of the idea rather than as a count for the model you use:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>tiktoken
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">tiktoken</span>
@@ -910,20 +934,20 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Text: 'def add(a, b):\n    return a + b'
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Token count: 11
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Token IDs: [755, 909, 2948, 11, 293, 997, 262, 471, 264, 489, 293]
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  755   -&gt;  'def'
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  909   -&gt;  ' add'
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  2948  -&gt;  '(a'
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  11    -&gt;  ','
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  293   -&gt;  ' b'
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  997   -&gt;  '):\n'
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  262   -&gt;  '    '
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  471   -&gt;  'return'
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  264   -&gt;  ' a'
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  489   -&gt;  ' +'
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  293   -&gt;  ' b'
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Token IDs: [755, 923, 2948, 11, 293, 997, 262, 471, 264, 489, 293]
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>     755  -&gt;  'def'
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>     923  -&gt;  ' add'
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    2948  -&gt;  '(a'
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>      11  -&gt;  ','
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>     293  -&gt;  ' b'
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>     997  -&gt;  '):\n'
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>     262  -&gt;  '   '
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>     471  -&gt;  ' return'
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>     264  -&gt;  ' a'
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>     489  -&gt;  ' +'
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>     293  -&gt;  ' b'
 </code></pre></div>
-<p>Notice that "words" and tokens don't line up one-to-one — <code>def add(a, b):</code> becomes several tokens, some of them partial words or punctuation clusters. This matters practically because context windows, API pricing, and "how much can I paste into one prompt" are all measured in tokens, not characters or words. A 3,000-line file is not automatically safe to paste into a single prompt just because it "looks" manageable — check the token count.</p>
+<p>(Output from <code>tiktoken</code> 0.14.0.) Notice that "words" and tokens don't line up one-to-one. <code>def add(a, b):</code> becomes several tokens, some of them partial words or punctuation clusters, and the four-space indent is split between a three-space token and the space at the start of <code>' return'</code>. This matters because context windows, API pricing, and "how much can I paste into one prompt" are all measured in tokens, not characters or words. A 3,000-line file is not automatically safe to paste into a single prompt just because it "looks" manageable. Check the token count, ideally with the tokenizer or token-counting tool your provider offers.</p>
 <p>The model is not searching the internet or reading your repository unless a tool explicitly gives it that capability — file access, web search, or a connected code index. Absent that, everything it produces comes from patterns learned during training plus whatever you've put directly into the current context window.</p>
 <hr />
 <h2 id="33-training-fine-tuning-and-inference">3.3 Training, Fine-Tuning, and Inference<a class="headerlink" href="#33-training-fine-tuning-and-inference" title="Permanent link">&para;</a></h2>
@@ -969,26 +993,51 @@
 <li>Retrieved documents or file contents</li>
 <li>Tool outputs (search results, command output, etc.)</li>
 </ul>
-<p>When the total exceeds the model's context window, something has to give — usually the oldest parts of the conversation stop influencing the response, even though they're technically still "there" in the chat history you can scroll back to. This is a common source of a specific, recognizable failure: a long coding session where the model suddenly seems to forget a constraint you mentioned an hour ago. It didn't forget conceptually — that information simply fell outside the window that actually gets used to generate the next token.</p>
-<p>You can observe this directly. If you're working with a local model via Ollama, you can inspect and set the context window explicitly:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ollama<span class="w"> </span>show<span class="w"> </span>hermes3<span class="w"> </span>--modelfile
+<p>When the total would exceed the model's context window, something has to give, and different tools handle it differently:</p>
+<ul>
+<li><strong>Truncating</strong> — dropping the oldest messages or the start of the input, often silently.</li>
+<li><strong>Summarizing or compacting</strong> — replacing older parts of the conversation with a shorter summary, which keeps the gist but loses detail.</li>
+<li><strong>Returning an error</strong> — refusing the request until you shorten it, which is common when calling a model's API directly.</li>
+</ul>
+<p>In the first two cases, the earlier messages are usually still visible in the chat history you can scroll back to, even though the model no longer sees them in full. This is a common source of a recognizable failure: a long coding session where the model suddenly seems to forget a constraint you mentioned an hour ago. The information was dropped or summarized away before the model generated its next response.</p>
+<p>A full context isn't the only problem. Even when everything fits, research has found that models tend to use information at the beginning and end of a long context more reliably than information buried in the middle (see Further Reading). Putting the most important constraints near the end of your prompt, or restating them, is a cheap way to work around this.</p>
+<p>You can see the context budget directly with a local model. If you're using Ollama, you can inspect a model's settings like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ollama<span class="w"> </span>show<span class="w"> </span>hermes3:8b
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>FROM hermes3:8b
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>PARAMETER num_ctx 8192
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>PARAMETER stop "&lt;|im_end|&gt;"
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>TEMPLATE """{{ .System }}
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>&lt;|im_start|&gt;user
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>{{ .Prompt }}&lt;|im_end|&gt;
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>&lt;|im_start|&gt;assistant
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>"""
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>  Model
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    architecture        llama
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    parameters          8.0B
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    context length      131072
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    embedding length    4096
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    quantization        Q4_0
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  Capabilities
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    completion
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    tools
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>  Parameters
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    stop    "&lt;|im_start|&gt;"
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    stop    "&lt;|im_end|&gt;"
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>  License
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    META LLAMA 3 COMMUNITY LICENSE AGREEMENT
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    Meta Llama 3 Version Release Date: April 18, 2024
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    ...
 </code></pre></div>
-<p>The <code>num_ctx</code> parameter here — 8,192 tokens by default for this model — is the entire budget shared across system prompt, conversation history, and generated response. On resource-constrained hardware like a Raspberry Pi 5, this is a real, practical constraint, not an abstract one: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.</p>
+<p>The <code>context length</code> of 131,072 tokens is the most this model <em>can</em> handle. It isn't what you get by default. Send the model a prompt, then check what Ollama actually loaded:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ollama<span class="w"> </span>ps
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hermes3:8b    4f6b83f30b62    4.9 GB    100% CPU     4096       4 minutes from now
+</code></pre></div>
+<p>(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default context length based on the GPU memory it finds, and a machine with no GPU memory, like the Pi, gets the smallest default: 4,096 tokens. That number is the entire budget, shared across the system prompt, conversation history, and the generated response. Defaults like this change between Ollama versions, so check with <code>ollama ps</code> rather than assuming.</p>
+<p>You can raise the limit for a single session with <code>/set parameter num_ctx 8192</code> inside <code>ollama run</code>, by passing <code>num_ctx</code> in the <code>options</code> of an API request, or for the whole server with the <code>OLLAMA_CONTEXT_LENGTH</code> environment variable. A larger context needs more memory, though, and on resource-constrained hardware like a Raspberry Pi 5 that's a real limit: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.</p>
 <hr />
 <h2 id="35-why-hallucinations-happen">3.5 Why Hallucinations Happen<a class="headerlink" href="#35-why-hallucinations-happen" title="Permanent link">&para;</a></h2>
 <p>A <strong>hallucination</strong> is generated content that is fluent and plausible but factually wrong. In a coding context, this shows up as: invented API methods, incorrect command-line flags, references to libraries or functions that don't exist, misquoted documentation, or confidently stated but incorrect assumptions about business rules the model was never told.</p>
 <p>Hallucinations aren't a bug that gets patched out — they're a structural consequence of how generation works. The model is always producing the <em>statistically likely</em> continuation of the text so far, not a verified fact. When the true answer is well-represented in training data and the prompt is specific, the likely continuation and the correct answer usually coincide. When the prompt is vague, the required information wasn't in training data, or you're asking about a fast-moving library that changed after the model's training cutoff, "plausible" and "correct" diverge — and the model has no internal signal telling it that's happening. It generates the wrong answer with exactly the same fluency as the right one.</p>
 <p>Here's a realistic example — asking a model, without any real project context, for a specific method:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Prompt: "Show me how to use the retry decorator from the requests library."
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Prompt: "Show me how to use the retry decorator from the requests library."
 </code></pre></div>
 <p>The <code>requests</code> library doesn't ship a built-in retry decorator — retry logic is typically implemented via <code>urllib3.util.retry.Retry</code> combined with <code>requests.adapters.HTTPAdapter</code>, or through a separate package like <code>tenacity</code>. A model with weak grounding on this specific detail may nonetheless generate a confident, syntactically clean example calling <code>requests.retry(...)</code>, because that pattern name is <em>plausible</em> given how other libraries are structured — even though it doesn't exist. This is precisely the failure mode to watch for: fluency and correctness are independent properties of the output, and only one of them is guaranteed.</p>
 <p><strong>Practical mitigation:</strong> when you're not certain an API surface is real, verify it against actual documentation or the installed package before it goes anywhere near a commit — <code>pip show requests</code>, the official docs, or a quick <code>python -c "import requests; help(requests)"</code> are cheaper than debugging a hallucinated method three commits later.</p>
@@ -1017,13 +1066,13 @@
 <li><strong>Review security implications explicitly</strong> — input validation, auth checks, and unsafe defaults are common hallucination targets because they're easy to generate plausibly and easy to skip reviewing.</li>
 </ol>
 <p>A useful habit: explicitly asking the model to state its assumptions catches a large share of misunderstandings before any code is written. For example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Before writing the implementation, list any assumptions you're making about:
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>- Input validation requirements
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>- Expected data types and ranges
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>- Error handling behavior
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>- Any existing conventions in this codebase you're inferring
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Then wait for me to confirm or correct them before generating code.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Before writing the implementation, list any assumptions you're making about:
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>- Input validation requirements
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>- Expected data types and ranges
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>- Error handling behavior
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>- Any existing conventions in this codebase you're inferring
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>Then wait for me to confirm or correct them before generating code.
 </code></pre></div>
 <p>This single habit — asking for assumptions before generation, not after — prevents a large share of the rework this book keeps warning about.</p>
 <hr />
@@ -1054,20 +1103,20 @@ F --&gt; G[Production Code]</code></pre>
 <h2 id="hands-on-lab-tokens-context-and-hallucination-in-practice">Hands-On Lab: Tokens, Context, and Hallucination in Practice<a class="headerlink" href="#hands-on-lab-tokens-context-and-hallucination-in-practice" title="Permanent link">&para;</a></h2>
 <p>This lab has three parts, each demonstrating a concept from this chapter directly rather than abstractly.</p>
 <p><strong>Step 1 — See tokenization yourself.</strong> Run the <code>tiktoken</code> script from Section 3.2 against a real file from one of your own projects instead of the toy example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">tiktoken</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">(</span><span class="s2">"cl100k_base"</span><span class="p">)</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"your_file.py"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">code</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">tokens</span> <span class="o">=</span> <span class="n">encoding</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"File: your_file.py"</span><span class="p">)</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Characters: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tokens: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ratio: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> chars/token"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">tiktoken</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">get_encoding</span><span class="p">(</span><span class="s2">"cl100k_base"</span><span class="p">)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"your_file.py"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">code</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="n">tokens</span> <span class="o">=</span> <span class="n">encoding</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"File: your_file.py"</span><span class="p">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Characters: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tokens: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Ratio: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> chars/token"</span><span class="p">)</span>
 </code></pre></div>
-<p>Compare the character count to the token count. This ratio is what you're actually budgeting against when you paste large files into a prompt.</p>
+<p>Compare the character count to the token count. This ratio is roughly what you're budgeting against when you paste large files into a prompt. The exact count will differ for the model you actually use, because it has its own tokenizer.</p>
 <p><strong>Step 2 — Trigger a hallucination deliberately.</strong> Pick a library you know well and ask an AI assistant to show you a method or flag that sounds plausible but doesn't exist (for example, a made-up flag on a CLI tool you use often). Note how confidently it's presented, then verify against the real documentation or <code>--help</code> output.</p>
 <p><strong>Step 3 — Test the context window limit.</strong> If you have Ollama running locally (as covered in Chapter 5), start a long conversation, mention a specific constraint early on (e.g., "always use snake_case for variable names"), then paste a large amount of unrelated code or text, and finally ask a question that depends on the earlier constraint. Note whether the model still applies it, and relate what you observe back to Section 3.4.</p>
 <p>Record your findings for all three steps — this is the beginning of your own calibrated intuition for when to trust AI output and when to slow down and verify.</p>
@@ -1076,7 +1125,7 @@ F --&gt; G[Production Code]</code></pre>
 </blockquote>
 <hr />
 <h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
-<p>Large Language Models are probabilistic systems trained to predict the next token in a sequence — not databases, not compilers, and not reasoning engines in the traditional sense. That mechanism explains both their remarkable fluency and their most common failure mode, hallucination. Engineers who understand tokens, context windows, and why hallucinations occur are far better equipped to provide good context, ask precise questions, and know exactly where verification is non-negotiable.</p>
+<p>Large Language Models are probabilistic systems trained to predict the next token in a sequence — not databases and not compilers. Even "reasoning" models that work through a problem step by step generate those steps the same way, so their reasoning can be wrong too. That mechanism explains both their remarkable fluency and their most common failure mode, hallucination. Engineers who understand tokens, context windows, and why hallucinations occur are far better equipped to provide good context, ask precise questions, and know exactly where verification is non-negotiable.</p>
 <hr />
 <h2 id="review-questions">Review Questions<a class="headerlink" href="#review-questions" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1086,6 +1135,13 @@ F --&gt; G[Production Code]</code></pre>
 <li>What is a context window, and what practical problem does exceeding it cause?</li>
 <li>List five practices from this chapter that measurably improve the quality of AI-generated software, and explain why each one works.</li>
 </ol>
+<hr />
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Nelson F. Liu et al., <a href="https://arxiv.org/abs/2307.03172">"Lost in the Middle: How Language Models Use Long Contexts"</a>, <em>Transactions of the Association for Computational Linguistics</em>, 2023. The source for the finding in Section 3.4 that models use information in the middle of a long context less reliably.</li>
+<li><a href="https://docs.ollama.com/context-length">Ollama documentation: context length</a>. How Ollama chooses a default context length and how to change it.</li>
+<li><a href="https://github.com/openai/tiktoken"><code>tiktoken</code> on GitHub</a>. The tokenizer library used in Section 3.2.</li>
+</ul>
 <hr />
 <h2 id="preview">Preview<a class="headerlink" href="#preview" title="Permanent link">&para;</a></h2>
 <p>Chapter 4 examines how AI integrates into the complete Software Development Lifecycle and introduces a repeatable, quality-gated AI-assisted engineering process used throughout the remainder of this book — including the CI configuration and workflow scripts that enforce it.</p>

@@ -1028,7 +1028,9 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>-f<span class="w"> </span>security_and_analysis<span class="o">[</span>secret_scanning<span class="o">][</span>status<span class="o">]=</span>enabled<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-f<span class="w"> </span>security_and_analysis<span class="o">[</span>secret_scanning_push_protection<span class="o">][</span>status<span class="o">]=</span>enabled
 </code></pre></div>
-<p>Or via the UI: <strong>Settings → Code security and analysis → Secret scanning → Enable</strong>, and turn on <strong>Push protection</strong> alongside it so a secret is blocked <em>before</em> it lands in history, not just flagged after.</p>
+<p>Or via the UI: open the repository's <strong>Settings</strong>, find the code security page (currently <strong>Advanced Security</strong>; GitHub renames these menus from time to time), enable <strong>Secret Protection</strong>, and turn on <strong>Push protection</strong> alongside it so a secret is blocked <em>before</em> it lands in history, not just flagged after.</p>
+<p>Check availability before you rely on this. Secret scanning and push protection are free for public repositories. For private repositories, they need a paid add-on (GitHub Secret Protection, part of what used to be called GitHub Advanced Security) on an organization plan. If you can't enable them, a local pre-commit secret scanner is a reasonable substitute.</p>
+<p>Also know what push protection actually catches: it matches secrets against patterns for known providers (cloud keys, tokens from popular services, and so on). A random string you made up won't be blocked, and neither will a provider's key format that GitHub doesn't support. It reduces risk; it doesn't replace keeping secrets out of your code.</p>
 <p>A <code>.gitignore</code> that actually excludes the common leak vectors is the first line of defense:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># Secrets and environment
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>.env
@@ -1059,25 +1061,30 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># Verify it's running</span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>ollama<span class="w"> </span>list
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>NAME            ID              SIZE      MODIFIED
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hermes3:8b      a1b2c3d4e5f6    4.7 GB    2 minutes ago
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>NAME          ID              SIZE      MODIFIED
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hermes3:8b    4f6b83f30b62    4.7 GB    3 seconds ago
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Quick sanity check from the terminal</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ollama<span class="w"> </span>run<span class="w"> </span>hermes3:8b<span class="w"> </span><span class="s2">"Explain what a context window is in one sentence."</span>
 </code></pre></div>
-<p>For editor integration, the <a href="https://continue.dev">Continue</a> VS Code extension can point at a local Ollama endpoint instead of a cloud API:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// .continue/config.json</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">{</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"models"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="p">{</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hermes 3 (Local Pi5)"</span><span class="p">,</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">      </span><span class="nt">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ollama"</span><span class="p">,</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">      </span><span class="nt">"model"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hermes3:8b"</span><span class="p">,</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">      </span><span class="nt">"apiBase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://&lt;pi5-ip&gt;:11434"</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="p">}</span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span><span class="p">]</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>A context window, in the context of natural language processing, refers to
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>a fixed number of words surrounding a target word or token that is used to
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>provide additional information for understanding and analyzing the text.
 </code></pre></div>
+<p>(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an LLM that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.</p>
+<p>For editor integration, the <a href="https://continue.dev">Continue</a> VS Code extension can point at a local Ollama endpoint instead of a cloud API:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># ~/.continue/config.yaml</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local Pi 5</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.1</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nt">models</span><span class="p">:</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hermes 3 (Local Pi 5)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ollama</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hermes3:8b</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://&lt;pi5-ip&gt;:11434</span>
+</code></pre></div>
+<p>Continue's configuration format has changed over time (older guides use a <code>config.json</code> file), so check <a href="https://docs.continue.dev/customize/model-providers/top-level/ollama">Continue's Ollama documentation</a> for the current format before copying this. If Ollama runs on the same machine as your editor, you can leave out <code>apiBase</code>. If it runs on another machine, as here, Ollama has to be started with <code>OLLAMA_HOST=0.0.0.0:11434</code> so it accepts connections from the network — only do that on a network you trust.</p>
 <p>This is the same local stack referenced in Chapter 3's discussion of context windows. Local models are a different design point from cloud APIs, not a lesser version of the same thing, and this book treats both as legitimate parts of a professional toolkit, depending on the constraint you're optimizing for.</p>
 <hr />
 <h2 id="57-productivity-practices">5.7 Productivity Practices<a class="headerlink" href="#57-productivity-practices" title="Permanent link">&para;</a></h2>
@@ -1087,17 +1094,17 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <li><strong>Run tests frequently</strong>, not just before a PR — a fast local test loop is what makes "frequently" realistic.</li>
 <li><strong>Automate formatting</strong> via a pre-commit hook so style never becomes a review discussion:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># .pre-commit-config.yaml</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">repos</span><span class="p">:</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/astral-sh/ruff-pre-commit</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.6.9</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">--fix</span><span class="p p-Indicator">]</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff-format</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># .pre-commit-config.yaml</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">repos</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/astral-sh/ruff-pre-commit</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.16.10</span><span class="w">  </span><span class="c1"># run `pre-commit autoupdate` to move to the latest release</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">hooks</span><span class="p">:</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff-check</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">--fix</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff-format</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>pre-commit<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>pre-commit<span class="w"> </span>install
 </code></pre></div>
 <ol>
 <li><strong>Document architectural decisions</strong> as you make them — a lightweight <code>docs/decisions/0001-use-sqlite-for-local-cache.md</code> per significant choice is enough; the format matters far less than the habit.</li>
@@ -1127,7 +1134,7 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <li>Build the project and run its test suite with a single command.</li>
 <li>Make a small change, commit it, and confirm the pre-commit hook runs formatting automatically.</li>
 <li>Use an AI assistant — cloud or local — to explain an unfamiliar module in the project, and check its explanation against the actual code.</li>
-<li>Enable secret scanning and push protection on the repository, and confirm it blocks a deliberately-committed fake secret (e.g., a string that matches an API key pattern but isn't real).</li>
+<li>Enable secret scanning and push protection on the repository (use a public test repository if your private repositories don't have Secret Protection; see Section 5.5). Then try to push a commit containing a fake secret and confirm the push is blocked. Push protection only recognizes supported provider patterns, so a made-up string won't trigger it: the fake value has to match the format of a real provider's token. Never use a real credential for this test.</li>
 </ol>
 <p>Document the full setup in a <code>SETUP.md</code> so another developer — or a future you, on a new machine — can reproduce it from a cold start.</p>
 <blockquote>
