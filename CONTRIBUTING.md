@@ -71,14 +71,23 @@ Every contribution should follow these principles:
 chapters/                 # book source, published by MkDocs
 ├── index.md              # site landing page
 └── 01-foundations/       # Part 1 (Volume 1): chapters 1–6
+examples/                 # runnable companion code, one folder per example
+scripts/check_examples.py # checks chapter code blocks match examples/
 images/                   # README banner images
-.github/workflows/        # site deployment
+.github/workflows/        # site deployment and example tests
 mkdocs.yml                # site configuration and navigation
 ```
 
 Chapter text goes in `chapters/`. If you add a page, also add it to the
 `nav` section of `mkdocs.yml`, and check that `mkdocs build --strict`
 passes. Don't commit `site/`, because CI builds it.
+
+Code in a chapter that readers are meant to run lives in `examples/`.
+Start the chapter's code block with a comment naming the file, such as
+`# tests/test_cli.py`, and keep it identical to that file.
+`python3 scripts/check_examples.py` reports any difference, and CI runs
+it with each example's tests. Output shown in a chapter must be pasted
+from a real run.
 
 ------------------------------------------------------------------------
 

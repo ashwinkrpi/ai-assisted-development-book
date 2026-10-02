@@ -1,0 +1,43 @@
+name: Examples
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.13"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Check chapter code blocks match examples/
+        run: python scripts/check_examples.py
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run each example's tests
+        run: |
+          for dir in examples/*/; do
+            echo "::group::$dir"
+            (cd "$dir" && python -m pytest -v)
+            echo "::endgroup::"
+          done
+
+      - name: Check the notes command installs and runs
+        working-directory: examples/ch06-notes-manager
+        run: |
+          pip install -e .
+          notes --storage "$RUNNER_TEMP/notes.json" add "CI" "smoke test"
+          notes --storage "$RUNNER_TEMP/notes.json" list
