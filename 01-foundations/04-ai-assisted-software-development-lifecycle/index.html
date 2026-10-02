@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="A publication-ready guide to AI-assisted software engineering">
+        <meta name="description" content="Volume 1 (Part 1: Foundations) of a practical guide to AI-assisted software engineering">
       
       
         <meta name="author" content="Ashwin">
@@ -25,15 +25,15 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Chapter 4: The AI-Assisted Development Lifecycle - AI Assisted Development Book — Volume 1</title>
+        <title>Chapter 4 — The AI-Assisted Development Lifecycle - AI Assisted Development Book — Volume 1</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Chapter 4: The AI-Assisted Development Lifecycle
+              Chapter 4 — The AI-Assisted Development Lifecycle
             
           </span>
         </div>
@@ -296,7 +296,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 1: Introduction
+    Chapter 1 — Introduction
   
 
     
@@ -323,7 +323,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 2: Why AI Is Transforming Software Development
+    Chapter 2 — Why AI Is Transforming Software Development
   
 
     
@@ -350,7 +350,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 3: Understanding Large Language Models
+    Chapter 3 — Understanding Large Language Models
   
 
     
@@ -386,7 +386,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 4: The AI-Assisted Development Lifecycle
+    Chapter 4 — The AI-Assisted Development Lifecycle
   
 
     
@@ -404,7 +404,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 4: The AI-Assisted Development Lifecycle
+    Chapter 4 — The AI-Assisted Development Lifecycle
   
 
     
@@ -668,7 +668,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 5: Building Your Development Environment
+    Chapter 5 — Building Your Development Environment
   
 
     
@@ -695,7 +695,7 @@
   <span class="md-ellipsis">
     
   
-    Chapter 6: Your First AI-Assisted Project
+    Chapter 6 — Your First AI-Assisted Project
   
 
     
@@ -1006,7 +1006,7 @@ J --&gt; B</code></pre>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <p>Use AI to stress-test a specification before any code is written — identifying ambiguity, conflicting requirements, missing acceptance criteria, unconsidered stakeholders, and edge cases. A concrete prompt pattern that works well:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Here is a draft user story:
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>&quot;As a user, I want to reset my password so I can regain access to my account.&quot;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>"As a user, I want to reset my password so I can regain access to my account."
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Review this for:
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>1. Missing acceptance criteria
@@ -1014,7 +1014,7 @@ J --&gt; B</code></pre>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>3. Security requirements that should be explicit
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>4. Ambiguous terms that could be interpreted multiple ways
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>List your findings as questions I need to answer, not as assumptions you&#39;re making on my behalf.
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>List your findings as questions I need to answer, not as assumptions you're making on my behalf.
 </code></pre></div>
 <p>That last line matters — it's the difference between AI helping you find gaps and AI quietly filling them with guesses.</p>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
@@ -1032,13 +1032,13 @@ J --&gt; B</code></pre>
 <p>Generate one logical component at a time. Keep commits small, readable, and independently testable — this is where the "incremental over one-shot" principle from Chapter 1 becomes a concrete git habit:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># One logical unit of work per commit, each independently reviewable</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>add<span class="w"> </span>app/auth/password_reset.py
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add password reset token generation with 15-min expiry&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add password reset token generation with 15-min expiry"</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>git<span class="w"> </span>add<span class="w"> </span>tests/auth/test_password_reset.py
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add tests for password reset token generation&quot;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add tests for password reset token generation"</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>git<span class="w"> </span>add<span class="w"> </span>app/auth/views.py
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Wire password reset endpoint to token generation&quot;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Wire password reset endpoint to token generation"</span>
 </code></pre></div>
 <p>Each commit here corresponds to a single AI-assisted generation step that was reviewed before moving to the next. A commit history that reads like this is also a debugging aid months later — <code>git bisect</code> is far more useful against small, single-purpose commits than one 800-line "implement password reset" commit.</p>
 <h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
@@ -1071,7 +1071,7 @@ J --&gt; B</code></pre>
 <a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
 <a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">test_malformed_token_is_rejected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>        <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">InvalidTokenError</span><span class="p">):</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>            <span class="n">verify_reset_token</span><span class="p">(</span><span class="s2">&quot;not-a-real-token&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>            <span class="n">verify_reset_token</span><span class="p">(</span><span class="s2">"not-a-real-token"</span><span class="p">)</span>
 </code></pre></div>
 <p>Run it the same way you'd run any test suite before trusting the implementation it covers:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pytest<span class="w"> </span>tests/auth/test_password_reset.py<span class="w"> </span>-v
@@ -1090,7 +1090,7 @@ J --&gt; B</code></pre>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Generate API documentation for this Flask endpoint. Include the request
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>schema, response schema, all possible status codes with their triggers,
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>and one example request/response pair. Base every claim strictly on the
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>code below — do not describe behavior the code doesn&#39;t actually implement.
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>code below — do not describe behavior the code doesn't actually implement.
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>[paste endpoint code]
 </code></pre></div>
@@ -1102,7 +1102,7 @@ J --&gt; B</code></pre>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>mypy<span class="w"> </span>app/auth/password_reset.py
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>bandit<span class="w"> </span>-r<span class="w"> </span>app/auth/<span class="w">  </span><span class="c1"># security-focused static analysis</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>app/auth/password_reset.py:23:5: S105 Possible hardcoded password: &#39;temp_token&#39;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>app/auth/password_reset.py:23:5: S105 Possible hardcoded password: 'temp_token'
 </code></pre></div>
 <p>A tool like <code>bandit</code> catching something like this before a human even looks at the diff is a good example of automated and human review working together — it's a cheap first pass that narrows what a human reviewer needs to focus attention on.</p>
 <h3 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h3>
@@ -1163,7 +1163,7 @@ J --&gt; B</code></pre>
 <a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
 <a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
 <a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.12&quot;</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">"3.12"</span>
 <a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt -r requirements-dev.txt</span>
 <a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
 <a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytest --cov=app --cov-fail-under=80</span>
@@ -1172,7 +1172,7 @@ J --&gt; B</code></pre>
 <a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Security scan</span>
 <a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bandit -r app/</span>
 <a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Require review approval</span>
-<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo &quot;Branch protection enforces required reviewers separately&quot;</span>
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">echo "Branch protection enforces required reviewers separately"</span>
 </code></pre></div>
 <p>Pairing this with a branch protection rule (<code>Settings → Branches → Require pull request reviews before merging</code>) turns "we review AI-generated code" from a stated policy into something the repository actually enforces.</p>
 <hr />
@@ -1305,7 +1305,7 @@ J --&gt; B</code></pre>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
