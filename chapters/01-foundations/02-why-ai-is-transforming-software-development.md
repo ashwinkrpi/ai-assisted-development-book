@@ -95,7 +95,7 @@ To get durable value out of AI tools, rather than a short-lived productivity bum
 2. **Establish review standards before scaling up usage.** Decide, as a team, what level of review AI-generated code requires — and hold to it even when it's inconvenient.
 3. **Protect confidential data.** Understand what your AI tooling does with the code and data you send it, and set clear policies about what can and can't be shared with which tools.
 4. **Measure productivity and quality together, not either in isolation.** Faster delivery that increases defect rates isn't a win; it's a cost shifted downstream.
-5. **Continuously improve prompts, context, and workflows** as a team practice — treat this the same way you'd treat any other engineering process that benefits from iteration.
+5. **Continuously improve [prompts](../glossary.md#prompt), context, and workflows** as a team practice — treat this the same way you'd treat any other engineering process that benefits from iteration.
 
 ---
 
@@ -200,4 +200,4 @@ The evidence on productivity is still mixed: some studies find large speedups on
 
 ## Next Chapter
 
-Chapter 3 explores how modern large language models actually work, why they generate convincing responses even when incorrect, and what every software engineer should understand about their capabilities and limitations before relying on them in daily work.
+Chapter 3 explores how modern [large language models](../glossary.md#llm) actually work, why they generate convincing responses even when incorrect, and what every software engineer should understand about their capabilities and limitations before relying on them in daily work.

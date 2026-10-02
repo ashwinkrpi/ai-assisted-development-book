@@ -777,4 +777,4 @@ This project demonstrated the complete AI-assisted workflow from requirements th
 
 ## End of Part 1
 
-Part 2 (Volume 2) begins with prompt engineering and effective communication with AI systems — building directly on the context and workflow habits established across these first six chapters.
+Part 2 (Volume 2) begins with [prompt](../glossary.md#prompt) engineering and effective communication with AI systems — building directly on the context and workflow habits established across these first six chapters.

@@ -6,10 +6,10 @@
 
 By the end of this chapter, you will be able to:
 
-- Explain what a Large Language Model (LLM) is, in terms precise enough to be useful rather than just evocative.
-- Distinguish between training, fine-tuning, inference, and tool use — and know which one you're actually interacting with day to day.
-- Explain tokens and context windows well enough to reason about why a model "forgot" something earlier in a long session.
-- Recognize why hallucinations happen, and predict the situations where they're most likely.
+- Explain what a [Large Language Model (LLM)](../glossary.md#llm) is, in terms precise enough to be useful rather than just evocative.
+- Distinguish between training, [fine-tuning](../glossary.md#fine-tuning), [inference](../glossary.md#inference), and [tool use](../glossary.md#tool-use) — and know which one you're actually interacting with day to day.
+- Explain [tokens](../glossary.md#token) and [context windows](../glossary.md#context-window) well enough to reason about why a model "forgot" something earlier in a long session.
+- Recognize why [hallucinations](../glossary.md#hallucination) happen, and predict the situations where they're most likely.
 - Apply a concrete, repeatable set of practices for using LLMs safely in professional software engineering.
 
 ---
@@ -30,7 +30,7 @@ A **Large Language Model (LLM)** is a neural network trained on very large colle
 
 At inference time, the model doesn't look up stored facts or execute logic. For each step, it computes a probability for every token in its vocabulary — how likely each one is to come next, given everything already in the context window. The application then picks one token from that distribution, appends it, and repeats, building the response one token at a time.
 
-The picking step is called **sampling**. Settings such as **temperature** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same prompt can produce different answers on different runs. That's expected behavior, not a malfunction.
+The picking step is called **sampling**. Settings such as **[temperature](../glossary.md#temperature)** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same [prompt](../glossary.md#prompt) can produce different answers on different runs. That's expected behavior, not a malfunction.
 
 Before any of this happens, text has to be split into tokens by a **tokenizer**. Each model family has its own tokenizer, so the same text can produce different token counts in different models. To see the idea, here's a short piece of code run through OpenAI's open-source `tiktoken` library. It's used here only because it's easy to install; other models, including Claude, split text differently, so treat the exact numbers as illustrative of the idea rather than as a count for the model you use:
 
@@ -81,7 +81,7 @@ The model is not searching the internet or reading your repository unless a tool
 | Phase | Purpose | Who does this |
 |---|---|---|
 | Pre-training | Learn language and code patterns from massive datasets | The model provider (e.g., Anthropic, OpenAI) |
-| Fine-tuning / RLHF | Shape behavior for helpfulness, safety, and specific tasks | The model provider |
+| Fine-tuning / [RLHF](../glossary.md#rlhf) | Shape behavior for helpfulness, safety, and specific tasks | The model provider |
 | Inference | Generate a response to your prompt | You, every time you send a message |
 | Tool use | Access external knowledge or take actions (search, run code, call APIs) | You, by enabling and invoking tools |
 
@@ -148,7 +148,7 @@ NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL
 hermes3:8b    4f6b83f30b62    4.9 GB    100% CPU     4096       4 minutes from now
 ```
 
-(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default context length based on the GPU memory it finds, and a machine with no GPU memory, like the Pi, gets the smallest default: 4,096 tokens. That number is the entire budget, shared across the system prompt, conversation history, and the generated response. Defaults like this change between Ollama versions, so check with `ollama ps` rather than assuming.
+(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default context length based on the GPU memory it finds, and a machine with no GPU memory, like the Pi, gets the smallest default: 4,096 tokens. That number is the entire budget, shared across the [system prompt](../glossary.md#system-prompt), conversation history, and the generated response. Defaults like this change between Ollama versions, so check with `ollama ps` rather than assuming.
 
 You can raise the limit for a single session with `/set parameter num_ctx 8192` inside `ollama run`, by passing `num_ctx` in the `options` of an API request, or for the whole server with the `OLLAMA_CONTEXT_LENGTH` environment variable. A larger context needs more memory, though, and on resource-constrained hardware like a Raspberry Pi 5 that's a real limit: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.
 
