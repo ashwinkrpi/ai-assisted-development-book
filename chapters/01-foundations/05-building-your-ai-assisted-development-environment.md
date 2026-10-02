@@ -201,7 +201,7 @@ For editor integration, the [Continue](https://continue.dev) VS Code extension c
 }
 ```
 
-This is the same local stack referenced in Chapter 3's discussion of context windows, and it's the foundation for the scheduled, automated content-generation pipelines covered later in this book — local models are a genuinely different design point than cloud APIs, not a lesser version of the same thing, and Part 1 of this book treats both as legitimate parts of a professional toolkit depending on the constraint you're optimizing for.
+This is the same local stack referenced in Chapter 3's discussion of context windows. Local models are a different design point from cloud APIs, not a lesser version of the same thing, and this book treats both as legitimate parts of a professional toolkit, depending on the constraint you're optimizing for.
 
 ---
 

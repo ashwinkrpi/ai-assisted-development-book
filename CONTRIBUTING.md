@@ -68,18 +68,17 @@ Every contribution should follow these principles:
 # Repository Structure
 
 ``` text
-chapters/
-code/
-diagrams/
-exercises/
-figures/
-labs/
-prompts/
-solutions/
-templates/
+chapters/                 # book source, published by MkDocs
+├── index.md              # site landing page
+└── 01-foundations/       # Part 1 (Volume 1): chapters 1–6
+images/                   # README banner images
+.github/workflows/        # site deployment
+mkdocs.yml                # site configuration and navigation
 ```
 
-Place new content in the appropriate directory.
+Chapter text goes in `chapters/`. If you add a page, also add it to the
+`nav` section of `mkdocs.yml`, and check that `mkdocs build --strict`
+passes. Don't commit `site/`, because CI builds it.
 
 ------------------------------------------------------------------------
 
@@ -141,7 +140,7 @@ engineering.
 # Commit Message Examples
 
 ``` text
-docs: improve chapter 7 prompt engineering examples
+docs(ch3): clarify context window example
 fix: correct REST API validation bug
 feat: add RAG sample application
 test: increase unit test coverage for task manager

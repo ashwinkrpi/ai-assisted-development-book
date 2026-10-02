@@ -16,3 +16,10 @@ node_modules/
 
 #python
 .venv
+
+# MkDocs build output (deployed by CI)
+site/
+
+# Local planning and assistant files
+BUILD-PLAN.md
+CLAUDE.md

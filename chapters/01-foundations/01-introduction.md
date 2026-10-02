@@ -177,7 +177,7 @@ Every feature example in the chapters that follow uses the same underlying workf
 7. Review manually — every AI contribution, every time.
 8. Commit only validated work.
 
-You'll see this same eight-step shape recur throughout the book, applied to requirements engineering, architecture, debugging, and the real-world projects in Part 5. It's worth memorizing.
+You'll see this same eight-step shape recur throughout the book, applied to requirements, architecture, testing, and the complete project in Chapter 6, and it continues in later volumes. It's worth memorizing.
 
 ---
 

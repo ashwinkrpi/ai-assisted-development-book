@@ -114,7 +114,7 @@ TEMPLATE """{{ .System }}
 """
 ```
 
-The `num_ctx` parameter here — 8,192 tokens by default for this model — is the entire budget shared across system prompt, conversation history, and generated response. On resource-constrained hardware like a Raspberry Pi 5, this is a real, practical constraint, not an abstract one: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. This is directly relevant to the local Hermes-based pipelines discussed later in this book — context budget is a design constraint you plan around, not an implementation detail you can ignore.
+The `num_ctx` parameter here — 8,192 tokens by default for this model — is the entire budget shared across system prompt, conversation history, and generated response. On resource-constrained hardware like a Raspberry Pi 5, this is a real, practical constraint, not an abstract one: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.
 
 ---
 
@@ -215,7 +215,7 @@ The first three boxes are entirely mechanical and probabilistic. The last three 
 
 This lab has three parts, each demonstrating a concept from this chapter directly rather than abstractly.
 
-**Part 1 — See tokenization yourself.** Run the `tiktoken` script from Section 3.2 against a real file from one of your own projects instead of the toy example:
+**Step 1 — See tokenization yourself.** Run the `tiktoken` script from Section 3.2 against a real file from one of your own projects instead of the toy example:
 
 ```python
 import tiktoken
@@ -234,13 +234,13 @@ print(f"Ratio: {len(code) / len(tokens):.2f} chars/token")
 
 Compare the character count to the token count. This ratio is what you're actually budgeting against when you paste large files into a prompt.
 
-**Part 2 — Trigger a hallucination deliberately.** Pick a library you know well and ask an AI assistant to show you a method or flag that sounds plausible but doesn't exist (for example, a made-up flag on a CLI tool you use often). Note how confidently it's presented, then verify against the real documentation or `--help` output.
+**Step 2 — Trigger a hallucination deliberately.** Pick a library you know well and ask an AI assistant to show you a method or flag that sounds plausible but doesn't exist (for example, a made-up flag on a CLI tool you use often). Note how confidently it's presented, then verify against the real documentation or `--help` output.
 
-**Part 3 — Test the context window limit.** If you have Ollama running locally (as covered in Chapter 5), start a long conversation, mention a specific constraint early on (e.g., "always use snake_case for variable names"), then paste a large amount of unrelated code or text, and finally ask a question that depends on the earlier constraint. Note whether the model still applies it, and relate what you observe back to Section 3.4.
+**Step 3 — Test the context window limit.** If you have Ollama running locally (as covered in Chapter 5), start a long conversation, mention a specific constraint early on (e.g., "always use snake_case for variable names"), then paste a large amount of unrelated code or text, and finally ask a question that depends on the earlier constraint. Note whether the model still applies it, and relate what you observe back to Section 3.4.
 
-Record your findings for all three parts — this is the beginning of your own calibrated intuition for when to trust AI output and when to slow down and verify.
+Record your findings for all three steps — this is the beginning of your own calibrated intuition for when to trust AI output and when to slow down and verify.
 
-> **Screenshot placeholder:** Capture your terminal output from Part 1 (the token count comparison) and, if you complete Part 3, a screenshot of the point in the conversation where the model does or doesn't correctly apply the earlier constraint. Insert both here in the published version, with captions identifying what each one demonstrates.
+> **Screenshot placeholder:** Capture your terminal output from Step 1 (the token count comparison) and, if you complete Step 3, a screenshot of the point in the conversation where the model does or doesn't correctly apply the earlier constraint. Insert both here in the published version, with captions identifying what each one demonstrates.
 
 ---
 

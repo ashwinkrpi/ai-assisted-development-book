@@ -1,5 +1,5 @@
 site_name: AI Assisted Development Book — Volume 1
-site_description: A publication-ready guide to AI-assisted software engineering
+site_description: "Volume 1 (Part 1: Foundations) of a practical guide to AI-assisted software engineering"
 site_author: Ashwin
 repo_url: https://github.com/ashwinkrpi/ai-assisted-development-book
 repo_name: ashwinkrpi/ai-assisted-development-book
@@ -31,12 +31,12 @@ theme:
 
 nav:
   - Home: index.md
-  - "Chapter 1: Introduction": 01-foundations/01-introduction.md
-  - "Chapter 2: Why AI Is Transforming Software Development": 01-foundations/02-why-ai-is-transforming-software-development.md
-  - "Chapter 3: Understanding Large Language Models": 01-foundations/03-understanding-large-language-models.md
-  - "Chapter 4: The AI-Assisted Development Lifecycle": 01-foundations/04-ai-assisted-software-development-lifecycle.md
-  - "Chapter 5: Building Your Development Environment": 01-foundations/05-building-your-ai-assisted-development-environment.md
-  - "Chapter 6: Your First AI-Assisted Project": 01-foundations/06-your-first-ai-assisted-software-project.md
+  - "Chapter 1 — Introduction": 01-foundations/01-introduction.md
+  - "Chapter 2 — Why AI Is Transforming Software Development": 01-foundations/02-why-ai-is-transforming-software-development.md
+  - "Chapter 3 — Understanding Large Language Models": 01-foundations/03-understanding-large-language-models.md
+  - "Chapter 4 — The AI-Assisted Development Lifecycle": 01-foundations/04-ai-assisted-software-development-lifecycle.md
+  - "Chapter 5 — Building Your Development Environment": 01-foundations/05-building-your-ai-assisted-development-environment.md
+  - "Chapter 6 — Your First AI-Assisted Project": 01-foundations/06-your-first-ai-assisted-software-project.md
 
 markdown_extensions:
   - admonition

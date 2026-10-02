@@ -34,7 +34,7 @@ jobs:
           path: ~/.cache/pip
 
       - name: Install MkDocs Material
-        run: pip install mkdocs-material
+        run: pip install mkdocs-material "mkdocs<2"
 
       - name: Build site (strict mode)
         run: mkdocs build --strict
