@@ -289,6 +289,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../00-before-you-begin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 0 — Before You Begin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../01-introduction/" class="md-nav__link">
         
   
@@ -664,6 +691,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1012,7 +1066,7 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>├── pyproject.toml
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>└── README.md
 </code></pre></div>
-<p>A consistent layout makes it easier for both humans and AI to understand your repository — when you paste "here's my project structure" into a prompt, a predictable layout means the model can make correct assumptions about where things live instead of guessing. This is also why <code>.env.example</code> (committed) versus <code>.env</code> (gitignored, never committed) is worth calling out explicitly: it documents the required configuration shape without leaking actual secrets, and it's a pattern AI assistants recognize and respect when generating code that reads environment variables.</p>
+<p>A consistent layout makes it easier for both humans and AI to understand your repository — when you paste "here's my project structure" into a <a href="../../glossary/#prompt">prompt</a>, a predictable layout means the model can make correct assumptions about where things live instead of guessing. This is also why <code>.env.example</code> (committed) versus <code>.env</code> (gitignored, never committed) is worth calling out explicitly: it documents the required configuration shape without leaking actual secrets, and it's a pattern AI assistants recognize and respect when generating code that reads environment variables.</p>
 <hr />
 <h2 id="55-security-considerations">5.5 Security Considerations<a class="headerlink" href="#55-security-considerations" title="Permanent link">&para;</a></h2>
 <p>Before enabling AI tools on a real codebase:</p>
@@ -1071,7 +1125,7 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>a fixed number of words surrounding a target word or token that is used to
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>provide additional information for understanding and analyzing the text.
 </code></pre></div>
-<p>(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an LLM that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.</p>
+<p>(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an <a href="../../glossary/#llm">LLM</a> that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.</p>
 <p>For editor integration, the <a href="https://continue.dev">Continue</a> VS Code extension can point at a local Ollama endpoint instead of a cloud API:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># ~/.continue/config.yaml</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local Pi 5</span>
@@ -1108,7 +1162,7 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 </code></pre></div>
 <ol>
 <li><strong>Document architectural decisions</strong> as you make them — a lightweight <code>docs/decisions/0001-use-sqlite-for-local-cache.md</code> per significant choice is enough; the format matters far less than the habit.</li>
-<li><strong>Maintain project context for AI</strong> — a short <code>CLAUDE.md</code> or <code>.cursorrules</code> file describing your conventions means every session starts with the right context instead of you re-explaining it each time.</li>
+<li><strong>Maintain project context for AI</strong> — a short context file such as <code>CLAUDE.md</code> or <code>AGENTS.md</code> describing your conventions means every session starts with the right context instead of you re-explaining it each time. Chapter 4, Section 4.5 explains what to put in one.</li>
 <li><strong>Review every generated change</strong> — this is the one habit every other chapter in this book keeps returning to, because skipping it is where things go wrong.</li>
 </ol>
 <hr />

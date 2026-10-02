@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://ashwinkrpi.github.io/ai-assisted-development-book/01-foundations/01-introduction/">
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../../00-before-you-begin/">
       
       
         <link rel="next" href="../02-why-ai-is-transforming-software-development/">
@@ -270,6 +270,33 @@
     
   
     Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-before-you-begin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 0 — Before You Begin
   
 
     
@@ -669,6 +696,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -902,6 +956,10 @@
 <p>Over the past seventy years, software engineering has been reshaped again and again: high-level programming languages replaced machine code, integrated development environments replaced text editors and manual compilation, version control replaced mailed floppy disks and file-naming conventions, and cloud computing and DevOps replaced racks of servers managed by hand. Each shift did the same fundamental thing — it removed friction from a specific part of the job so engineers could spend more of their time on harder, more valuable problems.</p>
 <p>Artificial intelligence is the next shift in that lineage, and it is a larger one. Earlier tools accelerated a single stage of development — a compiler sped up translation to machine code, a debugger sped up fault isolation. AI is different because it can participate across the <em>entire</em> software development lifecycle (SDLC) at once. The same underlying technology that drafts a function can also review a pull request, explain a decade-old codebase, propose a system architecture, summarize an incident postmortem, or generate the first pass of a test suite.</p>
 <p>That range is exactly why AI is easy to misuse. A tool capable of touching every stage of engineering is also capable of quietly eroding the discipline that makes engineering reliable, if it isn't used deliberately.</p>
+<div class="admonition info">
+<p class="admonition-title">Who this book is for</p>
+<p>Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read <a href="../../00-before-you-begin/">Chapter 0 — Before You Begin</a> first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.</p>
+</div>
 <p>This book is <strong>not</strong> about replacing software engineers with AI. It is about teaching working engineers how to collaborate with AI systems while preserving the practices — requirements clarity, incremental delivery, testing, review, and accountability — that separate durable software from software that merely happens to run today.</p>
 <hr />
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
@@ -916,7 +974,7 @@
 </ul>
 <hr />
 <h2 id="11-why-this-book-exists">1.1 Why This Book Exists<a class="headerlink" href="#11-why-this-book-exists" title="Permanent link">&para;</a></h2>
-<p>There is no shortage of material on this topic. Some books teach prompt engineering as if phrasing were the whole skill. Some articles rank AI coding tools against each other by benchmark score. Very little of it addresses the harder and more useful question: <strong>how does professional software engineering actually change once AI becomes a working member of the team?</strong></p>
+<p>There is no shortage of material on this topic. Some books teach <a href="../../glossary/#prompt">prompt</a> engineering as if phrasing were the whole skill. Some articles rank AI coding tools against each other by benchmark score. Very little of it addresses the harder and more useful question: <strong>how does professional software engineering actually change once AI becomes a working member of the team?</strong></p>
 <p>That is the question this book answers. Throughout every chapter, AI is treated as a capable but fallible collaborator — closer to a fast, well-read junior engineer than to an oracle whose output can be trusted by default. Every technique and workflow in this book is built on four principles that will resurface constantly:</p>
 <ol>
 <li><strong>Requirements come before code.</strong> AI cannot infer intent you haven't articulated, and it will confidently fill gaps with plausible-sounding guesses.</li>
@@ -1104,7 +1162,7 @@
 <hr />
 <h2 id="hands-on-lab-build-a-command-line-calculator">Hands-On Lab: Build a Command-Line Calculator<a class="headerlink" href="#hands-on-lab-build-a-command-line-calculator" title="Permanent link">&para;</a></h2>
 <p>This lab is intentionally simple. The goal isn't the calculator — it's practicing the workflow from Section 1.8 on something small enough that the process, not the problem, stays in focus.</p>
-<p>Using an AI assistant of your choice, build a command-line calculator that supports addition, subtraction, multiplication, and division, and handles invalid input gracefully. Work through it in stages:</p>
+<p>Using an AI assistant of your choice, and the prompting basics from <a href="../../00-before-you-begin/#05-prompting-basics">Chapter 0, Section 0.5</a>, build a command-line calculator that supports addition, subtraction, multiplication, and division, and handles invalid input gracefully. Work through it in stages:</p>
 <ol>
 <li>Define the requirements yourself first (supported operations, input format, error handling for things like division by zero) before asking AI for anything.</li>
 <li>Use AI to explore two or three possible designs — a single-file script versus a small module with separate parsing and evaluation logic, for example — and choose one deliberately.</li>

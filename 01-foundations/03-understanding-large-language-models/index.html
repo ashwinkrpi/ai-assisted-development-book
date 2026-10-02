@@ -289,6 +289,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../00-before-you-begin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 0 — Before You Begin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../01-introduction/" class="md-nav__link">
         
   
@@ -669,6 +696,33 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -900,10 +954,10 @@
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
 <p>By the end of this chapter, you will be able to:</p>
 <ul>
-<li>Explain what a Large Language Model (LLM) is, in terms precise enough to be useful rather than just evocative.</li>
-<li>Distinguish between training, fine-tuning, inference, and tool use — and know which one you're actually interacting with day to day.</li>
-<li>Explain tokens and context windows well enough to reason about why a model "forgot" something earlier in a long session.</li>
-<li>Recognize why hallucinations happen, and predict the situations where they're most likely.</li>
+<li>Explain what a <a href="../../glossary/#llm">Large Language Model (LLM)</a> is, in terms precise enough to be useful rather than just evocative.</li>
+<li>Distinguish between training, <a href="../../glossary/#fine-tuning">fine-tuning</a>, <a href="../../glossary/#inference">inference</a>, and <a href="../../glossary/#tool-use">tool use</a> — and know which one you're actually interacting with day to day.</li>
+<li>Explain <a href="../../glossary/#token">tokens</a> and <a href="../../glossary/#context-window">context windows</a> well enough to reason about why a model "forgot" something earlier in a long session.</li>
+<li>Recognize why <a href="../../glossary/#hallucination">hallucinations</a> happen, and predict the situations where they're most likely.</li>
 <li>Apply a concrete, repeatable set of practices for using LLMs safely in professional software engineering.</li>
 </ul>
 <hr />
@@ -915,7 +969,7 @@
 <h2 id="32-what-is-a-large-language-model">3.2 What Is a Large Language Model?<a class="headerlink" href="#32-what-is-a-large-language-model" title="Permanent link">&para;</a></h2>
 <p>A <strong>Large Language Model (LLM)</strong> is a neural network trained on very large collections of text and code. During training, it learns statistical relationships between <strong>tokens</strong> — the sub-word units (roughly, word fragments and code symbols) that models operate on instead of raw text.</p>
 <p>At inference time, the model doesn't look up stored facts or execute logic. For each step, it computes a probability for every token in its vocabulary — how likely each one is to come next, given everything already in the context window. The application then picks one token from that distribution, appends it, and repeats, building the response one token at a time.</p>
-<p>The picking step is called <strong>sampling</strong>. Settings such as <strong>temperature</strong> control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same prompt can produce different answers on different runs. That's expected behavior, not a malfunction.</p>
+<p>The picking step is called <strong>sampling</strong>. Settings such as <strong><a href="../../glossary/#temperature">temperature</a></strong> control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same <a href="../../glossary/#prompt">prompt</a> can produce different answers on different runs. That's expected behavior, not a malfunction.</p>
 <p>Before any of this happens, text has to be split into tokens by a <strong>tokenizer</strong>. Each model family has its own tokenizer, so the same text can produce different token counts in different models. To see the idea, here's a short piece of code run through OpenAI's open-source <code>tiktoken</code> library. It's used here only because it's easy to install; other models, including Claude, split text differently, so treat the exact numbers as illustrative of the idea rather than as a count for the model you use:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>tiktoken
 </code></pre></div>
@@ -966,7 +1020,7 @@
 <td>The model provider (e.g., Anthropic, OpenAI)</td>
 </tr>
 <tr>
-<td>Fine-tuning / RLHF</td>
+<td>Fine-tuning / <a href="../../glossary/#rlhf">RLHF</a></td>
 <td>Shape behavior for helpfulness, safety, and specific tasks</td>
 <td>The model provider</td>
 </tr>
@@ -1030,7 +1084,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>hermes3:8b    4f6b83f30b62    4.9 GB    100% CPU     4096       4 minutes from now
 </code></pre></div>
-<p>(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default context length based on the GPU memory it finds, and a machine with no GPU memory, like the Pi, gets the smallest default: 4,096 tokens. That number is the entire budget, shared across the system prompt, conversation history, and the generated response. Defaults like this change between Ollama versions, so check with <code>ollama ps</code> rather than assuming.</p>
+<p>(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default context length based on the GPU memory it finds, and a machine with no GPU memory, like the Pi, gets the smallest default: 4,096 tokens. That number is the entire budget, shared across the <a href="../../glossary/#system-prompt">system prompt</a>, conversation history, and the generated response. Defaults like this change between Ollama versions, so check with <code>ollama ps</code> rather than assuming.</p>
 <p>You can raise the limit for a single session with <code>/set parameter num_ctx 8192</code> inside <code>ollama run</code>, by passing <code>num_ctx</code> in the <code>options</code> of an API request, or for the whole server with the <code>OLLAMA_CONTEXT_LENGTH</code> environment variable. A larger context needs more memory, though, and on resource-constrained hardware like a Raspberry Pi 5 that's a real limit: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.</p>
 <hr />
 <h2 id="35-why-hallucinations-happen">3.5 Why Hallucinations Happen<a class="headerlink" href="#35-why-hallucinations-happen" title="Permanent link">&para;</a></h2>
