@@ -1,0 +1,11 @@
+[project]
+name = "ch04-password-reset"
+version = "0.1.0"
+description = "Companion code for Chapter 4: password-reset tokens and their tests"
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

@@ -102,8 +102,15 @@ Generate unit, integration, regression, and boundary tests — and treat every g
 ```python
 # tests/auth/test_password_reset.py
 import pytest
-from datetime import datetime, timedelta
-from app.auth.password_reset import generate_reset_token, verify_reset_token
+
+from app.auth.password_reset import (
+    InvalidTokenError,
+    TokenAlreadyUsedError,
+    TokenExpiredError,
+    generate_reset_token,
+    verify_reset_token,
+)
+
 
 class TestPasswordResetToken:
     def test_token_is_generated(self):
@@ -131,21 +138,26 @@ class TestPasswordResetToken:
             verify_reset_token("not-a-real-token")
 ```
 
-Run it the same way you'd run any test suite before trusting the implementation it covers:
+The implementation these tests cover (random tokens from Python's `secrets` module, a 15-minute expiry, and single use) is in the book's companion code at [`examples/ch04-password-reset/`](https://github.com/ashwinkrpi/ai-assisted-development-book/tree/main/examples/ch04-password-reset). Run the tests before you trust the implementation they cover:
 
 ```bash
-pytest tests/auth/test_password_reset.py -v
+pytest tests/auth/test_password_reset.py -v --no-header
 ```
 
 ```text
-tests/auth/test_password_reset.py::TestPasswordResetToken::test_token_is_generated PASSED
-tests/auth/test_password_reset.py::TestPasswordResetToken::test_token_verifies_correctly PASSED
-tests/auth/test_password_reset.py::TestPasswordResetToken::test_expired_token_is_rejected PASSED
-tests/auth/test_password_reset.py::TestPasswordResetToken::test_token_is_single_use PASSED
-tests/auth/test_password_reset.py::TestPasswordResetToken::test_malformed_token_is_rejected PASSED
+============================= test session starts ==============================
+collecting ... collected 5 items
 
-======================== 5 passed in 0.14s ========================
+tests/auth/test_password_reset.py::TestPasswordResetToken::test_token_is_generated PASSED [ 20%]
+tests/auth/test_password_reset.py::TestPasswordResetToken::test_token_verifies_correctly PASSED [ 40%]
+tests/auth/test_password_reset.py::TestPasswordResetToken::test_expired_token_is_rejected PASSED [ 60%]
+tests/auth/test_password_reset.py::TestPasswordResetToken::test_token_is_single_use PASSED [ 80%]
+tests/auth/test_password_reset.py::TestPasswordResetToken::test_malformed_token_is_rejected PASSED [100%]
+
+============================== 5 passed in 0.02s ===============================
 ```
+
+`--no-header` hides the lines that show your Python version and file paths, so your output should match this apart from the timing.
 
 The single-use and expiry tests here aren't things a model reliably generates unprompted — they came from explicitly asking for edge cases, echoing the security requirements identified back in the Chapter 1 case study. Generated tests are only as thorough as the edge cases you asked for.
 
@@ -166,20 +178,40 @@ That last sentence is doing real work — it's a direct countermeasure against t
 
 ### Review
 
-Review AI-generated code using automated analysis, peer review, and AI-assisted review before merging — treating AI-assisted review as one more input, not a replacement for a human reviewer's sign-off:
+Review AI-generated code using automated analysis, peer review, and AI-assisted review before merging — treating AI-assisted review as one more input, not a replacement for a human reviewer's sign-off.
+
+Suppose an AI assistant's first draft of the token generator looked like this:
+
+```python
+# review/password_reset_draft.py
+# A flawed first draft, written to show what automated review catches.
+# Don't copy it: the real version is app/auth/password_reset.py.
+def generate_reset_token(user_id: int) -> str:
+    temp_token = "reset-123456"
+    return f"{user_id}-{temp_token}"
+```
+
+Run automated checks first, because they're cheap and fast and catch mechanical issues. Ruff's `S` rules check for security problems:
 
 ```bash
-# Automated checks first — cheap, fast, catches mechanical issues
-ruff check app/auth/password_reset.py
-mypy app/auth/password_reset.py
-bandit -r app/auth/  # security-focused static analysis
+ruff check --select S review/password_reset_draft.py
 ```
 
 ```text
-app/auth/password_reset.py:23:5: S105 Possible hardcoded password: 'temp_token'
+S105 Possible hardcoded password assigned to: "temp_token"
+ --> review/password_reset_draft.py:5:18
+  |
+3 | # Don't copy it: the real version is app/auth/password_reset.py.
+4 | def generate_reset_token(user_id: int) -> str:
+5 |     temp_token = "reset-123456"
+  |                  ^^^^^^^^^^^^^^
+6 |     return f"{user_id}-{temp_token}"
+  |
+
+Found 1 error.
 ```
 
-A tool like `bandit` catching something like this before a human even looks at the diff is a good example of automated and human review working together — it's a cheap first pass that narrows what a human reviewer needs to focus attention on.
+Ruff's `S` rules are ports of the checks in `bandit`, a dedicated security scanner. Bandit reports the same problem as `B105`. Either tool is a cheap first pass that catches this before a human looks at the diff, so the reviewer can focus on what tools can't judge, such as whether a fixed token makes the whole reset flow predictable.
 
 ### Operations
 
@@ -235,11 +267,9 @@ jobs:
         run: ruff check .
       - name: Security scan
         run: bandit -r app/
-      - name: Require review approval
-        run: echo "Branch protection enforces required reviewers separately"
 ```
 
-Pairing this with a branch protection rule (`Settings → Branches → Require pull request reviews before merging`) turns "we review AI-generated code" from a stated policy into something the repository actually enforces.
+This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule (`Settings → Branches → Require pull request reviews before merging`). Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository actually enforces.
 
 ---
 
