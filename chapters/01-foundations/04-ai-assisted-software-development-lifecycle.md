@@ -249,7 +249,7 @@ Some checkpoints should never be bypassed, however much AI was involved:
 | Deployment | Release approval per your team's process |
 | Production | Active monitoring and a defined rollback plan |
 
-These gates let a team move fast with AI without eroding quality. To enforce the "tests and review" gate mechanically instead of relying on discipline, use a CI check together with a review rule:
+These gates let a team move fast with AI without eroding quality. To enforce the "tests and review" gate mechanically instead of relying on discipline, use a CI (continuous integration) check, an automated job that runs on every pull request, together with a review rule:
 
 ```yaml
 # .github/workflows/quality-gate.yml
@@ -278,7 +278,7 @@ jobs:
 
 *Illustrative: adapt the requirements files, package name and coverage threshold to your project. This workflow isn't run by the book's CI.*
 
-This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule (`Settings → Branches → Require pull request reviews before merging`). Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository enforces.
+This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule: in the repository's **Settings → Branches**, add a rule for `main` and turn on **Require a pull request before merging** and **Require approvals**. GitHub also offers rulesets, a newer way to set the same requirements. Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository enforces.
 
 ---
 
