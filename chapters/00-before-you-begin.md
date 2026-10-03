@@ -23,7 +23,7 @@ You will get the most from it if you already know:
 | Skill | Enough to… | If you're new to it |
 |---|---|---|
 | Basic Python | Read and write small functions, run a script, install a package with `pip` | [The official Python tutorial](https://docs.python.org/3/tutorial/) |
-| Git | Clone a repository, commit, and push | [*Pro Git*, chapters 1–3](https://git-scm.com/book/en/v2) and [GitHub's Hello World guide](https://docs.github.com/en/get-started/start-your-journey/hello-world) |
+| Git | Clone a repository, commit, and push | [*Pro Git*, chapters 1–3](https://git-scm.com/book/en/v2) and [GitHub's Hello World guide](https://docs.github.com/en/get-started/using-github/hello-world) |
 | The command line | Move between folders, run commands, read their output | [MDN's command line crash course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line) and [The Missing Semester](https://missing.csail.mit.edu/) |
 
 If a term in this book is new to you, check the [Glossary](glossary.md). Terms are linked to it the first time they appear in each chapter.
@@ -171,7 +171,7 @@ AI coding tools come in three main kinds: chat assistants, inline autocomplete, 
 
 ## Further Reading
 
-- [Anthropic: prompt engineering overview](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview). Most of its advice applies to any model.
+- [Anthropic: prompt engineering overview](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview). Most of its advice applies to any model.
 - [Ollama](https://ollama.com/download), for running open models locally.
 
 ---
