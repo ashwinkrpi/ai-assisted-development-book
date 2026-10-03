@@ -16,7 +16,7 @@ By the end of this chapter, you will be able to:
 
 ## Project Overview
 
-You'll build a command-line **Notes Manager**: a small application that can create, edit, delete and search notes, and keeps them in a local file. It's deliberately simple. The point of this chapter isn't the notes app. It's practicing the complete workflow on something small enough to hold in your head at once.
+You'll build a command-line **Notes Manager**: a small application that can create, edit, delete and search notes, and keeps them in a local file. It's deliberately simple: the point is practicing the complete workflow on something small enough to hold in your head.
 
 ### Requirements
 
@@ -910,8 +910,6 @@ notes --storage demo.json delete 1ea7
 ```text
 Error: No note found starting with 1ea7
 ```
-
-> **Screenshot placeholder:** Capture your own terminal running these same commands, plus `edit` and `delete`, and insert it here in the published version alongside this verified transcript.
 
 ---
 
