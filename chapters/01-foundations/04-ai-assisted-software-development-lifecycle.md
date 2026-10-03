@@ -9,16 +9,16 @@ By the end of this chapter, you will be able to:
 - Map AI capabilities to every phase of the SDLC, with concrete examples at each stage.
 - Build a repeatable AI-assisted engineering workflow you can apply to any feature.
 - Define and enforce quality gates that keep humans in control of every consequential decision.
-- Integrate testing, documentation, and review into every iteration — not as separate, deferrable steps.
+- Integrate testing, documentation and review into every iteration.
 - Work safely with AI [agents](../glossary.md#agent): review diffs, choose permission settings, keep tasks small, and give the agent a context file.
 
 ---
 
 ## 4.1 Beyond Code Generation
 
-Many developers first encounter AI as a code generator, and it's easy to stop there. Professional teams quickly discover that the greatest value comes from using AI across the entire software lifecycle — not just during implementation, where it's most visible but arguably least differentiated from what a good IDE autocomplete already offered.
+Many developers first meet AI as a code generator and stop there. The larger value comes from using AI across the whole lifecycle, not just in implementation, where it's most visible but adds least beyond what good autocomplete already offered.
 
-AI can clarify requirements, analyze existing systems, propose designs, generate code, create tests, draft documentation, review changes, and help explain production incidents. This chapter walks through each of those phases with specific, usable techniques — not just the observation that AI "can help."
+AI can clarify requirements, analyze existing systems, propose designs, generate code, create tests, draft documentation, review changes and help explain production incidents. This chapter gives a concrete technique for each phase.
 
 ---
 
@@ -38,7 +38,9 @@ I --> J[Continuous Improvement]
 J --> B
 ```
 
-Every stage benefits from AI assistance, and every stage also requires human verification before its output feeds into the next one. Note the loop back from Continuous Improvement to Requirements — this isn't a linear pipeline you run once per feature; it's a cycle each feature moves through, and lessons from operations feed back into how the next requirement gets written.
+Every stage benefits from AI assistance, and every stage needs human verification before its output feeds the next. Note the loop back from Continuous Improvement to Requirements: lessons from operations shape how the next requirement is written.
+
+Within each stage, use the eight-step workflow from [Chapter 1, Section 1.8](01-introduction.md#18-the-workflow-used-throughout-this-book). This chapter adds what is specific to each phase: the [prompts](../glossary.md#prompt) that work, the checks that matter, and the quality gates in Section 4.4 that a change must pass before it ships.
 
 ---
 
@@ -46,7 +48,7 @@ Every stage benefits from AI assistance, and every stage also requires human ver
 
 ### Requirements
 
-Use AI to stress-test a specification before any code is written — identifying ambiguity, conflicting requirements, missing acceptance criteria, unconsidered stakeholders, and edge cases. A concrete [prompt](../glossary.md#prompt) pattern that works well:
+Use AI to stress-test a specification before any code is written: ambiguity, conflicting requirements, missing acceptance criteria, forgotten stakeholders and edge cases. A prompt pattern that works well:
 
 ```
 Here is a draft user story:
@@ -61,11 +63,11 @@ Review this for:
 List your findings as questions I need to answer, not as assumptions you're making on my behalf.
 ```
 
-That last line matters — it's the difference between AI helping you find gaps and AI quietly filling them with guesses.
+The last line is the difference between AI helping you find gaps and AI filling them with guesses.
 
 ### Architecture
 
-Ask AI to compare architectural styles and articulate trade-offs across scalability, security, cost, and maintainability — as an input to your decision, not the decision itself:
+Ask AI to compare architectural options and their trade-offs in scalability, security, cost and maintainability, as an input to your decision, not the decision itself:
 
 ```
 I need to add background job processing to a Django app currently deployed
@@ -78,11 +80,11 @@ cover: operational complexity, cost at this scale, failure handling,
 and what changes if volume grows 10x.
 ```
 
-If some of those names are new to you, you don't need them for the rest of this book. They're here because a realistic architecture prompt names the real options. In brief: **Django** is a Python web framework. **EC2** is Amazon's service for renting virtual servers. **Celery** is a Python library for running tasks in the background, and **Redis** is an in-memory data store it often uses as a queue. **SQS** is Amazon's managed message queue, and **Lambda** is Amazon's service for running a function on demand without managing a server. The point of the prompt is the structure: describe your current setup and scale, name the options, and list the criteria you'll compare them on.
+You don't need these names for the rest of this book; a realistic architecture prompt names the real options. In brief: **Django** is a Python web framework; **EC2** rents virtual servers on Amazon's cloud; **Celery** runs Python tasks in the background, often using **Redis**, an in-memory data store, as its queue; **SQS** is Amazon's managed message queue; and **Lambda** runs a function on demand without a server to manage. What matters is the prompt's structure: your current setup and scale, the options, and the criteria to compare them on.
 
 ### Implementation
 
-Generate one logical component at a time. Keep commits small, readable, and independently testable — this is where the "incremental over one-shot" principle from Chapter 1 becomes a concrete git habit:
+Generate one logical component at a time. Keep commits small, readable and independently testable; this is where the "small iterations" principle from Chapter 1 becomes a git habit:
 
 ```bash
 # One logical unit of work per commit, each independently reviewable
@@ -96,11 +98,11 @@ git add app/auth/views.py
 git commit -m "Wire password reset endpoint to token generation"
 ```
 
-Each commit here corresponds to a single AI-assisted generation step that was reviewed before moving to the next. A commit history that reads like this is also a debugging aid months later — `git bisect` is far more useful against small, single-purpose commits than one 800-line "implement password reset" commit.
+Each commit is one AI-assisted step, reviewed before the next. Such a history also helps debugging months later: `git bisect` is far more useful on small, single-purpose commits than on one 800-line "implement password reset" commit.
 
 ### Testing
 
-Generate unit, integration, regression, and boundary tests — and treat every generated test as a draft until you've confirmed it actually tests the right thing, not just that it passes:
+Generate unit, integration, regression and boundary tests, and treat each generated test as a draft until you've confirmed it tests the right thing, not just that it passes:
 
 ```python
 # tests/auth/test_password_reset.py
@@ -160,13 +162,13 @@ tests/auth/test_password_reset.py::TestPasswordResetToken::test_malformed_token_
 ============================== 5 passed in 0.02s ===============================
 ```
 
-`--no-header` hides the lines that show your Python version and file paths, so your output should match this apart from the timing.
+`--no-header` hides your Python version and file paths, so your output should match apart from the timing.
 
-The single-use and expiry tests here aren't things a model reliably generates unprompted — they came from explicitly asking for edge cases, echoing the security requirements identified back in the Chapter 1 case study. Generated tests are only as thorough as the edge cases you asked for.
+Models don't reliably generate single-use and expiry tests unprompted. These came from asking for edge cases, based on the security requirements in the Chapter 1 case study. Generated tests are only as thorough as the edge cases you ask for.
 
 ### Documentation
 
-Use AI to draft README files, API documentation, architecture summaries, release notes, and user guides directly from working code — then verify every factual claim against the actual implementation before publishing it:
+Use AI to draft READMEs, API documentation, architecture summaries, release notes and user guides from working code, then check every claim against the implementation before publishing:
 
 ```
 Generate API documentation for this Flask endpoint. Include the request
@@ -179,11 +181,11 @@ code below — do not describe behavior the code doesn't actually implement.
 
 (**Flask** is a small Python web framework; an endpoint is a function that handles requests to one URL.)
 
-That last sentence is doing real work — it's a direct countermeasure against the [hallucination](../glossary.md#hallucination) behavior covered in Chapter 3, applied specifically to documentation generation, where a plausible but wrong claim is especially costly because readers trust docs by default.
+The last sentence of the prompt guards against the [hallucination](../glossary.md#hallucination) described in Chapter 3. In documentation a plausible but wrong claim is especially costly, because readers trust docs by default.
 
 ### Review
 
-Review AI-generated code using automated analysis, peer review, and AI-assisted review before merging — treating AI-assisted review as one more input, not a replacement for a human reviewer's sign-off.
+Review AI-generated code with automated analysis, peer review and AI-assisted review before merging. AI review is one more input, not a replacement for a human reviewer's sign-off.
 
 Suppose an AI assistant's first draft of the token generator looked like this:
 
@@ -196,7 +198,7 @@ def generate_reset_token(user_id: int) -> str:
     return f"{user_id}-{temp_token}"
 ```
 
-Run automated checks first, because they're cheap and fast and catch mechanical issues. Ruff's `S` rules check for security problems:
+Run automated checks first: they're cheap, fast, and catch mechanical issues. Ruff's `S` rules check for security problems:
 
 ```bash
 ruff check --select S review/password_reset_draft.py
@@ -216,11 +218,11 @@ S105 Possible hardcoded password assigned to: "temp_token"
 Found 1 error.
 ```
 
-Ruff's `S` rules are ports of the checks in `bandit`, a dedicated security scanner. Bandit reports the same problem as `B105`. Either tool is a cheap first pass that catches this before a human looks at the diff, so the reviewer can focus on what tools can't judge, such as whether a fixed token makes the whole reset flow predictable.
+Ruff's `S` rules port the checks of `bandit`, a dedicated security scanner, which reports the same problem as `B105`. Either tool catches this before a human reads the diff, so the reviewer can focus on what tools can't judge, such as whether a fixed token makes the whole reset flow predictable.
 
 ### Operations
 
-Summarize logs, explain failures, identify likely causes, and propose recovery steps — while validating every recommendation against what actually happened, not what sounds like a typical root cause:
+Use AI to summarize logs, explain failures, suggest likely causes and propose recovery steps, and check every recommendation against what happened, not what sounds like a typical root cause:
 
 ```
 Here are the last 200 log lines from the password-reset service during
@@ -231,13 +233,13 @@ before I act on this.
 [paste logs]
 ```
 
-Asking explicitly for "what additional data to confirm this" before acting is the operational equivalent of asking for assumptions before code generation — it keeps a plausible-sounding diagnosis from being treated as a confirmed one.
+Asking for "what additional data I should pull to confirm it" is the operations version of asking for assumptions before code. It stops a plausible diagnosis from being treated as a confirmed one.
 
 ---
 
 ## 4.4 Human Quality Gates
 
-Certain checkpoints should never be bypassed, regardless of how much AI assistance was involved in getting to that point:
+Some checkpoints should never be bypassed, however much AI was involved:
 
 | Phase | Required Validation |
 |---|---|
@@ -247,7 +249,7 @@ Certain checkpoints should never be bypassed, regardless of how much AI assistan
 | Deployment | Release approval per your team's process |
 | Production | Active monitoring and a defined rollback plan |
 
-These gates are what let a team move fast with AI without quietly eroding quality. A simple way to enforce the "tests + review" gate mechanically rather than relying on discipline alone is a CI check that blocks merges without both:
+These gates let a team move fast with AI without eroding quality. To enforce the "tests and review" gate mechanically instead of relying on discipline, use a CI check together with a review rule:
 
 ```yaml
 # .github/workflows/quality-gate.yml
@@ -274,37 +276,37 @@ jobs:
         run: bandit -r app/
 ```
 
-This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule (`Settings → Branches → Require pull request reviews before merging`). Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository actually enforces.
+This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule (`Settings → Branches → Require pull request reviews before merging`). Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository enforces.
 
 ---
 
 ## 4.5 Working with AI Agents
 
-The workflow so far works with any AI tool. [Agentic tools](../glossary.md#agent), which read your repository, run commands and edit files themselves (see Chapter 0, Section 0.2), need some extra habits, because they can change many files before you've looked at any of them.
+[Agentic tools](../glossary.md#agent) read your repository, run commands and edit files themselves (Chapter 0, Section 0.2). They need extra habits, because they can change many files before you've looked at any of them.
 
-**Review the diff, not the chat.** An agent's summary of what it did ("I added validation and updated the tests") is a description, not evidence. It can be incomplete or wrong. What matters is what actually changed in your files. Before you keep an agent's work, read the diff, in your editor's source-control view or with:
+**Review the diff, not the chat.** An agent's summary ("I added validation and updated the tests") is a description, not evidence, and it can be incomplete or wrong. What matters is what changed in your files. Before you keep an agent's work, read the diff in your editor's source-control view or with:
 
 ```bash
 git status
 git diff
 ```
 
-Check that every changed file was meant to change. Watch for edits you didn't ask for, deleted tests, and loosened checks, such as a test assertion weakened so that it passes.
+Check that every changed file was meant to change. Watch for edits you didn't ask for, deleted tests, and loosened checks, such as an assertion weakened so a test passes.
 
-**Choose how much the agent can do without asking.** Most agentic tools have permission settings or modes. Typically you can choose between:
+**Choose how much the agent can do without asking.** Most agentic tools offer permission settings, typically:
 
 - asking before every file edit and command;
 - allowing file edits automatically but asking before running commands;
 - a planning or read-only mode, where the agent proposes a plan and changes nothing;
 - running without asking, sometimes with an automated check in place of you.
 
-The names differ between tools (Claude Code, for example, calls these *permission modes*), so check your tool's documentation. Start with the agent asking before it acts, and allow more only for kinds of action you've seen it handle well. Commands that delete files, change git history, install packages or touch anything outside your project deserve the most caution.
+Names differ between tools (Claude Code calls these *permission modes*). Start with the agent asking before it acts, and allow more only for actions you've seen it handle well. Be most careful with commands that delete files, change git history, install packages, or touch anything outside your project.
 
-**Keep tasks small.** Give an agent one well-defined task at a time, the same size you'd put in one commit: "add input validation to `create_note` and a test for an empty title," not "build the notes app." Small tasks produce diffs you can actually review. Commit after each task you've reviewed, so you can roll back the next one if it goes wrong.
+**Keep tasks small.** Give an agent one task the size of one commit: "add input validation to `create_note` and a test for an empty title," not "build the notes app." Small tasks produce reviewable diffs. Commit after each reviewed task so you can roll back the next one.
 
-**Give the agent a context file.** Agents start each session knowing nothing about your project's conventions. A context file in the repository fixes that: a short Markdown file with your build and test commands, coding conventions, and rules such as "never commit directly to `main`." Many tools read one automatically when a session starts, for example `CLAUDE.md` for Claude Code, `.github/copilot-instructions.md` for GitHub Copilot, and `AGENTS.md`, a shared format that many tools support. Like a [system prompt](../glossary.md#system-prompt), it shapes every response without you repeating it. Keep it short and accurate, and update it when your conventions change. Chapter 5, Section 5.7 comes back to this habit.
+**Give the agent a context file.** Agents start each session knowing nothing about your conventions. A short Markdown file in the repository fixes that: build and test commands, coding conventions, and rules such as "never commit directly to `main`." Many tools read one automatically, for example `CLAUDE.md` for Claude Code, `.github/copilot-instructions.md` for GitHub Copilot, and `AGENTS.md`, a shared format that many tools support. Like a [system prompt](../glossary.md#system-prompt), it shapes every response without you repeating it. Keep it short, accurate and up to date.
 
-**Keep running the tests yourself.** Agents often run your tests and report that they pass. Run them yourself before committing. It's quick, and it confirms the agent ran the right tests, on the final version of the code.
+**Run the tests yourself.** Agents often report that tests pass. Run them yourself before committing, to confirm the right tests ran on the final code.
 
 ---
 
@@ -316,50 +318,33 @@ The names differ between tools (Claude Code, for example, calls these *permissio
 
 ## Common Mistakes
 
-- Beginning implementation before requirements are actually clear, treating AI's fluent output as a substitute for that clarity.
+- Starting implementation before requirements are clear, treating AI's fluent output as a substitute for clarity.
 - Asking AI to generate an entire application or feature in one request, making meaningful review impossible.
-- Skipping documentation because AI "can generate it later" — later rarely comes, and undocumented AI-assisted code is harder to trust than undocumented hand-written code, precisely because no one is certain what was verified.
+- Skipping documentation because AI "can generate it later." Later rarely comes, and undocumented AI-assisted code is harder to trust than undocumented hand-written code, because no one knows what was verified.
 - Merging generated code without running the test suite against it.
-- Treating AI recommendations — architectural or otherwise — as design decisions rather than as one input to a decision a human still needs to make.
+- Treating AI recommendations, architectural or otherwise, as decisions rather than as one input to a decision a human makes.
 - Accepting an agent's summary of its changes without reading the diff.
-
----
-
-## Practical Workflow
-
-1. Define the business objective clearly enough to write down.
-2. Build project context — relevant files, constraints, prior decisions — before prompting.
-3. Ask AI to analyze the task and surface questions or alternatives.
-4. Review the alternatives and choose deliberately.
-5. Implement incrementally, one reviewable unit at a time.
-6. Test continuously, not as a final gate before merge.
-7. Document changes as they're made, not retroactively.
-8. Review and deploy through the quality gates in Section 4.4.
-
-Repeat this cycle for every feature, regardless of size — the overhead scales down naturally for small features, but skipping steps entirely is where quality erodes.
 
 ---
 
 ## Hands-On Lab: Run One Feature Through the Full Lifecycle
 
-Choose a feature from one of your own projects — ideally something small enough to complete in a single sitting but real enough to touch requirements, code, and tests.
+Choose a feature from one of your projects, small enough to finish in one sitting but real enough to touch requirements, code and tests.
 
-For each SDLC phase in Section 4.3, record in a short log:
+For each phase in Section 4.3, log:
 
 - How AI assisted at this phase, with the actual prompt you used.
 - What required human judgment that AI couldn't have supplied.
 - Which quality gate applied, and whether you actually enforced it.
 - What you'd change about the workflow next time.
 
-If your project has a CI setup, adapt the quality-gate YAML from Section 4.4 to it and confirm a pull request without passing tests or without a review is actually blocked — don't just assume the configuration works.
-
-> **Screenshot placeholder:** Capture the GitHub Actions run showing the quality gate passing (or correctly failing) on a real pull request, and a screenshot of the branch protection settings enforcing required reviews. Insert both here in the published version.
+If your project has CI, adapt the quality-gate YAML from Section 4.4 and confirm that a pull request without passing tests, or without a review, is blocked. Don't assume the configuration works; open a pull request and check.
 
 ---
 
 ## Chapter Summary
 
-AI is most effective when embedded in a disciplined engineering lifecycle, contributing at every phase from requirements through operations rather than only during implementation. It strengthens established software engineering practices — clarifying requirements, comparing architectures, generating tests, drafting documentation — without replacing the human judgment and accountability that quality gates exist to protect.
+AI is most effective inside a disciplined lifecycle, contributing at every phase from requirements to operations rather than only during implementation. It strengthens established practices — clarifying requirements, comparing architectures, generating tests, drafting documentation — without replacing the human judgment and accountability that quality gates protect. Agents raise the stakes: review their diffs, limit what they can do without asking, and keep their tasks small.
 
 ---
 
@@ -374,6 +359,15 @@ AI is most effective when embedded in a disciplined engineering lifecycle, contr
 
 ---
 
-## Preview
+## Further Reading
 
-Chapter 5 focuses on building a professional AI-assisted development environment — editors, version control, testing tools, and AI integrations — including a working setup on both a cloud-connected workstation and a self-hosted Raspberry Pi 5 environment.
+- GitHub Docs, [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches). How to require reviews and passing checks before merging.
+- [Ruff rules: flake8-bandit (`S`)](https://docs.astral.sh/ruff/rules/#flake8-bandit-s) and the [Bandit documentation](https://bandit.readthedocs.io/en/latest/). The security checks used in Section 4.3.
+- Claude Code docs, [Permissions](https://code.claude.com/docs/en/permissions). One tool's permission modes, as an example of the settings described in Section 4.5.
+- [AGENTS.md](https://agents.md/). A shared format for agent context files.
+
+---
+
+## Next Chapter
+
+Chapter 5 builds a professional AI-assisted development environment — editor, version control, testing tools and AI integrations — on a cloud-connected workstation and on a self-hosted Raspberry Pi 5.
