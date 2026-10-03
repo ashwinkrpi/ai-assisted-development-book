@@ -15,11 +15,11 @@ class NoteRepository:
             self._write([])
 
     def _read(self) -> list[dict]:
-        with open(self.storage_path, "r") as f:
+        with open(self.storage_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
     def _write(self, notes: list[dict]) -> None:
-        with open(self.storage_path, "w") as f:
+        with open(self.storage_path, "w", encoding="utf-8") as f:
             json.dump(notes, f, indent=2)
 
     def add(self, note: Note) -> Note:

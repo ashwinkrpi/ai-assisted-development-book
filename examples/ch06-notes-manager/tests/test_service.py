@@ -75,6 +75,11 @@ class TestEditNote:
         with pytest.raises(NoteNotFoundError):
             service.edit_note("does-not-exist", title="x")
 
+    def test_edit_with_nothing_to_edit_raises(self, service):
+        note = service.create_note("Title", "Body")
+        with pytest.raises(ValueError, match="Nothing to edit"):
+            service.edit_note(note.id)
+
 
 class TestDeleteNote:
     def test_delete_removes_note(self, service):

@@ -48,6 +48,8 @@ class NoteService:
         return self.repository.list_all()
 
     def edit_note(self, note_id: str, title: Optional[str] = None, body: Optional[str] = None) -> Note:
+        if title is None and body is None:
+            raise ValueError("Nothing to edit: provide a title and/or a body")
         note = self.get_note(note_id)
         if title is not None:
             if not title.strip():

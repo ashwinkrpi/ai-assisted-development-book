@@ -72,6 +72,7 @@ chapters/                 # book source, published by MkDocs
 ├── index.md              # site landing page
 └── 01-foundations/       # Part 1 (Volume 1): chapters 1–6
 examples/                 # runnable companion code, one folder per example
+transcripts/              # verbatim AI session transcripts behind worked examples
 scripts/check_examples.py # checks chapter code blocks match examples/
 images/                   # README banner images
 .github/workflows/        # site deployment and example tests

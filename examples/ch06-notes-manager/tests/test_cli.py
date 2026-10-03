@@ -54,3 +54,18 @@ def test_search_reports_no_matches(storage, capsys):
     capsys.readouterr()
     assert run(storage, "search", "report") == 0
     assert capsys.readouterr().out == "No matches.\n"
+
+
+def test_list_indents_every_body_line(storage, capsys):
+    run(storage, "add", "Packing", "Passport\nCharger")
+    capsys.readouterr()
+    assert run(storage, "list") == 0
+    assert "\n    Charger\n" in capsys.readouterr().out
+
+
+def test_storage_path_expands_tilde(tmp_path, monkeypatch):
+    monkeypatch.setenv("HOME", str(tmp_path))         # Linux and macOS
+    monkeypatch.setenv("USERPROFILE", str(tmp_path))  # Windows
+    monkeypatch.chdir(tmp_path)
+    assert main(["--storage=~/notes.json", "list"]) == 0
+    assert (tmp_path / "notes.json").exists()

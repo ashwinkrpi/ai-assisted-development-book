@@ -58,7 +58,7 @@ Each volume stands on its own. You don't need later volumes to get value from ea
 | [3 — Understanding Large Language Models](chapters/01-foundations/03-understanding-large-language-models.md) | Tokens, context windows, training versus inference, why hallucinations happen, and practical guidelines |
 | [4 — The AI-Assisted Software Development Lifecycle](chapters/01-foundations/04-ai-assisted-software-development-lifecycle.md) | AI in each phase of the SDLC, prompt patterns, human quality gates enforced in CI, and working safely with AI agents |
 | [5 — Building Your AI-Assisted Development Environment](chapters/01-foundations/05-building-your-ai-assisted-development-environment.md) | Editor and tooling setup, project layout, security, and a local AI stack on a Raspberry Pi 5 |
-| [6 — Your First AI-Assisted Software Project](chapters/01-foundations/06-your-first-ai-assisted-software-project.md) | Building a command-line Notes Manager step by step, with tests and documentation |
+| [6 — Your First AI-Assisted Software Project](chapters/01-foundations/06-your-first-ai-assisted-software-project.md) | Building a command-line Notes Manager in a real, reviewed AI session, with tests and documentation |
 
 Every chapter ends with a hands-on lab and review questions. A [glossary](chapters/glossary.md) defines the AI terms used throughout.
 

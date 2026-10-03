@@ -34,13 +34,14 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def format_note(note) -> str:
-    return f"[{note.id[:8]}] {note.title}\n    {note.body}\n    updated: {note.updated_at}"
+    body = note.body.replace("\n", "\n    ")
+    return f"[{note.id[:8]}] {note.title}\n    {body}\n    updated: {note.updated_at}"
 
 
 def main(argv=None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    repo = NoteRepository(args.storage)
+    repo = NoteRepository(args.storage.expanduser())
     service = NoteService(repo)
 
     try:
