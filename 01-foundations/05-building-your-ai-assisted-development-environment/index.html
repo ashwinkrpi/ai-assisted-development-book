@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Volume 1 (Part 1: Foundations) of a practical guide to AI-assisted software engineering">
+        <meta name="description" content="Volume 1 (Part 1: Foundations) of a publication-ready, practical guide to AI-assisted software engineering">
       
       
         <meta name="author" content="Ashwin">
@@ -646,10 +646,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#preview" class="md-nav__link">
+  <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preview
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-chapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Chapter
       
     </span>
   </a>
@@ -907,10 +918,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#preview" class="md-nav__link">
+  <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preview
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-chapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Chapter
       
     </span>
   </a>
@@ -944,15 +966,15 @@
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
 <p>By the end of this chapter, you will be able to:</p>
 <ul>
-<li>Design a professional AI-assisted development workstation from concrete, reusable configuration.</li>
-<li>Select an editor, AI tooling, and supporting utilities that integrate rather than compete.</li>
+<li>Design an AI-assisted development workstation from reusable configuration.</li>
+<li>Select an editor, AI tools and utilities that work together.</li>
 <li>Configure a repeatable development environment using version-controlled config files.</li>
-<li>Apply security and productivity practices that hold up under real project pressure, not just in theory.</li>
+<li>Apply security and productivity practices that hold up under project pressure.</li>
 </ul>
 <hr />
 <h2 id="51-why-your-environment-matters">5.1 Why Your Environment Matters<a class="headerlink" href="#51-why-your-environment-matters" title="Permanent link">&para;</a></h2>
-<p>The best AI assistant cannot compensate for a poorly organized development environment. A model that can write a perfect function is not much help if your linter isn't wired up to catch its mistakes, your tests aren't easy to run, or your repository structure is inconsistent enough that neither you nor the AI can reliably find the right file to edit.</p>
-<p>Professional developers rely on an ecosystem of tools that work together: source control, an editor or IDE, AI assistants, build systems, test frameworks, debuggers, containers, documentation, and automation. AI becomes another component in this ecosystem — a capable one, but still one among many — rather than the center of it. This chapter is about building that ecosystem deliberately, with configuration you can check into a repository and reproduce on a new machine in minutes.</p>
+<p>The best AI assistant can't make up for a poorly organized environment. A model that writes a perfect function doesn't help much if your linter isn't set up to catch its mistakes, your tests are hard to run, or your repository is so inconsistent that neither you nor the AI can find the right file.</p>
+<p>Developers rely on tools that work together: source control, an editor or IDE, AI assistants, build systems, test frameworks, debuggers, containers and automation. AI is one capable component among these, not the center. This chapter builds that set of tools with configuration you can check into a repository and reproduce on a new machine in minutes.</p>
 <hr />
 <h2 id="52-a-reference-architecture">5.2 A Reference Architecture<a class="headerlink" href="#52-a-reference-architecture" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
@@ -966,7 +988,7 @@ B --&gt; G[Docker]
 B --&gt; H[Terminal]
 C --&gt; I[Documentation]
 D --&gt; J[CI / Quality Gate]</code></pre>
-<p>Every tool in this diagram should reduce context switching and increase feedback speed. If a tool doesn't do one of those two things for you, it's worth questioning why it's in your workflow at all — tool sprawl is a real productivity cost, not a neutral one.</p>
+<p>Every tool in this diagram should reduce context switching or speed up feedback. If a tool does neither, question why it's in your workflow: tool sprawl has a real cost.</p>
 <hr />
 <h2 id="53-essential-components">5.3 Essential Components<a class="headerlink" href="#53-essential-components" title="Permanent link">&para;</a></h2>
 <table>
@@ -1020,9 +1042,9 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Choose tools that integrate well with each other rather than maximizing the number of extensions installed. A workstation with five well-configured tools that talk to each other beats one with thirty extensions that don't.</p>
+<p>Choose tools that work well together rather than installing as many extensions as possible. Five well-configured tools that integrate beat thirty extensions that don't.</p>
 <h3 id="a-working-vs-code-configuration">A working VS Code configuration<a class="headerlink" href="#a-working-vs-code-configuration" title="Permanent link">&para;</a></h3>
-<p>Here's a concrete, checked-in <code>.vscode/settings.json</code> that ties formatting, linting, and testing together for a Python project — the kind of file that turns "my environment is set up" from a vague claim into something a teammate can literally clone and use:</p>
+<p>This checked-in <code>.vscode/settings.json</code> ties formatting, linting and testing together for a Python project. With it, "my environment is set up" becomes something a teammate can clone and use:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">"python.testing.pytestArgs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tests"</span><span class="p">],</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">"python.testing.unittestEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
@@ -1042,7 +1064,8 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">  </span><span class="p">}</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="p">}</span>
 </code></pre></div>
-<p>And the extensions that make it work, installable in one shot on a fresh machine:</p>
+<p><em>Illustrative: adjust the test folder and formatter to your project. This file isn't tested by the book's CI.</em></p>
+<p>The extensions it needs, installed in one go on a fresh machine:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>code<span class="w"> </span>--install-extension<span class="w"> </span>charliermarsh.ruff
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>code<span class="w"> </span>--install-extension<span class="w"> </span>ms-python.python
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>code<span class="w"> </span>--install-extension<span class="w"> </span>eamodio.gitlens
@@ -1066,26 +1089,26 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>├── pyproject.toml
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>└── README.md
 </code></pre></div>
-<p>A consistent layout makes it easier for both humans and AI to understand your repository — when you paste "here's my project structure" into a <a href="../../glossary/#prompt">prompt</a>, a predictable layout means the model can make correct assumptions about where things live instead of guessing. This is also why <code>.env.example</code> (committed) versus <code>.env</code> (gitignored, never committed) is worth calling out explicitly: it documents the required configuration shape without leaking actual secrets, and it's a pattern AI assistants recognize and respect when generating code that reads environment variables.</p>
+<p>A consistent layout helps both humans and AI understand your repository. When you paste your project structure into a <a href="../../glossary/#prompt">prompt</a>, a predictable layout lets the model assume correctly where things live instead of guessing. Note <code>.env.example</code> (committed) versus <code>.env</code> (gitignored, never committed): the first documents the required configuration without leaking secrets, and AI assistants recognize the pattern when generating code that reads environment variables.</p>
 <hr />
 <h2 id="55-security-considerations">5.5 Security Considerations<a class="headerlink" href="#55-security-considerations" title="Permanent link">&para;</a></h2>
 <p>Before enabling AI tools on a real codebase:</p>
 <ul>
-<li><strong>Understand what data is shared.</strong> Read your AI tool's data handling policy — does it train on your code, retain it, or send it to a third party? This differs meaningfully between consumer and enterprise/API tiers.</li>
-<li><strong>Exclude secrets from prompts.</strong> Never paste <code>.env</code> contents, API keys, or credentials into a chat, even to "debug a connection issue" — describe the error instead.</li>
-<li><strong>Use approved enterprise accounts where required</strong> by your organization's policy, rather than personal accounts for company code.</li>
-<li><strong>Review generated dependencies</strong> before installing them — a hallucinated package name is a real supply-chain risk if it happens to exist on a public registry with malicious content (a known attack pattern called "slopsquatting").</li>
-<li><strong>Enable secret scanning</strong> on your repository so an accidentally committed key gets caught even if a prompt-level habit fails.</li>
+<li><strong>Understand what data is shared.</strong> Does your AI tool train on your code, retain it, or send it to a third party? This often differs between consumer and business or API plans.</li>
+<li><strong>Keep secrets out of prompts.</strong> Never paste <code>.env</code> contents, API keys or credentials into a chat, even to debug a connection; describe the error instead.</li>
+<li><strong>Use approved company accounts where required</strong> by your organization's policy, rather than personal accounts for company code.</li>
+<li><strong>Review generated dependencies</strong> before installing them. A hallucinated package name is a supply-chain risk if someone has published a malicious package under that name (an attack called "slopsquatting").</li>
+<li><strong>Enable secret scanning</strong> so an accidentally committed key is caught even when habits fail.</li>
 </ul>
-<p>That last point is worth doing as a concrete step, not just a bullet point. On GitHub:</p>
+<p>On GitHub, you can enable secret scanning from the command line:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>gh<span class="w"> </span>api<span class="w"> </span>-X<span class="w"> </span>PATCH<span class="w"> </span>/repos/<span class="o">{</span>owner<span class="o">}</span>/<span class="o">{</span>repo<span class="o">}</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>-f<span class="w"> </span>security_and_analysis<span class="o">[</span>secret_scanning<span class="o">][</span>status<span class="o">]=</span>enabled<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-f<span class="w"> </span>security_and_analysis<span class="o">[</span>secret_scanning_push_protection<span class="o">][</span>status<span class="o">]=</span>enabled
 </code></pre></div>
-<p>Or via the UI: open the repository's <strong>Settings</strong>, find the code security page (currently <strong>Advanced Security</strong>; GitHub renames these menus from time to time), enable <strong>Secret Protection</strong>, and turn on <strong>Push protection</strong> alongside it so a secret is blocked <em>before</em> it lands in history, not just flagged after.</p>
+<p>Or in the UI: open the repository's <strong>Settings</strong>, find the code security page (currently <strong>Advanced Security</strong>; GitHub renames these menus from time to time), enable <strong>Secret Protection</strong>, and turn on <strong>Push protection</strong> so a secret is blocked <em>before</em> it lands in history, not just flagged afterward.</p>
 <p>Check availability before you rely on this. Secret scanning and push protection are free for public repositories. For private repositories, they need a paid add-on (GitHub Secret Protection, part of what used to be called GitHub Advanced Security) on an organization plan. If you can't enable them, a local pre-commit secret scanner is a reasonable substitute.</p>
-<p>Also know what push protection actually catches: it matches secrets against patterns for known providers (cloud keys, tokens from popular services, and so on). A random string you made up won't be blocked, and neither will a provider's key format that GitHub doesn't support. It reduces risk; it doesn't replace keeping secrets out of your code.</p>
-<p>A <code>.gitignore</code> that actually excludes the common leak vectors is the first line of defense:</p>
+<p>Push protection matches secrets against patterns for known providers, such as cloud keys and tokens from popular services. A made-up string won't be blocked, and neither will an unsupported provider's key. It reduces risk; it doesn't replace keeping secrets out of your code.</p>
+<p>A <code>.gitignore</code> that excludes the common leak vectors is the first line of defense:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># Secrets and environment
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>.env
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>.env.local
@@ -1102,10 +1125,10 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>.pytest_cache/
 <a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>node_modules/
 </code></pre></div>
-<p>Security here isn't an afterthought bolted onto AI-assisted development — it's part of the same everyday discipline as running tests before a merge.</p>
+<p><em>Illustrative: add the files your own tools and stack create. This file isn't tested by the book's CI.</em></p>
 <hr />
 <h2 id="56-a-local-ai-stack-on-raspberry-pi-5">5.6 A Local AI Stack on Raspberry Pi 5<a class="headerlink" href="#56-a-local-ai-stack-on-raspberry-pi-5" title="Permanent link">&para;</a></h2>
-<p>Not every workflow needs a cloud API call. For local, offline-capable assistance — useful for cost control, privacy-sensitive contexts, or resource-constrained edge projects — Ollama on a Raspberry Pi 5 is a genuinely usable setup for smaller models.</p>
+<p>Not every workflow needs a cloud API call. For local, offline assistance — useful for cost control, privacy-sensitive work, or edge projects — Ollama on a Raspberry Pi 5 is a usable setup for smaller models.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Install Ollama</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://ollama.com/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
@@ -1125,7 +1148,7 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>a fixed number of words surrounding a target word or token that is used to
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>provide additional information for understanding and analyzing the text.
 </code></pre></div>
-<p>(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an <a href="../../glossary/#llm">LLM</a> that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.</p>
+<p>(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) The answer is fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an <a href="../../glossary/#llm">LLM</a> from Chapter 3. Read even a one-sentence sanity check critically. Small local models make this kind of mistake more often than large cloud models; that's part of the trade-off.</p>
 <p>For editor integration, the <a href="https://continue.dev">Continue</a> VS Code extension can point at a local Ollama endpoint instead of a cloud API:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># ~/.continue/config.yaml</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Local Pi 5</span>
@@ -1138,16 +1161,17 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hermes3:8b</span>
 <a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="nt">apiBase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://&lt;pi5-ip&gt;:11434</span>
 </code></pre></div>
+<p><em>Illustrative: replace <code>&lt;pi5-ip&gt;</code> with your Pi's address. This file isn't tested by the book's CI.</em></p>
 <p>Continue's configuration format has changed over time (older guides use a <code>config.json</code> file), so check <a href="https://docs.continue.dev/customize/model-providers/top-level/ollama">Continue's Ollama documentation</a> for the current format before copying this. If Ollama runs on the same machine as your editor, you can leave out <code>apiBase</code>. If it runs on another machine, as here, Ollama has to be started with <code>OLLAMA_HOST=0.0.0.0:11434</code> so it accepts connections from the network — only do that on a network you trust.</p>
-<p>This is the same local stack referenced in Chapter 3's discussion of context windows. Local models are a different design point from cloud APIs, not a lesser version of the same thing, and this book treats both as legitimate parts of a professional toolkit, depending on the constraint you're optimizing for.</p>
+<p>This is the same local stack used in Chapter 3's discussion of context windows. Local models are a different trade-off from cloud APIs, not a lesser version of them. Choose based on the constraint that matters most: cost, privacy, capability or speed.</p>
 <hr />
 <h2 id="57-productivity-practices">5.7 Productivity Practices<a class="headerlink" href="#57-productivity-practices" title="Permanent link">&para;</a></h2>
-<p>Adopt these habits, and automate the ones that can be automated rather than relying on memory:</p>
+<p>Adopt these habits, and automate the ones you can instead of relying on memory:</p>
 <ol>
 <li><strong>Keep commits small</strong> — one logical change per commit, as established in Chapter 4.</li>
-<li><strong>Run tests frequently</strong>, not just before a PR — a fast local test loop is what makes "frequently" realistic.</li>
-<li><strong>Automate formatting</strong> via a pre-commit hook so style never becomes a review discussion:</li>
-</ol>
+<li><strong>Run tests frequently</strong>, not just before a pull request. A fast local test loop makes this realistic.</li>
+<li>
+<p><strong>Automate formatting</strong> with a pre-commit hook so style never comes up in review:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># .pre-commit-config.yaml</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">repos</span><span class="p">:</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/astral-sh/ruff-pre-commit</span>
@@ -1157,13 +1181,16 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">        </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">--fix</span><span class="p p-Indicator">]</span>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff-format</span>
 </code></pre></div>
+<p><em>Illustrative: <code>pre-commit autoupdate</code> sets <code>rev</code> to the current release. This file isn't tested by the book's CI.</em></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>pre-commit<span class="w"> </span>install
 </code></pre></div>
-<ol>
-<li><strong>Document architectural decisions</strong> as you make them — a lightweight <code>docs/decisions/0001-use-sqlite-for-local-cache.md</code> per significant choice is enough; the format matters far less than the habit.</li>
-<li><strong>Maintain project context for AI</strong> — a short context file such as <code>CLAUDE.md</code> or <code>AGENTS.md</code> describing your conventions means every session starts with the right context instead of you re-explaining it each time. Chapter 4, Section 4.5 explains what to put in one.</li>
-<li><strong>Review every generated change</strong> — this is the one habit every other chapter in this book keeps returning to, because skipping it is where things go wrong.</li>
+</li>
+<li>
+<p><strong>Document architectural decisions</strong> as you make them. A short <code>docs/decisions/0001-use-sqlite-for-local-cache.md</code> per significant choice is enough; the habit matters more than the format.</p>
+</li>
+<li><strong>Maintain project context for AI.</strong> A short context file such as <code>CLAUDE.md</code> or <code>AGENTS.md</code> describing your conventions means every session starts with the right context. Chapter 4, Section 4.5 explains what to put in one.</li>
+<li><strong>Review every generated change</strong> (<a href="../01-introduction/#18-the-workflow-used-throughout-this-book">Chapter 1, Section 1.8</a>, step 7).</li>
 </ol>
 <hr />
 <h2 id="engineering-insight">Engineering Insight<a class="headerlink" href="#engineering-insight" title="Permanent link">&para;</a></h2>
@@ -1173,30 +1200,27 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <hr />
 <h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Installing dozens of unused extensions that slow down the editor without adding real capability.</li>
-<li>Mixing unrelated projects in one workspace, confusing both the developer and any AI tool with repository-wide context access.</li>
+<li>Installing dozens of unused extensions that slow the editor down without adding capability.</li>
+<li>Mixing unrelated projects in one workspace, which confuses both you and any AI tool that reads the whole repository.</li>
 <li>Ignoring editor warnings and linter output because "it still runs."</li>
-<li>Disabling automated formatting to avoid a diff, then getting inconsistent style AI tools have to work around.</li>
-<li>Treating AI suggestions as final implementations rather than as a draft, regardless of how clean the environment producing them is.</li>
+<li>Disabling automated formatting to avoid a diff, leaving inconsistent style that AI tools then copy.</li>
+<li>Treating AI suggestions as final rather than as drafts, however clean the environment.</li>
 </ul>
 <hr />
 <h2 id="hands-on-lab-build-a-reproducible-workstation">Hands-On Lab: Build a Reproducible Workstation<a class="headerlink" href="#hands-on-lab-build-a-reproducible-workstation" title="Permanent link">&para;</a></h2>
-<p>Set up a new development workstation (or a clean directory simulating one) with the following, verifying each step actually works rather than assuming the configuration is correct:</p>
+<p>Set up a new workstation (or a clean directory standing in for one) as follows, checking that each step works rather than assuming it does:</p>
 <ol>
 <li>Clone a repository and confirm <code>git log</code> and <code>git status</code> work as expected.</li>
 <li>Add the <code>.vscode/settings.json</code>, <code>.pre-commit-config.yaml</code>, and <code>.gitignore</code> from this chapter, adapted to your language of choice.</li>
 <li>Build the project and run its test suite with a single command.</li>
 <li>Make a small change, commit it, and confirm the pre-commit hook runs formatting automatically.</li>
 <li>Use an AI assistant — cloud or local — to explain an unfamiliar module in the project, and check its explanation against the actual code.</li>
-<li>Enable secret scanning and push protection on the repository (use a public test repository if your private repositories don't have Secret Protection; see Section 5.5). Then try to push a commit containing a fake secret and confirm the push is blocked. Push protection only recognizes supported provider patterns, so a made-up string won't trigger it: the fake value has to match the format of a real provider's token. Never use a real credential for this test.</li>
+<li>Enable secret scanning and push protection (on a public test repository if your private ones don't have Secret Protection; see Section 5.5). Try to push a commit containing a fake secret and confirm the push is blocked. The fake value has to match a supported provider's token format, since a made-up string won't trigger it. Never use a real credential for this test.</li>
 </ol>
-<p>Document the full setup in a <code>SETUP.md</code> so another developer — or a future you, on a new machine — can reproduce it from a cold start.</p>
-<blockquote>
-<p><strong>Screenshot placeholder:</strong> Capture your VS Code window showing the Ruff formatter and linter active on a Python file, and a screenshot of GitHub's secret scanning alert firing on the deliberately-committed fake secret from step 6. Insert both here in the published version.</p>
-</blockquote>
+<p>Document the full setup in a <code>SETUP.md</code> so another developer, or you on a new machine, can reproduce it from scratch.</p>
 <hr />
 <h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
-<p>A professional AI-assisted environment combines modern development tools — editor, version control, testing, linting, containers, and AI assistance, local or cloud — with disciplined engineering practices, all captured in version-controlled configuration rather than tribal knowledge. The objective is not to maximize automation for its own sake, but to minimize friction, tighten feedback loops, and support reliable software delivery.</p>
+<p>A good AI-assisted environment combines development tools — editor, version control, testing, linting, containers and AI assistance, local or cloud — with disciplined practices, all captured in version-controlled configuration rather than in people's heads. The aim isn't maximum automation; it's less friction, tighter feedback loops and reliable delivery.</p>
 <hr />
 <h2 id="review-questions">Review Questions<a class="headerlink" href="#review-questions" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1207,8 +1231,16 @@ D --&gt; J[CI / Quality Gate]</code></pre>
 <li>How does automating formatting and linting change what a human code reviewer needs to focus on?</li>
 </ol>
 <hr />
-<h2 id="preview">Preview<a class="headerlink" href="#preview" title="Permanent link">&para;</a></h2>
-<p>Chapter 6 brings everything together as you build your first complete AI-assisted software project — a command-line Notes Manager — applying the environment, workflow, and quality gates established throughout Part 1.</p>
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li>GitHub Docs, <a href="https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning">Secret scanning</a> and <a href="https://docs.github.com/en/code-security/concepts/secret-security/push-protection">Push protection</a>. What they detect, and which plans include them.</li>
+<li><a href="https://docs.continue.dev/customize/model-providers/top-level/ollama">Continue: Ollama provider</a>. The current configuration format for Section 5.6.</li>
+<li><a href="https://pre-commit.com/">pre-commit</a>. Installing and configuring the hooks in Section 5.7.</li>
+<li>Visual Studio Code, <a href="https://code.visualstudio.com/docs/python/python-quick-start">Python quick start</a>. Setting up VS Code for Python.</li>
+</ul>
+<hr />
+<h2 id="next-chapter">Next Chapter<a class="headerlink" href="#next-chapter" title="Permanent link">&para;</a></h2>
+<p>Chapter 6 brings everything together: you build a complete project, a command-line Notes Manager, using the environment, workflow and quality gates from Part 1.</p>
 
 
 

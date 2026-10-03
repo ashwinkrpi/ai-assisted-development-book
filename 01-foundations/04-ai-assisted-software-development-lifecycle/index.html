@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Volume 1 (Part 1: Foundations) of a practical guide to AI-assisted software engineering">
+        <meta name="description" content="Volume 1 (Part 1: Foundations) of a publication-ready, practical guide to AI-assisted software engineering">
       
       
         <meta name="author" content="Ashwin">
@@ -630,17 +630,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#practical-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Practical Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hands-on-lab-run-one-feature-through-the-full-lifecycle" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -674,10 +663,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#preview" class="md-nav__link">
+  <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preview
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-chapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Chapter
       
     </span>
   </a>
@@ -973,17 +973,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#practical-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Practical Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hands-on-lab-run-one-feature-through-the-full-lifecycle" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1017,10 +1006,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#preview" class="md-nav__link">
+  <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preview
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-chapter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Chapter
       
     </span>
   </a>
@@ -1057,13 +1057,13 @@
 <li>Map AI capabilities to every phase of the SDLC, with concrete examples at each stage.</li>
 <li>Build a repeatable AI-assisted engineering workflow you can apply to any feature.</li>
 <li>Define and enforce quality gates that keep humans in control of every consequential decision.</li>
-<li>Integrate testing, documentation, and review into every iteration — not as separate, deferrable steps.</li>
+<li>Integrate testing, documentation and review into every iteration.</li>
 <li>Work safely with AI <a href="../../glossary/#agent">agents</a>: review diffs, choose permission settings, keep tasks small, and give the agent a context file.</li>
 </ul>
 <hr />
 <h2 id="41-beyond-code-generation">4.1 Beyond Code Generation<a class="headerlink" href="#41-beyond-code-generation" title="Permanent link">&para;</a></h2>
-<p>Many developers first encounter AI as a code generator, and it's easy to stop there. Professional teams quickly discover that the greatest value comes from using AI across the entire software lifecycle — not just during implementation, where it's most visible but arguably least differentiated from what a good IDE autocomplete already offered.</p>
-<p>AI can clarify requirements, analyze existing systems, propose designs, generate code, create tests, draft documentation, review changes, and help explain production incidents. This chapter walks through each of those phases with specific, usable techniques — not just the observation that AI "can help."</p>
+<p>Many developers first meet AI as a code generator and stop there. The larger value comes from using AI across the whole lifecycle, not just in implementation, where it's most visible but adds least beyond what good autocomplete already offered.</p>
+<p>AI can clarify requirements, analyze existing systems, propose designs, generate code, create tests, draft documentation, review changes and help explain production incidents. This chapter gives a concrete technique for each phase.</p>
 <hr />
 <h2 id="42-the-ai-assisted-sdlc">4.2 The AI-Assisted SDLC<a class="headerlink" href="#42-the-ai-assisted-sdlc" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
@@ -1077,11 +1077,12 @@ G --&gt; H[Deployment]
 H --&gt; I[Operations]
 I --&gt; J[Continuous Improvement]
 J --&gt; B</code></pre>
-<p>Every stage benefits from AI assistance, and every stage also requires human verification before its output feeds into the next one. Note the loop back from Continuous Improvement to Requirements — this isn't a linear pipeline you run once per feature; it's a cycle each feature moves through, and lessons from operations feed back into how the next requirement gets written.</p>
+<p>Every stage benefits from AI assistance, and every stage needs human verification before its output feeds the next. Note the loop back from Continuous Improvement to Requirements: lessons from operations shape how the next requirement is written.</p>
+<p>Within each stage, use the eight-step workflow from <a href="../01-introduction/#18-the-workflow-used-throughout-this-book">Chapter 1, Section 1.8</a>. This chapter adds what is specific to each phase: the <a href="../../glossary/#prompt">prompts</a> that work, the checks that matter, and the quality gates in Section 4.4 that a change must pass before it ships.</p>
 <hr />
 <h2 id="43-phase-by-phase-guidance">4.3 Phase-by-Phase Guidance<a class="headerlink" href="#43-phase-by-phase-guidance" title="Permanent link">&para;</a></h2>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
-<p>Use AI to stress-test a specification before any code is written — identifying ambiguity, conflicting requirements, missing acceptance criteria, unconsidered stakeholders, and edge cases. A concrete <a href="../../glossary/#prompt">prompt</a> pattern that works well:</p>
+<p>Use AI to stress-test a specification before any code is written: ambiguity, conflicting requirements, missing acceptance criteria, forgotten stakeholders and edge cases. A prompt pattern that works well:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Here is a draft user story:
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>"As a user, I want to reset my password so I can regain access to my account."
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -1093,9 +1094,9 @@ J --&gt; B</code></pre>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>List your findings as questions I need to answer, not as assumptions you're making on my behalf.
 </code></pre></div>
-<p>That last line matters — it's the difference between AI helping you find gaps and AI quietly filling them with guesses.</p>
+<p>The last line is the difference between AI helping you find gaps and AI filling them with guesses.</p>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
-<p>Ask AI to compare architectural styles and articulate trade-offs across scalability, security, cost, and maintainability — as an input to your decision, not the decision itself:</p>
+<p>Ask AI to compare architectural options and their trade-offs in scalability, security, cost and maintainability, as an input to your decision, not the decision itself:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>I need to add background job processing to a Django app currently deployed
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>on a single EC2 instance, expecting roughly 10,000 jobs/day, with jobs
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>taking 1–30 seconds each.
@@ -1105,9 +1106,9 @@ J --&gt; B</code></pre>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>cover: operational complexity, cost at this scale, failure handling,
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>and what changes if volume grows 10x.
 </code></pre></div>
-<p>If some of those names are new to you, you don't need them for the rest of this book. They're here because a realistic architecture prompt names the real options. In brief: <strong>Django</strong> is a Python web framework. <strong>EC2</strong> is Amazon's service for renting virtual servers. <strong>Celery</strong> is a Python library for running tasks in the background, and <strong>Redis</strong> is an in-memory data store it often uses as a queue. <strong>SQS</strong> is Amazon's managed message queue, and <strong>Lambda</strong> is Amazon's service for running a function on demand without managing a server. The point of the prompt is the structure: describe your current setup and scale, name the options, and list the criteria you'll compare them on.</p>
+<p>You don't need these names for the rest of this book; a realistic architecture prompt names the real options. In brief: <strong>Django</strong> is a Python web framework; <strong>EC2</strong> rents virtual servers on Amazon's cloud; <strong>Celery</strong> runs Python tasks in the background, often using <strong>Redis</strong>, an in-memory data store, as its queue; <strong>SQS</strong> is Amazon's managed message queue; and <strong>Lambda</strong> runs a function on demand without a server to manage. What matters is the prompt's structure: your current setup and scale, the options, and the criteria to compare them on.</p>
 <h3 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
-<p>Generate one logical component at a time. Keep commits small, readable, and independently testable — this is where the "incremental over one-shot" principle from Chapter 1 becomes a concrete git habit:</p>
+<p>Generate one logical component at a time. Keep commits small, readable and independently testable; this is where the "small iterations" principle from Chapter 1 becomes a git habit:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># One logical unit of work per commit, each independently reviewable</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>add<span class="w"> </span>app/auth/password_reset.py
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add password reset token generation with 15-min expiry"</span>
@@ -1118,9 +1119,9 @@ J --&gt; B</code></pre>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>git<span class="w"> </span>add<span class="w"> </span>app/auth/views.py
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Wire password reset endpoint to token generation"</span>
 </code></pre></div>
-<p>Each commit here corresponds to a single AI-assisted generation step that was reviewed before moving to the next. A commit history that reads like this is also a debugging aid months later — <code>git bisect</code> is far more useful against small, single-purpose commits than one 800-line "implement password reset" commit.</p>
+<p>Each commit is one AI-assisted step, reviewed before the next. Such a history also helps debugging months later: <code>git bisect</code> is far more useful on small, single-purpose commits than on one 800-line "implement password reset" commit.</p>
 <h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
-<p>Generate unit, integration, regression, and boundary tests — and treat every generated test as a draft until you've confirmed it actually tests the right thing, not just that it passes:</p>
+<p>Generate unit, integration, regression and boundary tests, and treat each generated test as a draft until you've confirmed it tests the right thing, not just that it passes:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># tests/auth/test_password_reset.py</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
@@ -1172,10 +1173,10 @@ J --&gt; B</code></pre>
 <a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
 <a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>============================== 5 passed in 0.02s ===============================
 </code></pre></div>
-<p><code>--no-header</code> hides the lines that show your Python version and file paths, so your output should match this apart from the timing.</p>
-<p>The single-use and expiry tests here aren't things a model reliably generates unprompted — they came from explicitly asking for edge cases, echoing the security requirements identified back in the Chapter 1 case study. Generated tests are only as thorough as the edge cases you asked for.</p>
+<p><code>--no-header</code> hides your Python version and file paths, so your output should match apart from the timing.</p>
+<p>Models don't reliably generate single-use and expiry tests unprompted. These came from asking for edge cases, based on the security requirements in the Chapter 1 case study. Generated tests are only as thorough as the edge cases you ask for.</p>
 <h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
-<p>Use AI to draft README files, API documentation, architecture summaries, release notes, and user guides directly from working code — then verify every factual claim against the actual implementation before publishing it:</p>
+<p>Use AI to draft READMEs, API documentation, architecture summaries, release notes and user guides from working code, then check every claim against the implementation before publishing:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Generate API documentation for this Flask endpoint. Include the request
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>schema, response schema, all possible status codes with their triggers,
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>and one example request/response pair. Base every claim strictly on the
@@ -1184,9 +1185,9 @@ J --&gt; B</code></pre>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>[paste endpoint code]
 </code></pre></div>
 <p>(<strong>Flask</strong> is a small Python web framework; an endpoint is a function that handles requests to one URL.)</p>
-<p>That last sentence is doing real work — it's a direct countermeasure against the <a href="../../glossary/#hallucination">hallucination</a> behavior covered in Chapter 3, applied specifically to documentation generation, where a plausible but wrong claim is especially costly because readers trust docs by default.</p>
+<p>The last sentence of the prompt guards against the <a href="../../glossary/#hallucination">hallucination</a> described in Chapter 3. In documentation a plausible but wrong claim is especially costly, because readers trust docs by default.</p>
 <h3 id="review">Review<a class="headerlink" href="#review" title="Permanent link">&para;</a></h3>
-<p>Review AI-generated code using automated analysis, peer review, and AI-assisted review before merging — treating AI-assisted review as one more input, not a replacement for a human reviewer's sign-off.</p>
+<p>Review AI-generated code with automated analysis, peer review and AI-assisted review before merging. AI review is one more input, not a replacement for a human reviewer's sign-off.</p>
 <p>Suppose an AI assistant's first draft of the token generator looked like this:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># review/password_reset_draft.py</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># A flawed first draft, written to show what automated review catches.</span>
@@ -1195,7 +1196,7 @@ J --&gt; B</code></pre>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">temp_token</span> <span class="o">=</span> <span class="s2">"reset-123456"</span>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">temp_token</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
-<p>Run automated checks first, because they're cheap and fast and catch mechanical issues. Ruff's <code>S</code> rules check for security problems:</p>
+<p>Run automated checks first: they're cheap, fast, and catch mechanical issues. Ruff's <code>S</code> rules check for security problems:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ruff<span class="w"> </span>check<span class="w"> </span>--select<span class="w"> </span>S<span class="w"> </span>review/password_reset_draft.py
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>S105 Possible hardcoded password assigned to: "temp_token"
@@ -1210,9 +1211,9 @@ J --&gt; B</code></pre>
 <a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
 <a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>Found 1 error.
 </code></pre></div>
-<p>Ruff's <code>S</code> rules are ports of the checks in <code>bandit</code>, a dedicated security scanner. Bandit reports the same problem as <code>B105</code>. Either tool is a cheap first pass that catches this before a human looks at the diff, so the reviewer can focus on what tools can't judge, such as whether a fixed token makes the whole reset flow predictable.</p>
+<p>Ruff's <code>S</code> rules port the checks of <code>bandit</code>, a dedicated security scanner, which reports the same problem as <code>B105</code>. Either tool catches this before a human reads the diff, so the reviewer can focus on what tools can't judge, such as whether a fixed token makes the whole reset flow predictable.</p>
 <h3 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h3>
-<p>Summarize logs, explain failures, identify likely causes, and propose recovery steps — while validating every recommendation against what actually happened, not what sounds like a typical root cause:</p>
+<p>Use AI to summarize logs, explain failures, suggest likely causes and propose recovery steps, and check every recommendation against what happened, not what sounds like a typical root cause:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Here are the last 200 log lines from the password-reset service during
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>an incident window. Summarize the error pattern, propose the most likely
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>root cause, and suggest what additional data I should pull to confirm it
@@ -1220,10 +1221,10 @@ J --&gt; B</code></pre>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>[paste logs]
 </code></pre></div>
-<p>Asking explicitly for "what additional data to confirm this" before acting is the operational equivalent of asking for assumptions before code generation — it keeps a plausible-sounding diagnosis from being treated as a confirmed one.</p>
+<p>Asking for "what additional data I should pull to confirm it" is the operations version of asking for assumptions before code. It stops a plausible diagnosis from being treated as a confirmed one.</p>
 <hr />
 <h2 id="44-human-quality-gates">4.4 Human Quality Gates<a class="headerlink" href="#44-human-quality-gates" title="Permanent link">&para;</a></h2>
-<p>Certain checkpoints should never be bypassed, regardless of how much AI assistance was involved in getting to that point:</p>
+<p>Some checkpoints should never be bypassed, however much AI was involved:</p>
 <table>
 <thead>
 <tr>
@@ -1254,7 +1255,7 @@ J --&gt; B</code></pre>
 </tr>
 </tbody>
 </table>
-<p>These gates are what let a team move fast with AI without quietly eroding quality. A simple way to enforce the "tests + review" gate mechanically rather than relying on discipline alone is a CI check that blocks merges without both:</p>
+<p>These gates let a team move fast with AI without eroding quality. To enforce the "tests and review" gate mechanically instead of relying on discipline, use a CI (continuous integration) check, an automated job that runs on every pull request, together with a review rule:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># .github/workflows/quality-gate.yml</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Quality Gate</span>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -1278,26 +1279,27 @@ J --&gt; B</code></pre>
 <a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Security scan</span>
 <a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bandit -r app/</span>
 </code></pre></div>
-<p>This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule (<code>Settings → Branches → Require pull request reviews before merging</code>). Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository actually enforces.</p>
+<p><em>Illustrative: adapt the requirements files, package name and coverage threshold to your project. This workflow isn't run by the book's CI.</em></p>
+<p>This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule: in the repository's <strong>Settings → Branches</strong>, add a rule for <code>main</code> and turn on <strong>Require a pull request before merging</strong> and <strong>Require approvals</strong>. GitHub also offers rulesets, a newer way to set the same requirements. Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository enforces.</p>
 <hr />
 <h2 id="45-working-with-ai-agents">4.5 Working with AI Agents<a class="headerlink" href="#45-working-with-ai-agents" title="Permanent link">&para;</a></h2>
-<p>The workflow so far works with any AI tool. <a href="../../glossary/#agent">Agentic tools</a>, which read your repository, run commands and edit files themselves (see Chapter 0, Section 0.2), need some extra habits, because they can change many files before you've looked at any of them.</p>
-<p><strong>Review the diff, not the chat.</strong> An agent's summary of what it did ("I added validation and updated the tests") is a description, not evidence. It can be incomplete or wrong. What matters is what actually changed in your files. Before you keep an agent's work, read the diff, in your editor's source-control view or with:</p>
+<p><a href="../../glossary/#agent">Agentic tools</a> read your repository, run commands and edit files themselves (Chapter 0, Section 0.2). They need extra habits, because they can change many files before you've looked at any of them.</p>
+<p><strong>Review the diff, not the chat.</strong> An agent's summary ("I added validation and updated the tests") is a description, not evidence, and it can be incomplete or wrong. What matters is what changed in your files. Before you keep an agent's work, read the diff in your editor's source-control view or with:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>git<span class="w"> </span>status
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>git<span class="w"> </span>diff
 </code></pre></div>
-<p>Check that every changed file was meant to change. Watch for edits you didn't ask for, deleted tests, and loosened checks, such as a test assertion weakened so that it passes.</p>
-<p><strong>Choose how much the agent can do without asking.</strong> Most agentic tools have permission settings or modes. Typically you can choose between:</p>
+<p>Check that every changed file was meant to change. Watch for edits you didn't ask for, deleted tests, and loosened checks, such as an assertion weakened so a test passes.</p>
+<p><strong>Choose how much the agent can do without asking.</strong> Most agentic tools offer permission settings, typically:</p>
 <ul>
 <li>asking before every file edit and command;</li>
 <li>allowing file edits automatically but asking before running commands;</li>
 <li>a planning or read-only mode, where the agent proposes a plan and changes nothing;</li>
 <li>running without asking, sometimes with an automated check in place of you.</li>
 </ul>
-<p>The names differ between tools (Claude Code, for example, calls these <em>permission modes</em>), so check your tool's documentation. Start with the agent asking before it acts, and allow more only for kinds of action you've seen it handle well. Commands that delete files, change git history, install packages or touch anything outside your project deserve the most caution.</p>
-<p><strong>Keep tasks small.</strong> Give an agent one well-defined task at a time, the same size you'd put in one commit: "add input validation to <code>create_note</code> and a test for an empty title," not "build the notes app." Small tasks produce diffs you can actually review. Commit after each task you've reviewed, so you can roll back the next one if it goes wrong.</p>
-<p><strong>Give the agent a context file.</strong> Agents start each session knowing nothing about your project's conventions. A context file in the repository fixes that: a short Markdown file with your build and test commands, coding conventions, and rules such as "never commit directly to <code>main</code>." Many tools read one automatically when a session starts, for example <code>CLAUDE.md</code> for Claude Code, <code>.github/copilot-instructions.md</code> for GitHub Copilot, and <code>AGENTS.md</code>, a shared format that many tools support. Like a <a href="../../glossary/#system-prompt">system prompt</a>, it shapes every response without you repeating it. Keep it short and accurate, and update it when your conventions change. Chapter 5, Section 5.7 comes back to this habit.</p>
-<p><strong>Keep running the tests yourself.</strong> Agents often run your tests and report that they pass. Run them yourself before committing. It's quick, and it confirms the agent ran the right tests, on the final version of the code.</p>
+<p>Names differ between tools (Claude Code calls these <em>permission modes</em>). Start with the agent asking before it acts, and allow more only for actions you've seen it handle well. Be most careful with commands that delete files, change git history, install packages, or touch anything outside your project.</p>
+<p><strong>Keep tasks small.</strong> Give an agent one task the size of one commit: "add input validation to <code>create_note</code> and a test for an empty title," not "build the notes app." Small tasks produce reviewable diffs. Commit after each reviewed task so you can roll back the next one.</p>
+<p><strong>Give the agent a context file.</strong> Agents start each session knowing nothing about your conventions. A short Markdown file in the repository fixes that: build and test commands, coding conventions, and rules such as "never commit directly to <code>main</code>." Many tools read one automatically, for example <code>CLAUDE.md</code> for Claude Code, <code>.github/copilot-instructions.md</code> for GitHub Copilot, and <code>AGENTS.md</code>, a shared format that many tools support. Like a <a href="../../glossary/#system-prompt">system prompt</a>, it shapes every response without you repeating it. Keep it short, accurate and up to date.</p>
+<p><strong>Run the tests yourself.</strong> Agents often report that tests pass. Run them yourself before committing, to confirm the right tests ran on the final code.</p>
 <hr />
 <h2 id="engineering-insight">Engineering Insight<a class="headerlink" href="#engineering-insight" title="Permanent link">&para;</a></h2>
 <blockquote>
@@ -1306,43 +1308,27 @@ J --&gt; B</code></pre>
 <hr />
 <h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Beginning implementation before requirements are actually clear, treating AI's fluent output as a substitute for that clarity.</li>
+<li>Starting implementation before requirements are clear, treating AI's fluent output as a substitute for clarity.</li>
 <li>Asking AI to generate an entire application or feature in one request, making meaningful review impossible.</li>
-<li>Skipping documentation because AI "can generate it later" — later rarely comes, and undocumented AI-assisted code is harder to trust than undocumented hand-written code, precisely because no one is certain what was verified.</li>
+<li>Skipping documentation because AI "can generate it later." Later rarely comes, and undocumented AI-assisted code is harder to trust than undocumented hand-written code, because no one knows what was verified.</li>
 <li>Merging generated code without running the test suite against it.</li>
-<li>Treating AI recommendations — architectural or otherwise — as design decisions rather than as one input to a decision a human still needs to make.</li>
+<li>Treating AI recommendations, architectural or otherwise, as decisions rather than as one input to a decision a human makes.</li>
 <li>Accepting an agent's summary of its changes without reading the diff.</li>
 </ul>
 <hr />
-<h2 id="practical-workflow">Practical Workflow<a class="headerlink" href="#practical-workflow" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Define the business objective clearly enough to write down.</li>
-<li>Build project context — relevant files, constraints, prior decisions — before prompting.</li>
-<li>Ask AI to analyze the task and surface questions or alternatives.</li>
-<li>Review the alternatives and choose deliberately.</li>
-<li>Implement incrementally, one reviewable unit at a time.</li>
-<li>Test continuously, not as a final gate before merge.</li>
-<li>Document changes as they're made, not retroactively.</li>
-<li>Review and deploy through the quality gates in Section 4.4.</li>
-</ol>
-<p>Repeat this cycle for every feature, regardless of size — the overhead scales down naturally for small features, but skipping steps entirely is where quality erodes.</p>
-<hr />
 <h2 id="hands-on-lab-run-one-feature-through-the-full-lifecycle">Hands-On Lab: Run One Feature Through the Full Lifecycle<a class="headerlink" href="#hands-on-lab-run-one-feature-through-the-full-lifecycle" title="Permanent link">&para;</a></h2>
-<p>Choose a feature from one of your own projects — ideally something small enough to complete in a single sitting but real enough to touch requirements, code, and tests.</p>
-<p>For each SDLC phase in Section 4.3, record in a short log:</p>
+<p>Choose a feature from one of your projects, small enough to finish in one sitting but real enough to touch requirements, code and tests.</p>
+<p>For each phase in Section 4.3, log:</p>
 <ul>
 <li>How AI assisted at this phase, with the actual prompt you used.</li>
 <li>What required human judgment that AI couldn't have supplied.</li>
 <li>Which quality gate applied, and whether you actually enforced it.</li>
 <li>What you'd change about the workflow next time.</li>
 </ul>
-<p>If your project has a CI setup, adapt the quality-gate YAML from Section 4.4 to it and confirm a pull request without passing tests or without a review is actually blocked — don't just assume the configuration works.</p>
-<blockquote>
-<p><strong>Screenshot placeholder:</strong> Capture the GitHub Actions run showing the quality gate passing (or correctly failing) on a real pull request, and a screenshot of the branch protection settings enforcing required reviews. Insert both here in the published version.</p>
-</blockquote>
+<p>If your project has CI, adapt the quality-gate YAML from Section 4.4 and confirm that a pull request without passing tests, or without a review, is blocked. Don't assume the configuration works; open a pull request and check.</p>
 <hr />
 <h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
-<p>AI is most effective when embedded in a disciplined engineering lifecycle, contributing at every phase from requirements through operations rather than only during implementation. It strengthens established software engineering practices — clarifying requirements, comparing architectures, generating tests, drafting documentation — without replacing the human judgment and accountability that quality gates exist to protect.</p>
+<p>AI is most effective inside a disciplined lifecycle, contributing at every phase from requirements to operations rather than only during implementation. It strengthens established practices — clarifying requirements, comparing architectures, generating tests, drafting documentation — without replacing the human judgment and accountability that quality gates protect. Agents raise the stakes: review their diffs, limit what they can do without asking, and keep their tasks small.</p>
 <hr />
 <h2 id="review-questions">Review Questions<a class="headerlink" href="#review-questions" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1354,8 +1340,16 @@ J --&gt; B</code></pre>
 <li>Why is an agent's description of its changes not enough to review them? What should you look at instead?</li>
 </ol>
 <hr />
-<h2 id="preview">Preview<a class="headerlink" href="#preview" title="Permanent link">&para;</a></h2>
-<p>Chapter 5 focuses on building a professional AI-assisted development environment — editors, version control, testing tools, and AI integrations — including a working setup on both a cloud-connected workstation and a self-hosted Raspberry Pi 5 environment.</p>
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li>GitHub Docs, <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches">About protected branches</a>. How to require reviews and passing checks before merging.</li>
+<li><a href="https://docs.astral.sh/ruff/rules/#flake8-bandit-s">Ruff rules: flake8-bandit (<code>S</code>)</a> and the <a href="https://bandit.readthedocs.io/en/latest/">Bandit documentation</a>. The security checks used in Section 4.3.</li>
+<li>Claude Code docs, <a href="https://code.claude.com/docs/en/permissions">Permissions</a>. One tool's permission modes, as an example of the settings described in Section 4.5.</li>
+<li><a href="https://agents.md/">AGENTS.md</a>. A shared format for agent context files.</li>
+</ul>
+<hr />
+<h2 id="next-chapter">Next Chapter<a class="headerlink" href="#next-chapter" title="Permanent link">&para;</a></h2>
+<p>Chapter 5 builds a professional AI-assisted development environment — editor, version control, testing tools and AI integrations — on a cloud-connected workstation and on a self-hosted Raspberry Pi 5.</p>
 
 
 

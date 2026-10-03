@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Volume 1 (Part 1: Foundations) of a practical guide to AI-assisted software engineering">
+        <meta name="description" content="Volume 1 (Part 1: Foundations) of a publication-ready, practical guide to AI-assisted software engineering">
       
       
         <meta name="author" content="Ashwin">
@@ -378,17 +378,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#chapter-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chapter Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#learning-objectives" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -488,10 +477,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#engineering-checklist" class="md-nav__link">
+  <a href="#engineering-insight" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Engineering Checklist
+        Engineering Insight
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Mistakes
       
     </span>
   </a>
@@ -543,10 +543,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#preview" class="md-nav__link">
+  <a href="#next-chapter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preview
+        Next Chapter
       
     </span>
   </a>
@@ -752,17 +752,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#chapter-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Chapter Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#learning-objectives" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -862,10 +851,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#engineering-checklist" class="md-nav__link">
+  <a href="#engineering-insight" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Engineering Checklist
+        Engineering Insight
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Mistakes
       
     </span>
   </a>
@@ -917,10 +917,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#preview" class="md-nav__link">
+  <a href="#next-chapter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Preview
+        Next Chapter
       
     </span>
   </a>
@@ -951,41 +951,36 @@
 <blockquote>
 <p><em>"The future of software development is not human </em><em>or</em><em> AI. It is human </em><em>with</em><em> AI."</em></p>
 </blockquote>
-<h2 id="chapter-overview">Chapter Overview<a class="headerlink" href="#chapter-overview" title="Permanent link">&para;</a></h2>
-<p>Welcome to <strong>AI-Assisted Software Development</strong>.</p>
-<p>Over the past seventy years, software engineering has been reshaped again and again: high-level programming languages replaced machine code, integrated development environments replaced text editors and manual compilation, version control replaced mailed floppy disks and file-naming conventions, and cloud computing and DevOps replaced racks of servers managed by hand. Each shift did the same fundamental thing — it removed friction from a specific part of the job so engineers could spend more of their time on harder, more valuable problems.</p>
-<p>Artificial intelligence is the next shift in that lineage, and it is a larger one. Earlier tools accelerated a single stage of development — a compiler sped up translation to machine code, a debugger sped up fault isolation. AI is different because it can participate across the <em>entire</em> software development lifecycle (SDLC) at once. The same underlying technology that drafts a function can also review a pull request, explain a decade-old codebase, propose a system architecture, summarize an incident postmortem, or generate the first pass of a test suite.</p>
-<p>That range is exactly why AI is easy to misuse. A tool capable of touching every stage of engineering is also capable of quietly eroding the discipline that makes engineering reliable, if it isn't used deliberately.</p>
-<div class="admonition info">
-<p class="admonition-title">Who this book is for</p>
-<p>Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read <a href="../../00-before-you-begin/">Chapter 0 — Before You Begin</a> first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.</p>
-</div>
-<p>This book is <strong>not</strong> about replacing software engineers with AI. It is about teaching working engineers how to collaborate with AI systems while preserving the practices — requirements clarity, incremental delivery, testing, review, and accountability — that separate durable software from software that merely happens to run today.</p>
-<hr />
 <h2 id="learning-objectives">Learning Objectives<a class="headerlink" href="#learning-objectives" title="Permanent link">&para;</a></h2>
 <p>By the end of this chapter, you will be able to:</p>
 <ul>
 <li>Define AI-assisted software development and distinguish it from AI-generated or "vibe-coded" software.</li>
-<li>Explain why AI represents a structurally different kind of productivity tool than earlier innovations in the field.</li>
-<li>Identify where AI can contribute value at each stage of the SDLC — and where its contributions need the closest scrutiny.</li>
-<li>Describe the genuine strengths and the recurring failure modes of current AI systems.</li>
+<li>Explain why AI is a different kind of productivity tool from earlier innovations in the field.</li>
+<li>Identify where AI can contribute at each stage of the software development lifecycle (SDLC), and where its contributions need the closest scrutiny.</li>
+<li>Describe the strengths and the recurring failure modes of current AI systems.</li>
 <li>Apply the iterative, review-driven workflow used throughout the rest of this book.</li>
 <li>Adopt an engineering-first mindset: AI proposes, engineers decide.</li>
 </ul>
 <hr />
 <h2 id="11-why-this-book-exists">1.1 Why This Book Exists<a class="headerlink" href="#11-why-this-book-exists" title="Permanent link">&para;</a></h2>
-<p>There is no shortage of material on this topic. Some books teach <a href="../../glossary/#prompt">prompt</a> engineering as if phrasing were the whole skill. Some articles rank AI coding tools against each other by benchmark score. Very little of it addresses the harder and more useful question: <strong>how does professional software engineering actually change once AI becomes a working member of the team?</strong></p>
-<p>That is the question this book answers. Throughout every chapter, AI is treated as a capable but fallible collaborator — closer to a fast, well-read junior engineer than to an oracle whose output can be trusted by default. Every technique and workflow in this book is built on four principles that will resurface constantly:</p>
+<div class="admonition info">
+<p class="admonition-title">Who this book is for</p>
+<p>Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read <a href="../../00-before-you-begin/">Chapter 0 — Before You Begin</a> first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.</p>
+</div>
+<p>Earlier tools each sped up one stage of development: a compiler sped up translation to machine code, a debugger sped up fault isolation. AI can take part in the <em>entire</em> software development lifecycle (SDLC). The same technology that drafts a function can review a pull request, explain an old codebase, propose an architecture or write a first test suite.</p>
+<p>That range is why AI is easy to misuse. A tool that touches every stage of engineering can also erode the discipline that makes engineering reliable, if it isn't used deliberately.</p>
+<p>Much existing material treats <a href="../../glossary/#prompt">prompt</a> phrasing as the whole skill, or ranks tools by benchmark score. This book asks a different question: <strong>how does professional software engineering change once AI becomes a working member of the team?</strong> It isn't about replacing engineers. It's about collaborating with AI while keeping the practices that make software durable.</p>
+<p>Throughout the book, AI is treated as a capable but fallible collaborator, closer to a fast, well-read junior engineer than to an oracle. Every technique in the book rests on four principles:</p>
 <ol>
-<li><strong>Requirements come before code.</strong> AI cannot infer intent you haven't articulated, and it will confidently fill gaps with plausible-sounding guesses.</li>
-<li><strong>Small iterations outperform one-shot generation.</strong> A feature generated in one large pass is difficult to review and easy to get subtly wrong; a feature built in small, verified steps is not.</li>
-<li><strong>Automated testing is mandatory, not optional.</strong> Tests are how you verify AI-generated code actually does what it claims to do, rather than what it merely appears to do.</li>
-<li><strong>Humans remain accountable for every engineering decision.</strong> AI can draft, suggest, and accelerate. It cannot own the consequences of what ships.</li>
+<li><strong>Requirements come before code.</strong> AI cannot infer intent you haven't stated, and it will confidently fill gaps with plausible guesses.</li>
+<li><strong>Small iterations beat one-shot generation.</strong> A feature generated in one large pass is hard to review and easy to get subtly wrong; a feature built in small, verified steps is not.</li>
+<li><strong>Automated testing is mandatory.</strong> Tests are how you verify that AI-generated code does what it claims, not just what it appears to do.</li>
+<li><strong>Humans remain accountable for every engineering decision.</strong> AI can draft, suggest and accelerate. It cannot own the consequences of what ships.</li>
 </ol>
-<p>Keep these four principles in mind as you read; nearly every practice in this book is one of them applied to a specific situation.</p>
+<p>Nearly every practice in this book is one of these principles applied to a specific situation.</p>
 <hr />
 <h2 id="12-the-evolution-of-software-engineering">1.2 The Evolution of Software Engineering<a class="headerlink" href="#12-the-evolution-of-software-engineering" title="Permanent link">&para;</a></h2>
-<p>AI-assisted development did not appear in isolation. It's the latest step in a long pattern of tools that abstract away repetitive work so engineers can operate at a higher level.</p>
+<p>AI-assisted development is the latest step in a long pattern of tools that take over repetitive work so engineers can operate at a higher level.</p>
 <table>
 <thead>
 <tr>
@@ -1018,7 +1013,7 @@
 <tr>
 <td>2000s</td>
 <td>Distributed version control (Git)</td>
-<td>Real team collaboration at scale</td>
+<td>Team collaboration at scale</td>
 </tr>
 <tr>
 <td>2010s</td>
@@ -1032,12 +1027,12 @@
 </tr>
 </tbody>
 </table>
-<p>Every prior generation reduced repetitive, mechanical work and shifted more of an engineer's time toward judgment, design, and problem framing. AI extends that same trend — but because it operates in natural language and can generate large volumes of plausible-looking output quickly, it also raises the cost of skipping review. The rest of this book is largely about capturing the gains from that shift without absorbing its risks.</p>
+<p>Each generation reduced mechanical work and shifted engineers' time toward judgment, design and problem framing. AI extends that trend, but because it produces large volumes of plausible output quickly, it also raises the cost of skipping review.</p>
 <hr />
 <h2 id="13-what-is-ai-assisted-software-development">1.3 What Is AI-Assisted Software Development?<a class="headerlink" href="#13-what-is-ai-assisted-software-development" title="Permanent link">&para;</a></h2>
-<p><strong>AI-assisted software development</strong> is the disciplined practice of using AI systems to improve engineering activities while human engineers retain responsibility for design decisions, validation, deployment, and long-term maintenance.</p>
-<p>That definition matters more than it might first appear, because it draws a clear line against two common failure patterns: treating AI output as authoritative without review, and using AI so heavily that no one on the team fully understands the resulting system. AI-assisted development sits deliberately between those two extremes.</p>
-<p>In practice, this shows up across activities such as:</p>
+<p><strong>AI-assisted software development</strong> is the disciplined practice of using AI systems to improve engineering activities while human engineers keep responsibility for design decisions, validation, deployment and long-term maintenance.</p>
+<p>The definition rules out two failure patterns: treating AI output as authoritative without review, and using AI so heavily that no one understands the resulting system. The second is often called "vibe coding": accepting AI-generated code because it seems to work, without reading or understanding it.</p>
+<p>In practice, AI assistance shows up in:</p>
 <ul>
 <li>Requirements analysis and user story refinement</li>
 <li>Architecture exploration and trade-off comparison</li>
@@ -1049,10 +1044,10 @@
 <li>Code review support</li>
 <li>Release notes and operational runbooks</li>
 </ul>
-<p>The operative word is <strong>assisted</strong>. AI proposes; engineers decide. That distinction is the difference between a productivity tool and a liability.</p>
+<p>The key word is <strong>assisted</strong>. AI proposes; engineers decide. That distinction is the difference between a productivity tool and a liability.</p>
 <hr />
 <h2 id="14-human-and-ai-complementary-strengths">1.4 Human and AI: Complementary Strengths<a class="headerlink" href="#14-human-and-ai-complementary-strengths" title="Permanent link">&para;</a></h2>
-<p>Human engineers and AI systems are good at different things, and it pays to design your workflow around that difference rather than ignoring it.</p>
+<p>Human engineers and AI systems are good at different things. Design your workflow around that difference.</p>
 <table>
 <thead>
 <tr>
@@ -1079,64 +1074,64 @@
 </tr>
 </tbody>
 </table>
-<p>A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code and documentation, works extremely fast, never gets tired — and still needs their work reviewed before it ships. In this book's view, that mental model matters more than any specific prompting technique for getting consistent value out of AI tools instead of getting burned by them.</p>
+<p>A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code, works extremely fast, never gets tired, and still needs their work reviewed before it ships. This mental model matters more than any prompting technique.</p>
 <hr />
 <h2 id="15-ai-across-the-sdlc">1.5 AI Across the SDLC<a class="headerlink" href="#15-ai-across-the-sdlc" title="Permanent link">&para;</a></h2>
-<p>AI can contribute at every stage of the software development lifecycle, though the nature of that contribution — and the amount of scrutiny it needs — changes from stage to stage.</p>
+<p>AI can contribute at every stage of the lifecycle, but the kind of contribution, and the scrutiny it needs, changes from stage to stage.</p>
 <ul>
-<li><strong>Requirements</strong> — surfacing ambiguity, missing acceptance criteria, and edge cases in a specification before implementation begins.</li>
-<li><strong>Design</strong> — comparing architectural options and articulating trade-offs an engineer can then evaluate against real constraints.</li>
-<li><strong>Implementation</strong> — generating scaffolding, boilerplate, and repetitive code so engineers can focus on the parts that require genuine design decisions.</li>
-<li><strong>Testing</strong> — proposing unit, integration, and edge-case tests, including cases a developer under deadline pressure might otherwise skip.</li>
-<li><strong>Documentation</strong> — drafting READMEs, API references, and inline comments that a human then verifies for accuracy.</li>
-<li><strong>Review</strong> — flagging likely defects, inconsistent naming, and maintainability concerns before a human reviewer looks at the diff.</li>
-<li><strong>Operations</strong> — summarizing logs, correlating incidents, and suggesting diagnostic paths during an on-call investigation.</li>
+<li><strong>Requirements</strong> — surfacing ambiguity, missing acceptance criteria and edge cases before implementation begins.</li>
+<li><strong>Design</strong> — comparing architectural options and stating trade-offs for an engineer to evaluate against real constraints.</li>
+<li><strong>Implementation</strong> — generating scaffolding and boilerplate so engineers can focus on the parts that need design decisions.</li>
+<li><strong>Testing</strong> — proposing unit, integration and edge-case tests, including cases a developer under deadline pressure might skip.</li>
+<li><strong>Documentation</strong> — drafting READMEs, API references and comments that a human then checks for accuracy.</li>
+<li><strong>Review</strong> — flagging likely defects, inconsistent naming and maintainability concerns before a human reviewer looks at the diff.</li>
+<li><strong>Operations</strong> — summarizing logs, correlating incidents and suggesting diagnostic paths during an investigation.</li>
 </ul>
-<p>Notice what doesn't appear on this list: final sign-off. Engineering ownership never transfers to the AI, regardless of which stage it's contributing to.</p>
+<p>What isn't on this list is final sign-off. Ownership never transfers to the AI, at any stage.</p>
 <hr />
 <h2 id="16-strengths-and-limitations">1.6 Strengths and Limitations<a class="headerlink" href="#16-strengths-and-limitations" title="Permanent link">&para;</a></h2>
-<p>Using AI well requires an accurate, unsentimental picture of what it's actually good and bad at — not the marketing version, and not the doom-laden version either.</p>
-<p><strong>Where AI is genuinely strong:</strong></p>
+<p>Using AI well requires an accurate picture of what it's good and bad at — neither the marketing version nor the doom-laden one.</p>
+<p><strong>Where AI is strong:</strong></p>
 <ul>
 <li>Explaining unfamiliar code, including legacy systems with little documentation</li>
 <li>Summarizing long technical documents, tickets, or discussion threads</li>
-<li>Generating repetitive, well-specified implementations (CRUD endpoints, data transformations, boilerplate)</li>
+<li>Generating repetitive, well-specified implementations (CRUD endpoints, which create, read, update and delete records; data transformations; boilerplate)</li>
 <li>Producing a first draft of test scaffolding</li>
 <li>Drafting documentation from existing code</li>
 <li>Suggesting refactorings and naming improvements</li>
 </ul>
 <p><strong>Where AI reliably struggles:</strong></p>
 <ul>
-<li>Inventing APIs, functions, or library behavior that don't actually exist</li>
-<li>Misreading vague or incomplete requirements — and filling the gap with a plausible guess instead of asking</li>
+<li>Inventing APIs, functions, or library behavior that don't exist</li>
+<li>Misreading vague or incomplete requirements, and filling the gap with a plausible guess instead of asking</li>
 <li>Missing business rules that were never written down anywhere the model could see</li>
 <li>Producing code with security flaws that look correct at a glance (missing input validation, weak auth checks, unsafe defaults)</li>
 <li>Ignoring operational constraints such as latency budgets, cost limits, or existing infrastructure</li>
-<li>Stating incorrect answers with the same confident tone as correct ones</li>
+<li>Stating incorrect answers in the same confident tone as correct ones</li>
 </ul>
-<p>That last point is the one worth internalizing most. An AI system's tone gives you no information about its accuracy. Every AI-generated artifact — a function, a test, a paragraph of documentation, a claimed API signature — needs to be reviewed and validated exactly as if a new, unvetted contributor had submitted it. Because, functionally, one has.</p>
+<p>The last point matters most. An AI system's tone tells you nothing about its accuracy. Review every AI-generated artifact — a function, a test, a paragraph of documentation, a claimed API signature — as if a new, unvetted contributor had submitted it. In effect, one has.</p>
 <hr />
 <h2 id="17-case-study-implementing-password-reset">1.7 Case Study: Implementing Password Reset<a class="headerlink" href="#17-case-study-implementing-password-reset" title="Permanent link">&para;</a></h2>
 <p>Consider a request that lands in almost every backend engineer's queue at some point:</p>
 <blockquote>
 <p>"Implement password reset."</p>
 </blockquote>
-<p><strong>A poor workflow</strong> treats this as a single prompt: ask the AI to generate the entire feature — endpoint, email delivery, token handling, and frontend form — in one pass, skim the output, and merge it. This is a common way for AI-assisted development to go wrong, not because the AI is incapable, but because a security-sensitive, multi-component feature was never actually decomposed or reviewed at the level it needs.</p>
+<p><strong>A poor workflow</strong> asks the AI for the whole feature — endpoint, email delivery, token handling and frontend form — in one pass, skims the output, and merges it. The AI may be capable, but a security-sensitive, multi-component feature was never broken down or reviewed properly.</p>
 <p><strong>A professional workflow</strong> looks different:</p>
 <ol>
 <li><strong>Clarify requirements.</strong> Does "reset" mean an emailed link, an emailed one-time code, or an SMS code? What's the token expiry? Is there a rate limit on reset requests?</li>
-<li><strong>Identify security requirements up front.</strong> Tokens must be single-use, cryptographically random, and time-limited. Reset requests must not reveal whether an email address exists in the system (a common information-leak bug).</li>
-<li><strong>Design the workflow</strong> before writing code — request → token generation → email delivery → verification → password update — and use AI to compare implementation options, not to skip the design step.</li>
-<li><strong>Implement one endpoint at a time</strong>, reviewing each before moving to the next, rather than generating the whole feature in one shot.</li>
+<li><strong>Identify security requirements up front.</strong> Tokens must be single-use, cryptographically random and time-limited. Reset requests must not reveal whether an email address exists in the system (a common information-leak bug).</li>
+<li><strong>Design the flow</strong> before writing code — request → token generation → email delivery → verification → password update — using AI to compare options, not to skip design.</li>
+<li><strong>Implement one endpoint at a time</strong>, reviewing each before moving to the next.</li>
 <li><strong>Add tests</strong> for the expected path <em>and</em> the edge cases: expired tokens, reused tokens, non-existent accounts, malformed requests.</li>
-<li><strong>Review the implementation</strong> manually, with particular attention to anything security-related — this is not a step to delegate.</li>
-<li><strong>Update documentation</strong> so the next engineer who touches this code understands the token lifecycle and the rate-limiting behavior.</li>
+<li><strong>Review the implementation</strong> manually, with particular attention to anything security-related. Don't delegate this step.</li>
+<li><strong>Update documentation</strong> so the next engineer understands the token lifecycle and the rate-limiting behavior.</li>
 <li><strong>Merge only after verification</strong> — tests pass, review is complete, and the security requirements from step 2 are demonstrably met.</li>
 </ol>
-<p>The two workflows can use the exact same AI tool. The difference in outcome comes entirely from how the work was decomposed and reviewed — which is the central argument of this book.</p>
+<p>Both workflows can use the same AI tool. The difference in outcome comes from how the work was decomposed and reviewed, which is the central argument of this book.</p>
 <hr />
 <h2 id="18-the-workflow-used-throughout-this-book">1.8 The Workflow Used Throughout This Book<a class="headerlink" href="#18-the-workflow-used-throughout-this-book" title="Permanent link">&para;</a></h2>
-<p>Every feature example in the chapters that follow uses the same underlying workflow:</p>
+<p>Every feature example in the chapters that follow uses the same workflow:</p>
 <ol>
 <li>Understand the business problem before touching a prompt or an editor.</li>
 <li>Clarify missing information — ask questions rather than let the AI assume.</li>
@@ -1147,28 +1142,40 @@
 <li>Review manually — every AI contribution, every time.</li>
 <li>Commit only validated work.</li>
 </ol>
-<p>You'll see this same eight-step shape recur throughout the book, applied to requirements, architecture, testing, and the complete project in Chapter 6, and it continues in later volumes. It's worth memorizing.</p>
-<hr />
-<h2 id="engineering-checklist">Engineering Checklist<a class="headerlink" href="#engineering-checklist" title="Permanent link">&para;</a></h2>
-<p>Before accepting any AI-generated work, ask:</p>
+<p>Before you accept any AI-generated work in step 7, ask:</p>
 <ul>
-<li>Does it actually satisfy the requirement — not just resemble a plausible solution?</li>
+<li>Does it satisfy the requirement, or does it only resemble a plausible solution?</li>
 <li>Is it secure?</li>
-<li>Is it maintainable by someone who wasn't in the room when it was generated?</li>
+<li>Can someone who wasn't there when it was generated maintain it?</li>
 <li>Has it been tested, including edge cases?</li>
 <li>Is the documentation updated to match?</li>
 </ul>
-<p>If the answer to any of these is <strong>no</strong>, the work isn't done — regardless of how complete it looks.</p>
+<p>If any answer is <strong>no</strong>, the work isn't done, however complete it looks.</p>
+<p>Later chapters apply this workflow to requirements, architecture, testing and tools, and Chapter 6 uses it to build a complete project. They refer back to this section rather than repeating it.</p>
+<hr />
+<h2 id="engineering-insight">Engineering Insight<a class="headerlink" href="#engineering-insight" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>AI proposes; engineers decide. A tool's confidence is not evidence, and ownership of what ships never moves to the AI.</p>
+</blockquote>
+<hr />
+<h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Asking for a whole feature in one prompt, then skimming the result because it looks complete.</li>
+<li>Treating a confident answer as a correct one.</li>
+<li>Leaving requirements unstated and expecting the AI to infer them.</li>
+<li>Writing tests only at the end, or not reviewing AI-written tests.</li>
+<li>Merging work that nobody on the team fully understands.</li>
+</ul>
 <hr />
 <h2 id="hands-on-lab-build-a-command-line-calculator">Hands-On Lab: Build a Command-Line Calculator<a class="headerlink" href="#hands-on-lab-build-a-command-line-calculator" title="Permanent link">&para;</a></h2>
-<p>This lab is intentionally simple. The goal isn't the calculator — it's practicing the workflow from Section 1.8 on something small enough that the process, not the problem, stays in focus.</p>
-<p>Using an AI assistant of your choice, and the prompting basics from <a href="../../00-before-you-begin/#05-prompting-basics">Chapter 0, Section 0.5</a>, build a command-line calculator that supports addition, subtraction, multiplication, and division, and handles invalid input gracefully. Work through it in stages:</p>
+<p>This lab is intentionally simple. The goal isn't the calculator. It's practicing the workflow from Section 1.8 on something small enough that the process stays in focus.</p>
+<p>Using an AI assistant of your choice, and the prompting basics from <a href="../../00-before-you-begin/#05-prompting-basics">Chapter 0, Section 0.5</a>, build a command-line calculator that supports addition, subtraction, multiplication and division, and handles invalid input gracefully. Work through it in stages:</p>
 <ol>
 <li>Define the requirements yourself first (supported operations, input format, error handling for things like division by zero) before asking AI for anything.</li>
 <li>Use AI to explore two or three possible designs — a single-file script versus a small module with separate parsing and evaluation logic, for example — and choose one deliberately.</li>
 <li>Implement one operation at a time, reviewing each before moving to the next.</li>
 <li>Write tests for each operation, including invalid input and edge cases.</li>
-<li>Ask AI to draft a short README, then verify every claim in it against the actual code.</li>
+<li>Ask AI to draft a short README, then verify every claim in it against the code.</li>
 <li>Review the completed solution end-to-end as if you were reviewing a colleague's pull request.</li>
 </ol>
 <p><strong>Keep a development journal</strong> as you work, recording:</p>
@@ -1178,19 +1185,18 @@
 <li>Which suggestions you rejected, and why</li>
 <li>What you'd do differently next time</li>
 </ul>
-<p>This journal is more valuable than the calculator itself — it's the first concrete record of your own AI-assisted workflow, and you'll refine it throughout the rest of the book.</p>
+<p>The journal is more valuable than the calculator. It's the first record of your own AI-assisted workflow, and you'll refine it throughout the book.</p>
 <hr />
 <h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
-<p>Artificial intelligence is changing how software gets built, but it does not change <em>why</em> engineering discipline matters — if anything, it raises the stakes for keeping that discipline intact. AI can accelerate requirements analysis, implementation, testing, and documentation, but it cannot own the judgment calls, the trade-offs, or the consequences that come with shipping software.</p>
-<p>The engineers who gain the most from this shift aren't the ones who prompt the most fluently. They're the ones who combine strong software engineering fundamentals with a clear-eyed, disciplined use of AI — treating it as a fast and capable collaborator that never gets the final word.</p>
-<p>That combination — human expertise, supported by intelligent tools, without ever being replaced by them — is the central theme of this book.</p>
+<p>AI is changing how software gets built, but it doesn't change <em>why</em> engineering discipline matters; it raises the stakes for keeping it. AI can accelerate requirements analysis, implementation, testing and documentation, but it cannot own the judgment calls, the trade-offs or the consequences of shipping software.</p>
+<p>The engineers who gain the most aren't the ones who prompt most fluently. They combine strong engineering fundamentals with disciplined use of AI, treating it as a fast, capable collaborator that never gets the final word.</p>
 <hr />
 <h2 id="review-questions">Review Questions<a class="headerlink" href="#review-questions" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Define AI-assisted software development in your own words, and explain how it differs from simply asking AI to generate a feature end-to-end.</li>
 <li>Why does engineering accountability remain with human engineers even as AI takes on more of the implementation work?</li>
 <li>Name five stages of the SDLC where AI can add value, and one specific risk to watch for at each stage.</li>
-<li>List three genuine strengths and three recurring limitations of current AI systems.</li>
+<li>List three strengths and three recurring limitations of current AI systems.</li>
 <li>Using the password reset case study, explain why iterative, reviewed development produces more reliable outcomes than one-shot generation — even when the same AI tool is used in both cases.</li>
 </ol>
 <hr />
@@ -1201,8 +1207,8 @@
 <li>Joel Becker et al. (METR), <a href="https://arxiv.org/abs/2507.09089">"Measuring the Impact of Early-2025 AI on Experienced Open-Source Developer Productivity"</a>, 2025. A randomized study in which experienced developers working on their own large projects took 19% longer with AI tools, although they believed it had sped them up.</li>
 </ul>
 <hr />
-<h2 id="preview">Preview<a class="headerlink" href="#preview" title="Permanent link">&para;</a></h2>
-<p>Chapter 2 examines <strong>why AI is transforming software development</strong>, looking at the technical, economic, and organizational forces driving this shift — and what they mean for how professional engineering teams actually work day to day.</p>
+<h2 id="next-chapter">Next Chapter<a class="headerlink" href="#next-chapter" title="Permanent link">&para;</a></h2>
+<p>Chapter 2 examines <strong>why AI is transforming software development</strong>: the technical, economic and organizational forces behind the shift, and what they mean for how engineering teams work day to day.</p>
 
 
 

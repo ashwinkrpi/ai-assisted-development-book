@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Volume 1 (Part 1: Foundations) of a practical guide to AI-assisted software engineering">
+        <meta name="description" content="Volume 1 (Part 1: Foundations) of a publication-ready, practical guide to AI-assisted software engineering">
       
       
         <meta name="author" content="Ashwin">
@@ -515,17 +515,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-ai-fits-in-the-delivery-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where AI Fits in the Delivery Flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hands-on-lab-time-an-ai-assisted-feature" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -862,17 +851,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-ai-fits-in-the-delivery-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Where AI Fits in the Delivery Flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#hands-on-lab-time-an-ai-assisted-feature" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -957,18 +935,17 @@
 <li>Explain why AI is reshaping software engineering, not just accelerating it.</li>
 <li>Identify the technical and business drivers behind organizational AI adoption.</li>
 <li>Compare AI's impact to previous productivity revolutions in the field.</li>
-<li>Recognize where AI creates real value — and where its contribution is marginal or risky.</li>
+<li>Recognize where AI creates value, and where its contribution is marginal or risky.</li>
 <li>Apply a practical, low-risk strategy for introducing AI into a professional software team.</li>
 </ul>
 <hr />
 <h2 id="21-a-new-kind-of-productivity-revolution">2.1 A New Kind of Productivity Revolution<a class="headerlink" href="#21-a-new-kind-of-productivity-revolution" title="Permanent link">&para;</a></h2>
-<p>Software engineering has never stood still. Compilers absorbed the complexity of machine code so engineers could think in terms of logic instead of registers. IDEs made the mechanics of writing and running code faster. Version control made distributed collaboration possible without stepping on each other's changes. Agile methods shortened feedback loops between idea and validation. Cloud computing removed the barrier of physical infrastructure. DevOps unified the people who built software with the people who ran it.</p>
-<p>Each of these innovations freed engineers from repetitive work so they could spend more time on the problems that actually required a human brain.</p>
-<p>Generative AI continues that pattern, but it reaches further than any single tool before it. Earlier tools automated <em>mechanical</em> tasks — compiling, deploying, merging. AI assists with tasks that are closer to <em>cognitive</em> work: reasoning about a problem, communicating intent, comprehending unfamiliar code, drafting documentation, and proposing implementations. That's a meaningfully different kind of leverage, and it's why the change AI brings feels larger than the sum of the tasks it automates.</p>
-<p>The goal of this shift is not fewer engineers. It's engineers who can turn a given amount of time into more delivered value. Whether that actually happens depends on the engineering discipline around the work (and, as Section 2.7 shows, the evidence so far is mixed), which is the theme this book keeps returning to.</p>
+<p>Compilers absorbed the complexity of machine code so engineers could think in logic instead of registers. IDEs sped up writing and running code. Version control made distributed collaboration possible. Agile methods shortened feedback loops. Cloud computing removed the barrier of physical infrastructure, and DevOps joined the people who built software with the people who ran it. Each freed engineers from repetitive work.</p>
+<p>Generative AI continues that pattern, but reaches further. Earlier tools automated <em>mechanical</em> tasks — compiling, deploying, merging. AI assists with tasks closer to <em>cognitive</em> work: reasoning about a problem, comprehending unfamiliar code, drafting documentation and proposing implementations. That's a different kind of leverage.</p>
+<p>The goal is not fewer engineers. It's engineers who turn a given amount of time into more delivered value. Whether that happens depends on the engineering discipline around the work, and, as Section 2.7 shows, the evidence so far is mixed.</p>
 <hr />
 <h2 id="22-why-organizations-are-investing-in-ai">2.2 Why Organizations Are Investing in AI<a class="headerlink" href="#22-why-organizations-are-investing-in-ai" title="Permanent link">&para;</a></h2>
-<p>Adoption decisions at the organizational level are rarely about the technology itself — they're about the outcomes it's expected to produce. The drivers tend to cluster around a consistent set of business motivations:</p>
+<p>Organizations rarely adopt AI for the technology itself. They adopt it for the outcomes they expect:</p>
 <table>
 <thead>
 <tr>
@@ -1003,10 +980,10 @@
 </tr>
 </tbody>
 </table>
-<p>It's worth being precise about what "successful adoption" actually means here. It is measured by outcomes — delivery speed, defect rates, onboarding time, system understanding — not by how many AI tools are installed across the engineering org or how much of the codebase was AI-generated. A team that adopts three AI tools and ships the same quality of software at the same pace hasn't succeeded at adoption; it's just added tooling overhead. Keep that outcome-based lens in mind as later chapters get into specific tools and workflows.</p>
+<p>Successful adoption is measured by those outcomes — delivery speed, defect rates, onboarding time, system understanding — not by how many AI tools are installed or how much code was AI-generated. A team that adopts three AI tools and ships the same software at the same pace hasn't succeeded at adoption; it has added tooling overhead.</p>
 <hr />
 <h2 id="23-where-ai-adds-value">2.3 Where AI Adds Value<a class="headerlink" href="#23-where-ai-adds-value" title="Permanent link">&para;</a></h2>
-<p>AI's contribution is not uniform across all engineering work. It provides the greatest benefit on tasks that are:</p>
+<p>AI's contribution is not uniform. It helps most on tasks that are:</p>
 <ul>
 <li><strong>Repetitive</strong> — the same pattern applied many times with small variations</li>
 <li><strong>Information-intensive</strong> — requiring synthesis of a large volume of existing text or code</li>
@@ -1014,63 +991,14 @@
 <li><strong>Exploratory</strong> — generating multiple candidate approaches to compare</li>
 <li><strong>Pattern-based</strong> — recognizable structures the model has seen many times before</li>
 </ul>
-<p>In practice, this looks like: summarizing large or unfamiliar codebases, generating boilerplate and scaffolding, explaining unfamiliar APIs or frameworks, producing a first pass of unit tests, drafting documentation from existing code, supporting pull request reviews, and surfacing refactoring opportunities.</p>
-<p>By contrast, work that depends on business judgment, ethical trade-offs, stakeholder negotiation, or deep domain expertise specific to your organization continues to rely primarily on human engineers — not because AI can't generate plausible-sounding output for these situations, but because that output can't be verified against context the model was never given. Knowing which category a task falls into, before you reach for AI, is one of the more valuable judgment calls this book will keep asking you to make.</p>
+<p>In practice, that means summarizing unfamiliar codebases, generating boilerplate, explaining unfamiliar APIs, producing a first pass of unit tests, drafting documentation, supporting pull request reviews and surfacing refactoring opportunities.</p>
+<p>Work that depends on business judgment, ethical trade-offs, stakeholder negotiation or deep domain expertise specific to your organization still relies mainly on human engineers. AI can produce plausible output for these situations, but that output can't be verified against context the model was never given. Knowing which kind of task you're facing, before you reach for AI, is a judgment call this book keeps asking you to make.</p>
 <hr />
 <h2 id="24-ai-does-not-eliminate-the-need-for-engineering">2.4 AI Does Not Eliminate the Need for Engineering<a class="headerlink" href="#24-ai-does-not-eliminate-the-need-for-engineering" title="Permanent link">&para;</a></h2>
-<p>A common misconception — inside and outside engineering teams — is that AI reduces the need for software engineering skill. The opposite is closer to the truth.</p>
-<p>As AI makes the mechanical act of implementation faster and cheaper, the <em>relative</em> importance of everything AI can't do well shifts upward: architecture, requirements engineering, testing strategy, security review, observability, and clear communication all become more valuable, not less, because they're now a larger share of what determines whether a project succeeds.</p>
-<p>This has a sharp practical consequence: <strong>poor requirements still produce poor software — only faster.</strong> A team that skips requirements clarification and lets an AI tool generate an entire feature from a vague ticket doesn't avoid the cost of that vagueness. It just defers the cost to production, where it's far more expensive to fix. AI amplifies whatever process it's plugged into — good or bad.</p>
-<hr />
-<h2 id="25-case-study-modernizing-a-legacy-application">2.5 Case Study: Modernizing a Legacy Application<a class="headerlink" href="#25-case-study-modernizing-a-legacy-application" title="Permanent link">&para;</a></h2>
-<p>Consider a financial institution maintaining a fifteen-year-old application with limited documentation — a common and painful situation across the industry.</p>
-<p><strong>Without AI</strong>, the typical process looks like this: engineers spend weeks reading through the codebase just to build a mental model of how it works. Documentation, where it exists at all, is written manually and lags behind the code within weeks. Refactoring proceeds cautiously and slowly, because no one fully trusts their understanding of the system's edge cases.</p>
-<p><strong>With AI assisting the same effort</strong>, the shape of the work changes:</p>
-<ol>
-<li>Source code is summarized module by module, giving engineers a starting map instead of a blank page.</li>
-<li>Dependencies and call paths are traced and visualized, surfacing coupling that wasn't obvious from the code alone.</li>
-<li>Candidate refactorings are proposed with rationale, for engineers to evaluate against real constraints.</li>
-<li>Documentation drafts are generated from the actual code behavior, then corrected where the AI misread intent.</li>
-<li>Engineers validate every recommendation against production behavior and business rules before acting on it.</li>
-</ol>
-<p>What changes here is important to state precisely: the engineering work itself — the judgment calls, the validation, the risk assessment — does not go away. What can shrink is the <em>discovery</em> phase: the weeks of unassisted reading that used to precede any real engineering decision. Faster comprehension of unfamiliar code is one of the most commonly reported benefits of AI tools, but how much time it saves depends on the codebase and the team, so measure it rather than assume it.</p>
-<hr />
-<h2 id="26-adoption-principles">2.6 Adoption Principles<a class="headerlink" href="#26-adoption-principles" title="Permanent link">&para;</a></h2>
-<p>To get durable value out of AI tools, rather than a short-lived productivity bump followed by a quality problem, follow these principles:</p>
-<ol>
-<li><strong>Start with low-risk tasks.</strong> Documentation, test scaffolding, and code explanation are good entry points precisely because a mistake is cheap to catch and correct.</li>
-<li><strong>Establish review standards before scaling up usage.</strong> Decide, as a team, what level of review AI-generated code requires — and hold to it even when it's inconvenient.</li>
-<li><strong>Protect confidential data.</strong> Understand what your AI tooling does with the code and data you send it, and set clear policies about what can and can't be shared with which tools.</li>
-<li><strong>Measure productivity and quality together, not either in isolation.</strong> Faster delivery that increases defect rates isn't a win; it's a cost shifted downstream.</li>
-<li><strong>Continuously improve <a href="../../glossary/#prompt">prompts</a>, context, and workflows</strong> as a team practice — treat this the same way you'd treat any other engineering process that benefits from iteration.</li>
-</ol>
-<hr />
-<h2 id="27-what-the-research-says">2.7 What the Research Says<a class="headerlink" href="#27-what-the-research-says" title="Permanent link">&para;</a></h2>
-<p>Claims about AI productivity range from "ten times faster" to "no gain at all." The research so far supports neither extreme, and the results depend heavily on the task and the developer:</p>
-<ul>
-<li><strong>Small, well-defined tasks can get much faster.</strong> In a 2023 controlled experiment, developers using GitHub Copilot finished a small JavaScript task (writing an HTTP server) 55.8% faster than developers without it.</li>
-<li><strong>Experienced developers on their own large projects can get slower.</strong> In a 2025 randomized study by METR, 16 experienced open-source developers took 19% longer to complete real tasks in their own repositories when they could use AI tools. They expected AI to speed them up by 24%, and afterward still believed it had sped them up by about 20%.</li>
-<li><strong>Individual speed doesn't automatically mean team delivery improves.</strong> Google's 2024 DORA report found that most respondents felt more productive with AI, but higher AI adoption was associated with slightly lower software delivery throughput and noticeably lower delivery stability.</li>
-</ul>
-<p>Two lessons follow. First, how fast AI <em>feels</em> is not a reliable measure of whether it helps — the METR participants were wrong about their own speed. Second, results depend on context: the type of task, how well the developer knows the codebase, and how the team reviews and tests AI output. This is why Section 2.6 says to measure productivity and quality together, and why the lab below asks you to keep a log.</p>
-<hr />
-<h2 id="engineering-insight">Engineering Insight<a class="headerlink" href="#engineering-insight" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>AI should accelerate engineering decisions — it should never absorb engineering responsibility.</p>
-</blockquote>
-<hr />
-<h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
-<p>Teams new to AI-assisted development tend to converge on the same handful of failure patterns:</p>
-<ul>
-<li>Treating AI output as authoritative rather than as a draft to be verified.</li>
-<li>Skipping code review because the output "looks" complete and confident.</li>
-<li>Ignoring automated tests, or worse, letting AI-written tests go unreviewed for correctness.</li>
-<li>Sharing sensitive or proprietary information with tools that weren't vetted for that purpose.</li>
-<li>Measuring success by volume — lines of code generated, number of PRs merged — instead of outcomes.</li>
-</ul>
-<p>Each of these is avoidable with the workflow discipline introduced in Chapter 1, applied consistently rather than only when convenient.</p>
-<hr />
-<h2 id="where-ai-fits-in-the-delivery-flow">Where AI Fits in the Delivery Flow<a class="headerlink" href="#where-ai-fits-in-the-delivery-flow" title="Permanent link">&para;</a></h2>
+<p>A common misconception is that AI reduces the need for software engineering skill. The opposite is closer to the truth.</p>
+<p>As AI makes implementation faster and cheaper, the <em>relative</em> importance of what AI can't do well rises: architecture, requirements engineering, testing strategy, security review, observability and clear communication now determine a larger share of whether a project succeeds.</p>
+<p>The practical consequence: <strong>poor requirements still produce poor software — only faster.</strong> A team that lets an AI tool generate a whole feature from a vague ticket doesn't avoid the cost of that vagueness. It defers the cost to production, where it's far more expensive to fix. AI amplifies whatever process it's plugged into, good or bad.</p>
+<p>The delivery flow below shows where AI belongs:</p>
 <pre class="mermaid"><code>flowchart LR
 A[Business Requirement]
 B[Human Analysis]
@@ -1086,10 +1014,57 @@ C--&gt;D
 D--&gt;E
 E--&gt;F
 F--&gt;G</code></pre>
-<p>Notice where AI sits in this flow: after a human has already analyzed the requirement, and before human testing and review close the loop. AI is embedded <em>inside</em> the engineering process here, not substituted for the process itself.</p>
+<p>AI comes after a human has analyzed the requirement, and before testing and review close the loop. It sits <em>inside</em> the engineering process, not in place of it.</p>
+<hr />
+<h2 id="25-case-study-modernizing-a-legacy-application">2.5 Case Study: Modernizing a Legacy Application<a class="headerlink" href="#25-case-study-modernizing-a-legacy-application" title="Permanent link">&para;</a></h2>
+<p>Consider a financial institution maintaining a fifteen-year-old application with limited documentation, a common situation across the industry.</p>
+<p><strong>Without AI</strong>, engineers spend weeks reading the codebase just to build a mental model of it. Documentation, where it exists, is written by hand and falls behind the code. Refactoring is slow and cautious, because no one fully trusts their understanding of the system's edge cases.</p>
+<p><strong>With AI assisting the same effort</strong>, the work changes shape:</p>
+<ol>
+<li>Source code is summarized module by module, giving engineers a starting map instead of a blank page.</li>
+<li>Dependencies and call paths are traced and visualized, surfacing coupling that wasn't obvious from the code alone.</li>
+<li>Candidate refactorings are proposed with rationale, for engineers to evaluate against real constraints.</li>
+<li>Documentation drafts are generated from the code, then corrected where the AI misread intent.</li>
+<li>Engineers validate every recommendation against production behavior and business rules before acting on it.</li>
+</ol>
+<p>The engineering work itself — judgment, validation, risk assessment — doesn't go away. What can shrink is the <em>discovery</em> phase: the weeks of unassisted reading before any engineering decision. Faster comprehension of unfamiliar code is one of the most commonly reported benefits of AI tools, but how much time it saves depends on the codebase and the team, so measure it rather than assume it.</p>
+<hr />
+<h2 id="26-adoption-principles">2.6 Adoption Principles<a class="headerlink" href="#26-adoption-principles" title="Permanent link">&para;</a></h2>
+<p>To get lasting value from AI tools, rather than a short productivity bump followed by a quality problem:</p>
+<ol>
+<li><strong>Start with low-risk tasks.</strong> Documentation, test scaffolding and code explanation are good entry points because mistakes are cheap to catch and correct.</li>
+<li><strong>Set review standards before scaling up.</strong> Decide as a team what level of review AI-generated code requires, and hold to it even when it's inconvenient.</li>
+<li><strong>Protect confidential data.</strong> Understand what your AI tools do with the code and data you send them, and set clear policies about what can be shared with which tools.</li>
+<li><strong>Measure productivity and quality together.</strong> Faster delivery that increases defect rates isn't a win; it's a cost shifted downstream.</li>
+<li><strong>Keep improving <a href="../../glossary/#prompt">prompts</a>, context and workflows</strong> as a team practice, like any other engineering process.</li>
+</ol>
+<hr />
+<h2 id="27-what-the-research-says">2.7 What the Research Says<a class="headerlink" href="#27-what-the-research-says" title="Permanent link">&para;</a></h2>
+<p>Claims about AI productivity range from "ten times faster" to "no gain at all." The research so far supports neither extreme, and the results depend heavily on the task and the developer:</p>
+<ul>
+<li><strong>Small, well-defined tasks can get much faster.</strong> In a 2023 controlled experiment, developers using GitHub Copilot finished a small JavaScript task (writing an HTTP server) 55.8% faster than developers without it.</li>
+<li><strong>Experienced developers on their own large projects can get slower.</strong> In a 2025 randomized study by METR, 16 experienced open-source developers took 19% longer to complete real tasks in their own repositories when they could use AI tools. They expected AI to speed them up by 24%, and afterward still believed it had sped them up by about 20%.</li>
+<li><strong>Individual speed doesn't automatically mean team delivery improves.</strong> Google's 2024 DORA (DevOps Research and Assessment) report, a large annual survey of software teams, found that most respondents felt more productive with AI, but higher AI adoption was associated with slightly lower software delivery throughput and noticeably lower delivery stability.</li>
+</ul>
+<p>Two lessons follow. First, how fast AI <em>feels</em> is not a reliable measure of whether it helps — the METR participants were wrong about their own speed. Second, results depend on context: the type of task, how well the developer knows the codebase, and how the team reviews and tests AI output. This is why Section 2.6 says to measure productivity and quality together, and why the lab below asks you to keep a log.</p>
+<hr />
+<h2 id="engineering-insight">Engineering Insight<a class="headerlink" href="#engineering-insight" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>AI should accelerate engineering decisions — it should never absorb engineering responsibility.</p>
+</blockquote>
+<hr />
+<h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Treating AI output as authoritative rather than as a draft to be verified.</li>
+<li>Skipping code review because the output looks complete and confident.</li>
+<li>Ignoring automated tests, or letting AI-written tests go unreviewed.</li>
+<li>Sharing sensitive or proprietary information with tools that weren't vetted for it.</li>
+<li>Measuring success by volume — lines generated, pull requests merged — instead of outcomes.</li>
+</ul>
+<p>The workflow in <a href="../01-introduction/#18-the-workflow-used-throughout-this-book">Chapter 1, Section 1.8</a>, applied every time, avoids each of these.</p>
 <hr />
 <h2 id="hands-on-lab-time-an-ai-assisted-feature">Hands-On Lab: Time an AI-Assisted Feature<a class="headerlink" href="#hands-on-lab-time-an-ai-assisted-feature" title="Permanent link">&para;</a></h2>
-<p>Choose a small, well-understood feature from an existing project of yours — something you could implement unassisted in under an hour.</p>
+<p>Choose a small, well-understood feature from one of your projects, something you could implement unassisted in under an hour.</p>
 <p>Use AI to work through it in five stages:</p>
 <ol>
 <li>Clarify the requirement, including any assumptions you'd normally make without writing them down.</li>
@@ -1098,11 +1073,11 @@ F--&gt;G</code></pre>
 <li>Generate unit tests for it, including at least one edge case.</li>
 <li>Review the implementation as if it had been submitted by a teammate you don't fully trust yet.</li>
 </ol>
-<p>As you go, keep a simple log with two columns: <strong>where AI clearly saved time</strong>, and <strong>where engineering judgment was still required and couldn't be skipped</strong>. This log is the raw material for building an accurate, personal sense of where AI actually helps in your own work — which will differ somewhat from anyone else's, depending on your stack and domain.</p>
+<p>As you go, keep a log with two columns: <strong>where AI clearly saved time</strong>, and <strong>where engineering judgment was still required</strong>. Note how long each stage took. The log gives you a personal, measured sense of where AI helps in your own work, which will differ from anyone else's.</p>
 <hr />
 <h2 id="chapter-summary">Chapter Summary<a class="headerlink" href="#chapter-summary" title="Permanent link">&para;</a></h2>
-<p>Artificial intelligence represents a new productivity layer for software engineering — one that acts on cognitive work, not just mechanical work, which is why its impact reaches further than earlier tooling revolutions. Its greatest contribution is reducing the time spent on repetitive, information-intensive tasks, freeing engineers to spend more of their attention on architecture, quality, security, and business outcomes.</p>
-<p>The evidence on productivity is still mixed: some studies find large speedups on small, well-defined tasks, while others find that AI slowed experienced developers down or hurt delivery stability. This book's position is that strong engineering fundamentals combined with disciplined, outcome-measured AI workflows give a team the best chance of real gains — and that you should measure whether you're getting them, not assume it.</p>
+<p>AI is a new productivity layer for software engineering. It acts on cognitive work, not just mechanical work, so its reach is wider than earlier tools. Its main contribution is reducing time spent on repetitive, information-intensive tasks, leaving engineers more attention for architecture, quality, security and business outcomes.</p>
+<p>The evidence on productivity is mixed: some studies find large speedups on small, well-defined tasks, while others find that AI slowed experienced developers down or hurt delivery stability. Strong engineering fundamentals combined with disciplined, measured AI workflows give a team the best chance of real gains — and you should measure whether you're getting them, not assume it.</p>
 <hr />
 <h2 id="review-questions">Review Questions<a class="headerlink" href="#review-questions" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1110,7 +1085,7 @@ F--&gt;G</code></pre>
 <li>Which categories of engineering work benefit most from AI assistance, and why?</li>
 <li>Why do architecture, testing, and requirements engineering become <em>more</em> important, not less, as AI adoption increases?</li>
 <li>List five organizational drivers behind AI adoption, and the business outcome each one targets.</li>
-<li>Using the legacy modernization case study, describe which parts of the engineering effort AI actually reduced — and which parts it left unchanged.</li>
+<li>Using the legacy modernization case study, describe which parts of the engineering effort AI reduced, and which parts it left unchanged.</li>
 <li>Why might a developer believe AI made them faster even when it didn't? What would you measure to find out?</li>
 </ol>
 <hr />
@@ -1122,7 +1097,7 @@ F--&gt;G</code></pre>
 </ul>
 <hr />
 <h2 id="next-chapter">Next Chapter<a class="headerlink" href="#next-chapter" title="Permanent link">&para;</a></h2>
-<p>Chapter 3 explores how modern <a href="../../glossary/#llm">large language models</a> actually work, why they generate convincing responses even when incorrect, and what every software engineer should understand about their capabilities and limitations before relying on them in daily work.</p>
+<p>Chapter 3 explores how <a href="../../glossary/#llm">large language models</a> work, why they produce convincing responses even when they're wrong, and what every software engineer should understand about their capabilities and limits before relying on them.</p>
 
 
 
