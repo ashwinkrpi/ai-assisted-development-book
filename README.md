@@ -26,7 +26,7 @@ This repository contains the **AI Assisted Development Book**, built around a si
 
 > **AI is a force multiplier — not a replacement for engineering judgment.**
 
-The book is released one **part** at a time, and each part is published as its own **volume**. **Volume 1** is **Part 1: Foundations**, which has six chapters, from what AI-assisted development is through building your first complete project.
+The book is released one **part** at a time, and each part is published as its own **volume**. **Volume 1** is **Part 1: Foundations**, which has six chapters, from what AI-assisted development is through building your first complete project. It is publication-ready: every chapter has a hands-on lab, the runnable code is tested in CI, and every output shown comes from a real run.
 
 ### Who this book is for
 
