@@ -6,18 +6,18 @@
 
 By the end of this chapter, you will be able to:
 
-- Design a professional AI-assisted development workstation from concrete, reusable configuration.
-- Select an editor, AI tooling, and supporting utilities that integrate rather than compete.
+- Design an AI-assisted development workstation from reusable configuration.
+- Select an editor, AI tools and utilities that work together.
 - Configure a repeatable development environment using version-controlled config files.
-- Apply security and productivity practices that hold up under real project pressure, not just in theory.
+- Apply security and productivity practices that hold up under project pressure.
 
 ---
 
 ## 5.1 Why Your Environment Matters
 
-The best AI assistant cannot compensate for a poorly organized development environment. A model that can write a perfect function is not much help if your linter isn't wired up to catch its mistakes, your tests aren't easy to run, or your repository structure is inconsistent enough that neither you nor the AI can reliably find the right file to edit.
+The best AI assistant can't make up for a poorly organized environment. A model that writes a perfect function doesn't help much if your linter isn't set up to catch its mistakes, your tests are hard to run, or your repository is so inconsistent that neither you nor the AI can find the right file.
 
-Professional developers rely on an ecosystem of tools that work together: source control, an editor or IDE, AI assistants, build systems, test frameworks, debuggers, containers, documentation, and automation. AI becomes another component in this ecosystem — a capable one, but still one among many — rather than the center of it. This chapter is about building that ecosystem deliberately, with configuration you can check into a repository and reproduce on a new machine in minutes.
+Developers rely on tools that work together: source control, an editor or IDE, AI assistants, build systems, test frameworks, debuggers, containers and automation. AI is one capable component among these, not the center. This chapter builds that set of tools with configuration you can check into a repository and reproduce on a new machine in minutes.
 
 ---
 
@@ -37,7 +37,7 @@ C --> I[Documentation]
 D --> J[CI / Quality Gate]
 ```
 
-Every tool in this diagram should reduce context switching and increase feedback speed. If a tool doesn't do one of those two things for you, it's worth questioning why it's in your workflow at all — tool sprawl is a real productivity cost, not a neutral one.
+Every tool in this diagram should reduce context switching or speed up feedback. If a tool does neither, question why it's in your workflow: tool sprawl has a real cost.
 
 ---
 
@@ -54,11 +54,11 @@ Every tool in this diagram should reduce context switching and increase feedback
 | Formatting | Black, Prettier, ruff format | Automated, not a matter of personal style debate |
 | Static analysis | ruff, mypy, ESLint, bandit | Catches what review might miss, cheaply |
 
-Choose tools that integrate well with each other rather than maximizing the number of extensions installed. A workstation with five well-configured tools that talk to each other beats one with thirty extensions that don't.
+Choose tools that work well together rather than installing as many extensions as possible. Five well-configured tools that integrate beat thirty extensions that don't.
 
 ### A working VS Code configuration
 
-Here's a concrete, checked-in `.vscode/settings.json` that ties formatting, linting, and testing together for a Python project — the kind of file that turns "my environment is set up" from a vague claim into something a teammate can literally clone and use:
+This checked-in `.vscode/settings.json` ties formatting, linting and testing together for a Python project. With it, "my environment is set up" becomes something a teammate can clone and use:
 
 ```json
 {
@@ -81,7 +81,7 @@ Here's a concrete, checked-in `.vscode/settings.json` that ties formatting, lint
 }
 ```
 
-And the extensions that make it work, installable in one shot on a fresh machine:
+The extensions it needs, installed in one go on a fresh machine:
 
 ```bash
 code --install-extension charliermarsh.ruff
@@ -112,7 +112,7 @@ project/
 └── README.md
 ```
 
-A consistent layout makes it easier for both humans and AI to understand your repository — when you paste "here's my project structure" into a [prompt](../glossary.md#prompt), a predictable layout means the model can make correct assumptions about where things live instead of guessing. This is also why `.env.example` (committed) versus `.env` (gitignored, never committed) is worth calling out explicitly: it documents the required configuration shape without leaking actual secrets, and it's a pattern AI assistants recognize and respect when generating code that reads environment variables.
+A consistent layout helps both humans and AI understand your repository. When you paste your project structure into a [prompt](../glossary.md#prompt), a predictable layout lets the model assume correctly where things live instead of guessing. Note `.env.example` (committed) versus `.env` (gitignored, never committed): the first documents the required configuration without leaking secrets, and AI assistants recognize the pattern when generating code that reads environment variables.
 
 ---
 
@@ -120,13 +120,13 @@ A consistent layout makes it easier for both humans and AI to understand your re
 
 Before enabling AI tools on a real codebase:
 
-- **Understand what data is shared.** Read your AI tool's data handling policy — does it train on your code, retain it, or send it to a third party? This differs meaningfully between consumer and enterprise/API tiers.
-- **Exclude secrets from prompts.** Never paste `.env` contents, API keys, or credentials into a chat, even to "debug a connection issue" — describe the error instead.
-- **Use approved enterprise accounts where required** by your organization's policy, rather than personal accounts for company code.
-- **Review generated dependencies** before installing them — a hallucinated package name is a real supply-chain risk if it happens to exist on a public registry with malicious content (a known attack pattern called "slopsquatting").
-- **Enable secret scanning** on your repository so an accidentally committed key gets caught even if a prompt-level habit fails.
+- **Understand what data is shared.** Does your AI tool train on your code, retain it, or send it to a third party? This often differs between consumer and business or API plans.
+- **Keep secrets out of prompts.** Never paste `.env` contents, API keys or credentials into a chat, even to debug a connection; describe the error instead.
+- **Use approved company accounts where required** by your organization's policy, rather than personal accounts for company code.
+- **Review generated dependencies** before installing them. A hallucinated package name is a supply-chain risk if someone has published a malicious package under that name (an attack called "slopsquatting").
+- **Enable secret scanning** so an accidentally committed key is caught even when habits fail.
 
-That last point is worth doing as a concrete step, not just a bullet point. On GitHub:
+On GitHub, you can enable secret scanning from the command line:
 
 ```bash
 gh api -X PATCH /repos/{owner}/{repo} \
@@ -134,13 +134,13 @@ gh api -X PATCH /repos/{owner}/{repo} \
   -f security_and_analysis[secret_scanning_push_protection][status]=enabled
 ```
 
-Or via the UI: open the repository's **Settings**, find the code security page (currently **Advanced Security**; GitHub renames these menus from time to time), enable **Secret Protection**, and turn on **Push protection** alongside it so a secret is blocked *before* it lands in history, not just flagged after.
+Or in the UI: open the repository's **Settings**, find the code security page (currently **Advanced Security**; GitHub renames these menus from time to time), enable **Secret Protection**, and turn on **Push protection** so a secret is blocked *before* it lands in history, not just flagged afterward.
 
 Check availability before you rely on this. Secret scanning and push protection are free for public repositories. For private repositories, they need a paid add-on (GitHub Secret Protection, part of what used to be called GitHub Advanced Security) on an organization plan. If you can't enable them, a local pre-commit secret scanner is a reasonable substitute.
 
-Also know what push protection actually catches: it matches secrets against patterns for known providers (cloud keys, tokens from popular services, and so on). A random string you made up won't be blocked, and neither will a provider's key format that GitHub doesn't support. It reduces risk; it doesn't replace keeping secrets out of your code.
+Push protection matches secrets against patterns for known providers, such as cloud keys and tokens from popular services. A made-up string won't be blocked, and neither will an unsupported provider's key. It reduces risk; it doesn't replace keeping secrets out of your code.
 
-A `.gitignore` that actually excludes the common leak vectors is the first line of defense:
+A `.gitignore` that excludes the common leak vectors is the first line of defense:
 
 ```gitignore
 # Secrets and environment
@@ -160,13 +160,11 @@ __pycache__/
 node_modules/
 ```
 
-Security here isn't an afterthought bolted onto AI-assisted development — it's part of the same everyday discipline as running tests before a merge.
-
 ---
 
 ## 5.6 A Local AI Stack on Raspberry Pi 5
 
-Not every workflow needs a cloud API call. For local, offline-capable assistance — useful for cost control, privacy-sensitive contexts, or resource-constrained edge projects — Ollama on a Raspberry Pi 5 is a genuinely usable setup for smaller models.
+Not every workflow needs a cloud API call. For local, offline assistance — useful for cost control, privacy-sensitive work, or edge projects — Ollama on a Raspberry Pi 5 is a usable setup for smaller models.
 
 ```bash
 # Install Ollama
@@ -195,7 +193,7 @@ a fixed number of words surrounding a target word or token that is used to
 provide additional information for understanding and analyzing the text.
 ```
 
-(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) Look closely at that answer: it's fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an [LLM](../glossary.md#llm) that Chapter 3 explains. Even a one-sentence sanity check is worth reading critically. Smaller local models are more likely to make this kind of mistake than large cloud models, which is part of the trade-off.
+(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) The answer is fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an [LLM](../glossary.md#llm) from Chapter 3. Read even a one-sentence sanity check critically. Small local models make this kind of mistake more often than large cloud models; that's part of the trade-off.
 
 For editor integration, the [Continue](https://continue.dev) VS Code extension can point at a local Ollama endpoint instead of a cloud API:
 
@@ -214,17 +212,17 @@ models:
 
 Continue's configuration format has changed over time (older guides use a `config.json` file), so check [Continue's Ollama documentation](https://docs.continue.dev/customize/model-providers/top-level/ollama) for the current format before copying this. If Ollama runs on the same machine as your editor, you can leave out `apiBase`. If it runs on another machine, as here, Ollama has to be started with `OLLAMA_HOST=0.0.0.0:11434` so it accepts connections from the network — only do that on a network you trust.
 
-This is the same local stack referenced in Chapter 3's discussion of context windows. Local models are a different design point from cloud APIs, not a lesser version of the same thing, and this book treats both as legitimate parts of a professional toolkit, depending on the constraint you're optimizing for.
+This is the same local stack used in Chapter 3's discussion of context windows. Local models are a different trade-off from cloud APIs, not a lesser version of them. Choose based on the constraint that matters most: cost, privacy, capability or speed.
 
 ---
 
 ## 5.7 Productivity Practices
 
-Adopt these habits, and automate the ones that can be automated rather than relying on memory:
+Adopt these habits, and automate the ones you can instead of relying on memory:
 
 1. **Keep commits small** — one logical change per commit, as established in Chapter 4.
-2. **Run tests frequently**, not just before a PR — a fast local test loop is what makes "frequently" realistic.
-3. **Automate formatting** via a pre-commit hook so style never becomes a review discussion:
+2. **Run tests frequently**, not just before a pull request. A fast local test loop makes this realistic.
+3. **Automate formatting** with a pre-commit hook so style never comes up in review:
 
 ```yaml
 # .pre-commit-config.yaml
@@ -242,9 +240,9 @@ pip install pre-commit
 pre-commit install
 ```
 
-4. **Document architectural decisions** as you make them — a lightweight `docs/decisions/0001-use-sqlite-for-local-cache.md` per significant choice is enough; the format matters far less than the habit.
-5. **Maintain project context for AI** — a short context file such as `CLAUDE.md` or `AGENTS.md` describing your conventions means every session starts with the right context instead of you re-explaining it each time. Chapter 4, Section 4.5 explains what to put in one.
-6. **Review every generated change** — this is the one habit every other chapter in this book keeps returning to, because skipping it is where things go wrong.
+4. **Document architectural decisions** as you make them. A short `docs/decisions/0001-use-sqlite-for-local-cache.md` per significant choice is enough; the habit matters more than the format.
+5. **Maintain project context for AI.** A short context file such as `CLAUDE.md` or `AGENTS.md` describing your conventions means every session starts with the right context. Chapter 4, Section 4.5 explains what to put in one.
+6. **Review every generated change** ([Chapter 1, Section 1.8](01-introduction.md#18-the-workflow-used-throughout-this-book), step 7).
 
 ---
 
@@ -256,34 +254,32 @@ pre-commit install
 
 ## Common Mistakes
 
-- Installing dozens of unused extensions that slow down the editor without adding real capability.
-- Mixing unrelated projects in one workspace, confusing both the developer and any AI tool with repository-wide context access.
+- Installing dozens of unused extensions that slow the editor down without adding capability.
+- Mixing unrelated projects in one workspace, which confuses both you and any AI tool that reads the whole repository.
 - Ignoring editor warnings and linter output because "it still runs."
-- Disabling automated formatting to avoid a diff, then getting inconsistent style AI tools have to work around.
-- Treating AI suggestions as final implementations rather than as a draft, regardless of how clean the environment producing them is.
+- Disabling automated formatting to avoid a diff, leaving inconsistent style that AI tools then copy.
+- Treating AI suggestions as final rather than as drafts, however clean the environment.
 
 ---
 
 ## Hands-On Lab: Build a Reproducible Workstation
 
-Set up a new development workstation (or a clean directory simulating one) with the following, verifying each step actually works rather than assuming the configuration is correct:
+Set up a new workstation (or a clean directory standing in for one) as follows, checking that each step works rather than assuming it does:
 
 1. Clone a repository and confirm `git log` and `git status` work as expected.
 2. Add the `.vscode/settings.json`, `.pre-commit-config.yaml`, and `.gitignore` from this chapter, adapted to your language of choice.
 3. Build the project and run its test suite with a single command.
 4. Make a small change, commit it, and confirm the pre-commit hook runs formatting automatically.
 5. Use an AI assistant — cloud or local — to explain an unfamiliar module in the project, and check its explanation against the actual code.
-6. Enable secret scanning and push protection on the repository (use a public test repository if your private repositories don't have Secret Protection; see Section 5.5). Then try to push a commit containing a fake secret and confirm the push is blocked. Push protection only recognizes supported provider patterns, so a made-up string won't trigger it: the fake value has to match the format of a real provider's token. Never use a real credential for this test.
+6. Enable secret scanning and push protection (on a public test repository if your private ones don't have Secret Protection; see Section 5.5). Try to push a commit containing a fake secret and confirm the push is blocked. The fake value has to match a supported provider's token format, since a made-up string won't trigger it. Never use a real credential for this test.
 
-Document the full setup in a `SETUP.md` so another developer — or a future you, on a new machine — can reproduce it from a cold start.
-
-> **Screenshot placeholder:** Capture your VS Code window showing the Ruff formatter and linter active on a Python file, and a screenshot of GitHub's secret scanning alert firing on the deliberately-committed fake secret from step 6. Insert both here in the published version.
+Document the full setup in a `SETUP.md` so another developer, or you on a new machine, can reproduce it from scratch.
 
 ---
 
 ## Chapter Summary
 
-A professional AI-assisted environment combines modern development tools — editor, version control, testing, linting, containers, and AI assistance, local or cloud — with disciplined engineering practices, all captured in version-controlled configuration rather than tribal knowledge. The objective is not to maximize automation for its own sake, but to minimize friction, tighten feedback loops, and support reliable software delivery.
+A good AI-assisted environment combines development tools — editor, version control, testing, linting, containers and AI assistance, local or cloud — with disciplined practices, all captured in version-controlled configuration rather than in people's heads. The aim isn't maximum automation; it's less friction, tighter feedback loops and reliable delivery.
 
 ---
 
@@ -297,6 +293,15 @@ A professional AI-assisted environment combines modern development tools — edi
 
 ---
 
-## Preview
+## Further Reading
 
-Chapter 6 brings everything together as you build your first complete AI-assisted software project — a command-line Notes Manager — applying the environment, workflow, and quality gates established throughout Part 1.
+- GitHub Docs, [Secret scanning](https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning) and [Push protection](https://docs.github.com/en/code-security/concepts/secret-security/push-protection). What they detect, and which plans include them.
+- [Continue: Ollama provider](https://docs.continue.dev/customize/model-providers/top-level/ollama). The current configuration format for Section 5.6.
+- [pre-commit](https://pre-commit.com/). Installing and configuring the hooks in Section 5.7.
+- Visual Studio Code, [Python quick start](https://code.visualstudio.com/docs/python/python-quick-start). Setting up VS Code for Python.
+
+---
+
+## Next Chapter
+
+Chapter 6 brings everything together: you build a complete project, a command-line Notes Manager, using the environment, workflow and quality gates from Part 1.
