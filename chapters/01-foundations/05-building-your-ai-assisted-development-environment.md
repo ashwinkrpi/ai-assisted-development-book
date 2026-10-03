@@ -81,6 +81,8 @@ This checked-in `.vscode/settings.json` ties formatting, linting and testing tog
 }
 ```
 
+*Illustrative: adjust the test folder and formatter to your project. This file isn't tested by the book's CI.*
+
 The extensions it needs, installed in one go on a fresh machine:
 
 ```bash
@@ -160,6 +162,8 @@ __pycache__/
 node_modules/
 ```
 
+*Illustrative: add the files your own tools and stack create. This file isn't tested by the book's CI.*
+
 ---
 
 ## 5.6 A Local AI Stack on Raspberry Pi 5
@@ -210,6 +214,8 @@ models:
     apiBase: http://<pi5-ip>:11434
 ```
 
+*Illustrative: replace `<pi5-ip>` with your Pi's address. This file isn't tested by the book's CI.*
+
 Continue's configuration format has changed over time (older guides use a `config.json` file), so check [Continue's Ollama documentation](https://docs.continue.dev/customize/model-providers/top-level/ollama) for the current format before copying this. If Ollama runs on the same machine as your editor, you can leave out `apiBase`. If it runs on another machine, as here, Ollama has to be started with `OLLAMA_HOST=0.0.0.0:11434` so it accepts connections from the network — only do that on a network you trust.
 
 This is the same local stack used in Chapter 3's discussion of context windows. Local models are a different trade-off from cloud APIs, not a lesser version of them. Choose based on the constraint that matters most: cost, privacy, capability or speed.
@@ -224,21 +230,23 @@ Adopt these habits, and automate the ones you can instead of relying on memory:
 2. **Run tests frequently**, not just before a pull request. A fast local test loop makes this realistic.
 3. **Automate formatting** with a pre-commit hook so style never comes up in review:
 
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.10  # run `pre-commit autoupdate` to move to the latest release
-    hooks:
-      - id: ruff-check
-        args: [--fix]
-      - id: ruff-format
-```
+    ```yaml
+    # .pre-commit-config.yaml
+    repos:
+      - repo: https://github.com/astral-sh/ruff-pre-commit
+        rev: v0.16.10  # run `pre-commit autoupdate` to move to the latest release
+        hooks:
+          - id: ruff-check
+            args: [--fix]
+          - id: ruff-format
+    ```
 
-```bash
-pip install pre-commit
-pre-commit install
-```
+    *Illustrative: `pre-commit autoupdate` sets `rev` to the current release. This file isn't tested by the book's CI.*
+
+    ```bash
+    pip install pre-commit
+    pre-commit install
+    ```
 
 4. **Document architectural decisions** as you make them. A short `docs/decisions/0001-use-sqlite-for-local-cache.md` per significant choice is enough; the habit matters more than the format.
 5. **Maintain project context for AI.** A short context file such as `CLAUDE.md` or `AGENTS.md` describing your conventions means every session starts with the right context. Chapter 4, Section 4.5 explains what to put in one.
