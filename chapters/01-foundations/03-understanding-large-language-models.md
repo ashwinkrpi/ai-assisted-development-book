@@ -32,7 +32,7 @@ When it generates a response, the model doesn't look up stored facts or execute 
 
 The picking step is called **sampling**. Settings such as **[temperature](../glossary.md#temperature)** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same [prompt](../glossary.md#prompt) can produce different answers on different runs. That's expected, not a malfunction.
 
-First, text is split into tokens by a **tokenizer**. Each model family has its own, so the same text gives different token counts in different models. Here's a short piece of code run through OpenAI's open-source `tiktoken` library. It's used here only because it's easy to install. Other models, including Claude, split text differently, so the exact numbers illustrate the idea rather than count tokens for the model you use:
+Before any of this happens, text is split into tokens by a **tokenizer**. Each model family has its own, so the same text gives different token counts in different models. Here's a short piece of code run through OpenAI's open-source `tiktoken` library. It's used here only because it's easy to install. Other models, including Claude, split text differently, so the exact numbers illustrate the idea rather than count tokens for the model you use:
 
 ```bash
 pip install tiktoken
@@ -85,7 +85,7 @@ The model isn't searching the internet or reading your repository unless a tool 
 | Inference | Generate a response to your prompt | You, every time you send a message |
 | Tool use | Access external knowledge or take actions (search, run code, call APIs) | You, by enabling and invoking tools |
 
-Most engineers only ever interact with the last two rows. That reframes a lot of "prompting technique" advice: you aren't teaching the model anything permanent when you talk to it. Nothing you type during inference changes the underlying weights. Every new conversation starts from the same trained model, which is why the context you provide in *this* session carries so much weight.
+Most engineers only ever interact with the last two rows. That reframes a lot of "prompting technique" advice: you aren't teaching the model anything permanent when you talk to it. Nothing you type during inference changes the model's weights, the numbers it learned during training. Every new conversation starts from the same trained model, which is why the context you provide in *this* session carries so much weight.
 
 ---
 
@@ -267,7 +267,7 @@ Compare the character count to the token count. This ratio is roughly what you b
 
 **Step 2 — Trigger a hallucination.** Pick a library you know well and ask an AI assistant how to use a method or flag that sounds plausible but doesn't exist, such as a made-up flag on a CLI tool you use often. Note how confidently it answers, then check the documentation or `--help` output.
 
-**Step 3 — Test the context window limit.** With Ollama running locally (Chapter 5), start a conversation and state a constraint early, such as "always use snake_case for variable names." Paste a large amount of unrelated code or text, then ask for something that depends on the constraint. Does the model still apply it? Relate what you see to Section 3.4.
+**Step 3 — Test the context window limit.** With Ollama running locally (Chapter 5), start a conversation and state a constraint early, such as "always use snake_case for variable names." Paste a large amount of unrelated code or text, then ask for something that depends on the constraint. Does the model still apply it? Relate what you see to Section 3.4. If you haven't set up Ollama yet, come back to this step after Chapter 5, Section 5.6.
 
 Record your findings for all three steps. They're the start of your own sense of when to trust AI output and when to slow down and verify.
 

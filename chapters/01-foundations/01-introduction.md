@@ -8,7 +8,7 @@ By the end of this chapter, you will be able to:
 
 - Define AI-assisted software development and distinguish it from AI-generated or "vibe-coded" software.
 - Explain why AI is a different kind of productivity tool from earlier innovations in the field.
-- Identify where AI can contribute at each stage of the SDLC, and where its contributions need the closest scrutiny.
+- Identify where AI can contribute at each stage of the software development lifecycle (SDLC), and where its contributions need the closest scrutiny.
 - Describe the strengths and the recurring failure modes of current AI systems.
 - Apply the iterative, review-driven workflow used throughout the rest of this book.
 - Adopt an engineering-first mindset: AI proposes, engineers decide.
@@ -59,7 +59,7 @@ Each generation reduced mechanical work and shifted engineers' time toward judgm
 
 **AI-assisted software development** is the disciplined practice of using AI systems to improve engineering activities while human engineers keep responsibility for design decisions, validation, deployment and long-term maintenance.
 
-The definition rules out two failure patterns: treating AI output as authoritative without review, and using AI so heavily that no one understands the resulting system.
+The definition rules out two failure patterns: treating AI output as authoritative without review, and using AI so heavily that no one understands the resulting system. The second is often called "vibe coding": accepting AI-generated code because it seems to work, without reading or understanding it.
 
 In practice, AI assistance shows up in:
 
@@ -116,7 +116,7 @@ Using AI well requires an accurate picture of what it's good and bad at — neit
 
 - Explaining unfamiliar code, including legacy systems with little documentation
 - Summarizing long technical documents, tickets, or discussion threads
-- Generating repetitive, well-specified implementations (CRUD endpoints, data transformations, boilerplate)
+- Generating repetitive, well-specified implementations (CRUD endpoints, which create, read, update and delete records; data transformations; boilerplate)
 - Producing a first draft of test scaffolding
 - Drafting documentation from existing code
 - Suggesting refactorings and naming improvements

@@ -365,7 +365,7 @@ The AI also added a rule nobody had asked for: `edit` with neither a title nor a
 
 **Review:**
 
-- **Accepted:** the title rule, written in the same style as the rest of the file.
+- **Accepted:** the title rule, but written inline in `create_note` and `edit_note` to match the rest of the file, rather than as a separate helper.
 - **Accepted:** the "Nothing to edit" check. Without it, `notes edit abc` with no options would print "Updated note" and change nothing but the timestamp. The book's planned version had that bug.
 - **Changed:** method names (`create_note` instead of `create`, and so on) and error messages, to match the book's style. These are style choices, not fixes.
 

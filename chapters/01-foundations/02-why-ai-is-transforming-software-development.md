@@ -125,7 +125,7 @@ Claims about AI productivity range from "ten times faster" to "no gain at all." 
 
 - **Small, well-defined tasks can get much faster.** In a 2023 controlled experiment, developers using GitHub Copilot finished a small JavaScript task (writing an HTTP server) 55.8% faster than developers without it.
 - **Experienced developers on their own large projects can get slower.** In a 2025 randomized study by METR, 16 experienced open-source developers took 19% longer to complete real tasks in their own repositories when they could use AI tools. They expected AI to speed them up by 24%, and afterward still believed it had sped them up by about 20%.
-- **Individual speed doesn't automatically mean team delivery improves.** Google's 2024 DORA report found that most respondents felt more productive with AI, but higher AI adoption was associated with slightly lower software delivery throughput and noticeably lower delivery stability.
+- **Individual speed doesn't automatically mean team delivery improves.** Google's 2024 DORA (DevOps Research and Assessment) report, a large annual survey of software teams, found that most respondents felt more productive with AI, but higher AI adoption was associated with slightly lower software delivery throughput and noticeably lower delivery stability.
 
 Two lessons follow. First, how fast AI *feels* is not a reliable measure of whether it helps — the METR participants were wrong about their own speed. Second, results depend on context: the type of task, how well the developer knows the codebase, and how the team reviews and tests AI output. This is why Section 2.6 says to measure productivity and quality together, and why the lab below asks you to keep a log.
 
