@@ -6,8 +6,8 @@
 
 By the end of this chapter, you will be able to:
 
-- Explain what a [Large Language Model (LLM)](../glossary.md#llm) is, in terms precise enough to be useful rather than just evocative.
-- Distinguish between training, [fine-tuning](../glossary.md#fine-tuning), [inference](../glossary.md#inference), and [tool use](../glossary.md#tool-use) — and know which one you're actually interacting with day to day.
+- Explain what a [Large Language Model (LLM)](../glossary.md#llm) is, precisely enough to be useful.
+- Distinguish between training, [fine-tuning](../glossary.md#fine-tuning), [inference](../glossary.md#inference), and [tool use](../glossary.md#tool-use) — and know which one you interact with day to day.
 - Explain [tokens](../glossary.md#token) and [context windows](../glossary.md#context-window) well enough to reason about why a model "forgot" something earlier in a long session.
 - Recognize why [hallucinations](../glossary.md#hallucination) happen, and predict the situations where they're most likely.
 - Apply a concrete, repeatable set of practices for using LLMs safely in professional software engineering.
@@ -16,11 +16,11 @@ By the end of this chapter, you will be able to:
 
 ## 3.1 Why Software Engineers Should Understand This
 
-Modern AI assistants appear to "understand" programming languages, system architecture, and human intent. Whatever you call what they do, it isn't understanding in the sense that a compiler understands syntax or a database understands a schema. An LLM is a statistical model of language, and everything it produces, including code, is generated one token at a time based on probability, not by executing logic or checking facts against a source of truth.
+Modern AI assistants appear to "understand" programming languages, system architecture and human intent, but not in the sense that a compiler understands syntax. An LLM is a statistical model of language, and everything it produces, including code, is generated one token at a time based on probability, not by executing logic or checking facts against a source of truth.
 
-Many current models are marketed as "reasoning" or "thinking" models. These models generate intermediate steps — working through the problem in text — before giving a final answer, and that often improves results on multi-step problems such as debugging or math. But those steps are produced by the same token-by-token mechanism. They can contain mistakes, and a well-written chain of reasoning doesn't guarantee a correct conclusion. Treat a reasoning model's output as a better draft, not as a verified one.
+Many current models are marketed as "reasoning" or "thinking" models. They work through a problem in text before giving a final answer, which often improves results on multi-step problems such as debugging. But those steps come from the same token-by-token mechanism and can contain mistakes; well-written reasoning doesn't guarantee a correct conclusion. Treat a reasoning model's output as a better draft, not a verified one.
 
-That distinction isn't philosophical — it has direct, practical consequences. It explains why a model can write a syntactically perfect function that calls a method which doesn't exist. It explains why the same question can get a slightly different answer twice. And it explains why the fix for many "the AI got this wrong" situations isn't a better model — it's better context, or a verification step you skipped. Understanding the mechanism turns AI from something you either trust blindly or distrust reflexively into a tool you can use with calibrated confidence.
+This explains why a model can write a syntactically perfect function that calls a method which doesn't exist, why the same question can get two different answers, and why the fix for many "the AI got this wrong" situations is better context or a verification step, not a better model. Understanding the mechanism lets you use AI with calibrated confidence instead of blind trust or reflexive distrust.
 
 ---
 
@@ -28,11 +28,11 @@ That distinction isn't philosophical — it has direct, practical consequences. 
 
 A **Large Language Model (LLM)** is a neural network trained on very large collections of text and code. During training, it learns statistical relationships between **tokens** — the sub-word units (roughly, word fragments and code symbols) that models operate on instead of raw text.
 
-At inference time, the model doesn't look up stored facts or execute logic. For each step, it computes a probability for every token in its vocabulary — how likely each one is to come next, given everything already in the context window. The application then picks one token from that distribution, appends it, and repeats, building the response one token at a time.
+When it generates a response, the model doesn't look up stored facts or execute logic. At each step, it computes how likely every token in its vocabulary is to come next, given everything in the context window. The application picks one token from that distribution, appends it, and repeats.
 
-The picking step is called **sampling**. Settings such as **[temperature](../glossary.md#temperature)** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same [prompt](../glossary.md#prompt) can produce different answers on different runs. That's expected behavior, not a malfunction.
+The picking step is called **sampling**. Settings such as **[temperature](../glossary.md#temperature)** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same [prompt](../glossary.md#prompt) can produce different answers on different runs. That's expected, not a malfunction.
 
-Before any of this happens, text has to be split into tokens by a **tokenizer**. Each model family has its own tokenizer, so the same text can produce different token counts in different models. To see the idea, here's a short piece of code run through OpenAI's open-source `tiktoken` library. It's used here only because it's easy to install; other models, including Claude, split text differently, so treat the exact numbers as illustrative of the idea rather than as a count for the model you use:
+First, text is split into tokens by a **tokenizer**. Each model family has its own, so the same text gives different token counts in different models. Here's a short piece of code run through OpenAI's open-source `tiktoken` library. It's used here only because it's easy to install. Other models, including Claude, split text differently, so the exact numbers illustrate the idea rather than count tokens for the model you use:
 
 ```bash
 pip install tiktoken
@@ -70,9 +70,9 @@ Token IDs: [755, 923, 2948, 11, 293, 997, 262, 471, 264, 489, 293]
      293  ->  ' b'
 ```
 
-(Output from `tiktoken` 0.14.0.) Notice that "words" and tokens don't line up one-to-one. `def add(a, b):` becomes several tokens, some of them partial words or punctuation clusters, and the four-space indent is split between a three-space token and the space at the start of `' return'`. This matters because context windows, API pricing, and "how much can I paste into one prompt" are all measured in tokens, not characters or words. A 3,000-line file is not automatically safe to paste into a single prompt just because it "looks" manageable. Check the token count, ideally with the tokenizer or token-counting tool your provider offers.
+(Output from `tiktoken` 0.14.0.) Words and tokens don't line up one-to-one. `def add(a, b):` becomes several tokens, some of them partial words or punctuation clusters, and the four-space indent is split between a three-space token and the space at the start of `' return'`. This matters because context windows, API pricing and "how much can I paste into one prompt" are all measured in tokens, not characters or words. A 3,000-line file isn't safe to paste into one prompt just because it looks manageable. Check the token count, ideally with the tokenizer or token-counting tool your provider offers.
 
-The model is not searching the internet or reading your repository unless a tool explicitly gives it that capability — file access, web search, or a connected code index. Absent that, everything it produces comes from patterns learned during training plus whatever you've put directly into the current context window.
+The model isn't searching the internet or reading your repository unless a tool gives it that ability — file access, web search, or a connected code index. Otherwise, everything it produces comes from patterns learned in training plus whatever is in the current context window.
 
 ---
 
@@ -85,13 +85,13 @@ The model is not searching the internet or reading your repository unless a tool
 | Inference | Generate a response to your prompt | You, every time you send a message |
 | Tool use | Access external knowledge or take actions (search, run code, call APIs) | You, by enabling and invoking tools |
 
-Most engineers only ever interact with the last two rows. That's worth internalizing because it reframes a lot of "prompting technique" advice: you are not teaching the model anything permanent when you have a conversation with it. Nothing you type during inference changes the underlying weights. Every new conversation starts from the same trained model, which is why context — what you explicitly provide in *this* session — carries so much weight.
+Most engineers only ever interact with the last two rows. That reframes a lot of "prompting technique" advice: you aren't teaching the model anything permanent when you talk to it. Nothing you type during inference changes the underlying weights. Every new conversation starts from the same trained model, which is why the context you provide in *this* session carries so much weight.
 
 ---
 
 ## 3.4 Tokens and Context Windows
 
-A **context window** is the total amount of text (measured in tokens) a model can consider at once when generating a response. It typically contains, all combined into one budget:
+A **context window** is the total amount of text, in tokens, a model can consider at once. One budget covers:
 
 - System instructions (behavior rules set by the application)
 - Your prompts
@@ -99,17 +99,17 @@ A **context window** is the total amount of text (measured in tokens) a model ca
 - Retrieved documents or file contents
 - Tool outputs (search results, command output, etc.)
 
-When the total would exceed the model's context window, something has to give, and different tools handle it differently:
+When the total would exceed the window, tools handle it in different ways:
 
 - **Truncating** — dropping the oldest messages or the start of the input, often silently.
 - **Summarizing or compacting** — replacing older parts of the conversation with a shorter summary, which keeps the gist but loses detail.
 - **Returning an error** — refusing the request until you shorten it, which is common when calling a model's API directly.
 
-In the first two cases, the earlier messages are usually still visible in the chat history you can scroll back to, even though the model no longer sees them in full. This is a common source of a recognizable failure: a long coding session where the model suddenly seems to forget a constraint you mentioned an hour ago. The information was dropped or summarized away before the model generated its next response.
+In the first two cases, earlier messages usually stay visible in your chat history even though the model no longer sees them in full. This explains a familiar failure: late in a long session, the model seems to forget a constraint you gave an hour ago, because it was dropped or summarized away.
 
-A full context isn't the only problem. Even when everything fits, research has found that models tend to use information at the beginning and end of a long context more reliably than information buried in the middle (see Further Reading). Putting the most important constraints near the end of your prompt, or restating them, is a cheap way to work around this.
+A full context isn't the only problem. Even when everything fits, models tend to use information at the beginning and end of a long context more reliably than information in the middle (see Further Reading). Putting key constraints near the end of your prompt, or restating them, is a cheap workaround.
 
-You can see the context budget directly with a local model. If you're using Ollama, you can inspect a model's settings like this:
+You can see the context budget directly with a local model. With Ollama:
 
 ```bash
 ollama show hermes3:8b
@@ -148,33 +148,33 @@ NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL
 hermes3:8b    4f6b83f30b62    4.9 GB    100% CPU     4096       4 minutes from now
 ```
 
-(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default context length based on the GPU memory it finds, and a machine with no GPU memory, like the Pi, gets the smallest default: 4,096 tokens. That number is the entire budget, shared across the [system prompt](../glossary.md#system-prompt), conversation history, and the generated response. Defaults like this change between Ollama versions, so check with `ollama ps` rather than assuming.
+(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default based on the GPU memory it finds, and a machine with none, like the Pi, gets the smallest: 4,096 tokens. That's the entire budget, shared by the [system prompt](../glossary.md#system-prompt), conversation history, and the generated response. Defaults change between Ollama versions, so check with `ollama ps`.
 
-You can raise the limit for a single session with `/set parameter num_ctx 8192` inside `ollama run`, by passing `num_ctx` in the `options` of an API request, or for the whole server with the `OLLAMA_CONTEXT_LENGTH` environment variable. A larger context needs more memory, though, and on resource-constrained hardware like a Raspberry Pi 5 that's a real limit: a smaller context window means shorter conversations, less pasted code, and more deliberate context management than you'd need with a cloud model offering a 100K+ token window. If you run models locally (Chapter 5 shows how), context budget is a design constraint you plan around, not an implementation detail you can ignore.
+You can raise the limit for a single session with `/set parameter num_ctx 8192` inside `ollama run`, by passing `num_ctx` in the `options` of an API request, or for the whole server with the `OLLAMA_CONTEXT_LENGTH` environment variable. A larger context needs more memory, though, and on hardware like a Raspberry Pi 5 that's a real limit: a smaller window means shorter conversations, less pasted code and more careful context management than with a cloud model offering 100K+ tokens. If you run models locally (Chapter 5 shows how), plan around the context budget.
 
 ---
 
 ## 3.5 Why Hallucinations Happen
 
-A **hallucination** is generated content that is fluent and plausible but factually wrong. In a coding context, this shows up as: invented API methods, incorrect command-line flags, references to libraries or functions that don't exist, misquoted documentation, or confidently stated but incorrect assumptions about business rules the model was never told.
+A **hallucination** is generated content that is fluent and plausible but wrong. In code, it shows up as invented API methods, wrong command-line flags, nonexistent libraries or functions, misquoted documentation, or confident assumptions about business rules the model was never told.
 
-Hallucinations aren't a bug that gets patched out — they're a structural consequence of how generation works. The model is always producing the *statistically likely* continuation of the text so far, not a verified fact. When the true answer is well-represented in training data and the prompt is specific, the likely continuation and the correct answer usually coincide. When the prompt is vague, the required information wasn't in training data, or you're asking about a fast-moving library that changed after the model's training cutoff, "plausible" and "correct" diverge — and the model has no internal signal telling it that's happening. It generates the wrong answer with exactly the same fluency as the right one.
+Hallucinations aren't a bug that gets patched out; they follow from how generation works. The model always produces the *statistically likely* continuation of the text so far, not a verified fact. When the answer is well represented in training data and the prompt is specific, likely and correct usually coincide. When the prompt is vague, the information wasn't in the training data, or a library changed after the model's training cutoff, they diverge, and the model has no internal signal that it's happening. It writes the wrong answer as fluently as the right one.
 
-Here's a realistic example — asking a model, without any real project context, for a specific method:
+An example — asking a model, with no project context, for a specific method:
 
 ```
 Prompt: "Show me how to use the retry decorator from the requests library."
 ```
 
-The `requests` library doesn't ship a built-in retry decorator — retry logic is typically implemented via `urllib3.util.retry.Retry` combined with `requests.adapters.HTTPAdapter`, or through a separate package like `tenacity`. A model with weak grounding on this specific detail may nonetheless generate a confident, syntactically clean example calling `requests.retry(...)`, because that pattern name is *plausible* given how other libraries are structured — even though it doesn't exist. This is precisely the failure mode to watch for: fluency and correctness are independent properties of the output, and only one of them is guaranteed.
+`requests` has no retry decorator. Retries are usually done with `urllib3.util.retry.Retry` and `requests.adapters.HTTPAdapter`, or with a separate package such as `tenacity`. A model may still produce a clean, confident example calling `requests.retry(...)`, because the name is *plausible*, even though it doesn't exist. Fluency and correctness are independent properties of the output, and only fluency is guaranteed.
 
-**Practical mitigation:** when you're not certain an API surface is real, verify it against actual documentation or the installed package before it goes anywhere near a commit — `pip show requests`, the official docs, or a quick `python -c "import requests; help(requests)"` are cheaper than debugging a hallucinated method three commits later.
+**Practical mitigation:** when you're not sure an API is real, check it against the documentation or the installed package before it goes near a commit — `pip show requests`, the official docs, or a quick `python -c "import requests; help(requests)"` are cheaper than debugging a hallucinated method three commits later.
 
 ---
 
 ## 3.6 Strengths of Modern LLMs
 
-Modern models are genuinely strong at a specific, recognizable set of tasks:
+Modern models are strong at a recognizable set of tasks:
 
 - Explaining existing code, including large or unfamiliar codebases
 - Summarizing documentation, tickets, and long discussion threads
@@ -183,23 +183,32 @@ Modern models are genuinely strong at a specific, recognizable set of tasks:
 - Producing a first draft of documentation from working code
 - Brainstorming multiple implementation approaches quickly
 
-These strengths are exactly why the framing in this book treats AI as a highly capable engineering assistant rather than an autonomous developer. Assistant work — drafting, explaining, summarizing, proposing — is where the fluency/correctness gap matters least, because a human is reviewing the output before it has consequences. Autonomous work — merging without review, deploying without testing — is where that same gap becomes expensive.
+This is why the book treats AI as a capable assistant rather than an autonomous developer. Assistant work — drafting, explaining, summarizing, proposing — is where the gap between fluency and correctness matters least, because a human reviews the output before it has consequences. Autonomous work — merging without review, deploying without testing — is where that gap becomes expensive:
+
+```mermaid
+flowchart LR
+A[Prompt] --> B[Context Window]
+B --> C[Language Model]
+C --> D[Generated Response]
+D --> E[Human Review]
+E --> F[Test & Validation]
+F --> G[Production Code]
+```
+
+The first three boxes are mechanical and probabilistic. The last three are where engineering judgment lives, and no improvement in models makes them optional.
 
 ---
 
 ## 3.7 Practical Guidelines
 
-A short, concrete checklist for working with an LLM on real engineering tasks:
+The prompting basics in [Chapter 0, Section 0.5](../00-before-you-begin.md#05-prompting-basics) — give context, state the goal, add constraints, ask for assumptions, iterate — are the starting point. This chapter's mechanics add four more:
 
-1. **Provide sufficient context** — relevant files, constraints, and prior decisions, not just the immediate question.
-2. **Define the desired outcome explicitly** — what "done" looks like, not just what you want it to attempt.
-3. **Ask for assumptions** — have the model state what it's assuming before it generates code, so you can correct it early.
-4. **Request incremental changes** — one function or component at a time, not an entire feature in one response.
-5. **Verify every result** — read the generated code, don't just skim that it "looks right."
-6. **Run automated tests** — against generated code exactly as you would against a new contributor's pull request.
-7. **Review security implications explicitly** — input validation, auth checks, and unsafe defaults are common hallucination targets because they're easy to generate plausibly and easy to skip reviewing.
+1. **Request incremental changes** — one function or component at a time. Shorter responses are easier to verify, and less of your context window is spent on code you'll throw away.
+2. **Read every result** — don't just skim that it "looks right." Fluency is not evidence (Section 3.5).
+3. **Run automated tests** against generated code, as you would against a new contributor's pull request.
+4. **Review security explicitly** — input validation, auth checks and unsafe defaults are easy to generate plausibly and easy to skip in review.
 
-A useful habit: explicitly asking the model to state its assumptions catches a large share of misunderstandings before any code is written. For example:
+Asking for assumptions deserves an example, because it catches many misunderstandings before any code exists:
 
 ```
 Before writing the implementation, list any assumptions you're making about:
@@ -211,7 +220,7 @@ Before writing the implementation, list any assumptions you're making about:
 Then wait for me to confirm or correct them before generating code.
 ```
 
-This single habit — asking for assumptions before generation, not after — prevents a large share of the rework this book keeps warning about.
+Tools don't always follow this instruction (Chapter 6, Section 6.2 shows one that didn't), so if the assumptions matter, ask for them in a separate prompt before any code.
 
 ---
 
@@ -231,27 +240,11 @@ This single habit — asking for assumptions before generation, not after — pr
 
 ---
 
-## How a Response Actually Gets Produced
-
-```mermaid
-flowchart LR
-A[Prompt] --> B[Context Window]
-B --> C[Language Model]
-C --> D[Generated Response]
-D --> E[Human Review]
-E --> F[Test & Validation]
-F --> G[Production Code]
-```
-
-The first three boxes are entirely mechanical and probabilistic. The last three — review, testing, validation — are where engineering judgment lives, and they're not optional steps you can compress away, regardless of how good the model gets.
-
----
-
 ## Hands-On Lab: Tokens, Context, and Hallucination in Practice
 
-This lab has three parts, each demonstrating a concept from this chapter directly rather than abstractly.
+This lab has three steps, each showing a concept from this chapter in practice.
 
-**Step 1 — See tokenization yourself.** Run the `tiktoken` script from Section 3.2 against a real file from one of your own projects instead of the toy example:
+**Step 1 — See tokenization yourself.** Run a version of the Section 3.2 script on a real file from one of your projects:
 
 ```python
 import tiktoken
@@ -268,21 +261,19 @@ print(f"Tokens: {len(tokens)}")
 print(f"Ratio: {len(code) / len(tokens):.2f} chars/token")
 ```
 
-Compare the character count to the token count. This ratio is roughly what you're budgeting against when you paste large files into a prompt. The exact count will differ for the model you actually use, because it has its own tokenizer.
+Compare the character count to the token count. This ratio is roughly what you budget against when you paste large files into a prompt. The count will differ for the model you use, which has its own tokenizer.
 
-**Step 2 — Trigger a hallucination deliberately.** Pick a library you know well and ask an AI assistant to show you a method or flag that sounds plausible but doesn't exist (for example, a made-up flag on a CLI tool you use often). Note how confidently it's presented, then verify against the real documentation or `--help` output.
+**Step 2 — Trigger a hallucination.** Pick a library you know well and ask an AI assistant how to use a method or flag that sounds plausible but doesn't exist, such as a made-up flag on a CLI tool you use often. Note how confidently it answers, then check the documentation or `--help` output.
 
-**Step 3 — Test the context window limit.** If you have Ollama running locally (as covered in Chapter 5), start a long conversation, mention a specific constraint early on (e.g., "always use snake_case for variable names"), then paste a large amount of unrelated code or text, and finally ask a question that depends on the earlier constraint. Note whether the model still applies it, and relate what you observe back to Section 3.4.
+**Step 3 — Test the context window limit.** With Ollama running locally (Chapter 5), start a conversation and state a constraint early, such as "always use snake_case for variable names." Paste a large amount of unrelated code or text, then ask for something that depends on the constraint. Does the model still apply it? Relate what you see to Section 3.4.
 
-Record your findings for all three steps — this is the beginning of your own calibrated intuition for when to trust AI output and when to slow down and verify.
-
-> **Screenshot placeholder:** Capture your terminal output from Step 1 (the token count comparison) and, if you complete Step 3, a screenshot of the point in the conversation where the model does or doesn't correctly apply the earlier constraint. Insert both here in the published version, with captions identifying what each one demonstrates.
+Record your findings for all three steps. They're the start of your own sense of when to trust AI output and when to slow down and verify.
 
 ---
 
 ## Chapter Summary
 
-Large Language Models are probabilistic systems trained to predict the next token in a sequence — not databases and not compilers. Even "reasoning" models that work through a problem step by step generate those steps the same way, so their reasoning can be wrong too. That mechanism explains both their remarkable fluency and their most common failure mode, hallucination. Engineers who understand tokens, context windows, and why hallucinations occur are far better equipped to provide good context, ask precise questions, and know exactly where verification is non-negotiable.
+Large Language Models are probabilistic systems that generate text one token at a time — not databases and not compilers. Even "reasoning" models generate their reasoning steps the same way, so those steps can be wrong too. This mechanism explains both their fluency and their most common failure, hallucination. Engineers who understand tokens, context windows and hallucinations give better context, ask more precise questions, and know where verification can't be skipped.
 
 ---
 
@@ -304,6 +295,6 @@ Large Language Models are probabilistic systems trained to predict the next toke
 
 ---
 
-## Preview
+## Next Chapter
 
-Chapter 4 examines how AI integrates into the complete Software Development Lifecycle and introduces a repeatable, quality-gated AI-assisted engineering process used throughout the remainder of this book — including the CI configuration and workflow scripts that enforce it.
+Chapter 4 follows AI through the complete software development lifecycle, from requirements to operations, and shows the quality gates and CI configuration that keep humans in control. It also covers working safely with AI agents.
