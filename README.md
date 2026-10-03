@@ -10,9 +10,11 @@
 ### *Part 1: Foundations of AI-Assisted Software Development*
 
 [![Volume](https://img.shields.io/badge/Volume-1-6f42c1?style=for-the-badge)](#-release-plan)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-orange?style=for-the-badge)](https://github.com/ashwinkrpi/ai-assisted-development-book/releases/tag/v1.0.0)
 [![Chapters](https://img.shields.io/badge/Chapters-0%E2%80%936-blue?style=for-the-badge)](chapters/index.md)
 [![Site](https://img.shields.io/badge/Site-Live-success?style=for-the-badge)](https://ashwinkrpi.github.io/ai-assisted-development-book/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![Examples](https://img.shields.io/github/actions/workflow/status/ashwinkrpi/ai-assisted-development-book/examples.yml?branch=main&label=Examples&style=for-the-badge)](https://github.com/ashwinkrpi/ai-assisted-development-book/actions/workflows/examples.yml)
+[![License](https://img.shields.io/badge/License-CC%20BY%204.0%20%2B%20MIT-green?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -40,7 +42,7 @@ Developers who have written some code but are new to using AI tools in their wor
 
 | Volume | Part | Status |
 |---|---|---|
-| **Volume 1** | **Part 1 — Foundations** (Chapters 1–6) | ✅ Released, under revision |
+| **Volume 1** | **Part 1 — Foundations** (Chapters 0–6) | ✅ Released — v1.0.0 (October 2026) |
 | Volume 2 | Part 2 — Prompt Engineering and Communicating with AI | 🔜 Planned |
 | Later volumes | Further parts | 🔜 Planned |
 
@@ -55,7 +57,7 @@ Each volume stands on its own. You don't need later volumes to get value from ea
 | [0 — Before You Begin](chapters/00-before-you-begin.md) | Who the book is for, the three kinds of AI coding tools, choosing and setting one up, privacy settings, and prompting basics |
 | [1 — Introduction to AI-Assisted Software Development](chapters/01-foundations/01-introduction.md) | What AI-assisted development is (and isn't), the four principles behind the book, a password-reset case study, and the eight-step workflow used throughout |
 | [2 — Why AI Is Transforming Software Development](chapters/01-foundations/02-why-ai-is-transforming-software-development.md) | Why organizations adopt AI, where it adds value and where it doesn't, a legacy-modernization case study, and adoption principles |
-| [3 — Understanding Large Language Models](chapters/01-foundations/03-understanding-large-language-models.md) | Tokens, context windows, training versus inference, why hallucinations happen, and practical guidelines |
+| [3 — Understanding Large Language Models for Software Engineers](chapters/01-foundations/03-understanding-large-language-models.md) | Tokens, context windows, training versus inference, why hallucinations happen, and practical guidelines |
 | [4 — The AI-Assisted Software Development Lifecycle](chapters/01-foundations/04-ai-assisted-software-development-lifecycle.md) | AI in each phase of the SDLC, prompt patterns, human quality gates enforced in CI, and working safely with AI agents |
 | [5 — Building Your AI-Assisted Development Environment](chapters/01-foundations/05-building-your-ai-assisted-development-environment.md) | Editor and tooling setup, project layout, security, and a local AI stack on a Raspberry Pi 5 |
 | [6 — Your First AI-Assisted Software Project](chapters/01-foundations/06-your-first-ai-assisted-software-project.md) | Building a command-line Notes Manager in a real, reviewed AI session, with tests and documentation |
@@ -78,9 +80,16 @@ chapters/                 # book source (published by MkDocs)
     ├── 04-ai-assisted-software-development-lifecycle.md
     ├── 05-building-your-ai-assisted-development-environment.md
     └── 06-your-first-ai-assisted-software-project.md
+examples/                 # runnable companion code, tested in CI
+├── ch04-password-reset/
+└── ch06-notes-manager/
+transcripts/              # verbatim AI session behind Chapter 6
+scripts/
+└── check_examples.py     # checks chapter code matches examples/
 images/                   # README banner images
 .github/workflows/
-└── deploy-docs.yml       # builds and deploys the site
+├── deploy-docs.yml       # builds and deploys the site
+└── examples.yml          # runs the example tests
 mkdocs.yml
 CONTRIBUTING.md
 LICENSE
