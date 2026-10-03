@@ -2,31 +2,14 @@
 
 > *"The future of software development is not human **or** AI. It is human **with** AI."*
 
-## Chapter Overview
-
-Welcome to **AI-Assisted Software Development**.
-
-Over the past seventy years, software engineering has been reshaped again and again: high-level programming languages replaced machine code, integrated development environments replaced text editors and manual compilation, version control replaced mailed floppy disks and file-naming conventions, and cloud computing and DevOps replaced racks of servers managed by hand. Each shift did the same fundamental thing — it removed friction from a specific part of the job so engineers could spend more of their time on harder, more valuable problems.
-
-Artificial intelligence is the next shift in that lineage, and it is a larger one. Earlier tools accelerated a single stage of development — a compiler sped up translation to machine code, a debugger sped up fault isolation. AI is different because it can participate across the *entire* software development lifecycle (SDLC) at once. The same underlying technology that drafts a function can also review a pull request, explain a decade-old codebase, propose a system architecture, summarize an incident postmortem, or generate the first pass of a test suite.
-
-That range is exactly why AI is easy to misuse. A tool capable of touching every stage of engineering is also capable of quietly eroding the discipline that makes engineering reliable, if it isn't used deliberately.
-
-!!! info "Who this book is for"
-    Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read [Chapter 0 — Before You Begin](../00-before-you-begin.md) first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.
-
-This book is **not** about replacing software engineers with AI. It is about teaching working engineers how to collaborate with AI systems while preserving the practices — requirements clarity, incremental delivery, testing, review, and accountability — that separate durable software from software that merely happens to run today.
-
----
-
 ## Learning Objectives
 
 By the end of this chapter, you will be able to:
 
 - Define AI-assisted software development and distinguish it from AI-generated or "vibe-coded" software.
-- Explain why AI represents a structurally different kind of productivity tool than earlier innovations in the field.
-- Identify where AI can contribute value at each stage of the SDLC — and where its contributions need the closest scrutiny.
-- Describe the genuine strengths and the recurring failure modes of current AI systems.
+- Explain why AI is a different kind of productivity tool from earlier innovations in the field.
+- Identify where AI can contribute at each stage of the SDLC, and where its contributions need the closest scrutiny.
+- Describe the strengths and the recurring failure modes of current AI systems.
 - Apply the iterative, review-driven workflow used throughout the rest of this book.
 - Adopt an engineering-first mindset: AI proposes, engineers decide.
 
@@ -34,22 +17,29 @@ By the end of this chapter, you will be able to:
 
 ## 1.1 Why This Book Exists
 
-There is no shortage of material on this topic. Some books teach [prompt](../glossary.md#prompt) engineering as if phrasing were the whole skill. Some articles rank AI coding tools against each other by benchmark score. Very little of it addresses the harder and more useful question: **how does professional software engineering actually change once AI becomes a working member of the team?**
+!!! info "Who this book is for"
+    Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read [Chapter 0 — Before You Begin](../00-before-you-begin.md) first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.
 
-That is the question this book answers. Throughout every chapter, AI is treated as a capable but fallible collaborator — closer to a fast, well-read junior engineer than to an oracle whose output can be trusted by default. Every technique and workflow in this book is built on four principles that will resurface constantly:
+Earlier tools each sped up one stage of development: a compiler sped up translation to machine code, a debugger sped up fault isolation. AI can take part in the *entire* software development lifecycle (SDLC). The same technology that drafts a function can review a pull request, explain an old codebase, propose an architecture or write a first test suite.
 
-1. **Requirements come before code.** AI cannot infer intent you haven't articulated, and it will confidently fill gaps with plausible-sounding guesses.
-2. **Small iterations outperform one-shot generation.** A feature generated in one large pass is difficult to review and easy to get subtly wrong; a feature built in small, verified steps is not.
-3. **Automated testing is mandatory, not optional.** Tests are how you verify AI-generated code actually does what it claims to do, rather than what it merely appears to do.
-4. **Humans remain accountable for every engineering decision.** AI can draft, suggest, and accelerate. It cannot own the consequences of what ships.
+That range is why AI is easy to misuse. A tool that touches every stage of engineering can also erode the discipline that makes engineering reliable, if it isn't used deliberately.
 
-Keep these four principles in mind as you read; nearly every practice in this book is one of them applied to a specific situation.
+Much existing material treats [prompt](../glossary.md#prompt) phrasing as the whole skill, or ranks tools by benchmark score. This book asks a different question: **how does professional software engineering change once AI becomes a working member of the team?** It isn't about replacing engineers. It's about collaborating with AI while keeping the practices that make software durable.
+
+Throughout the book, AI is treated as a capable but fallible collaborator, closer to a fast, well-read junior engineer than to an oracle. Every technique in the book rests on four principles:
+
+1. **Requirements come before code.** AI cannot infer intent you haven't stated, and it will confidently fill gaps with plausible guesses.
+2. **Small iterations beat one-shot generation.** A feature generated in one large pass is hard to review and easy to get subtly wrong; a feature built in small, verified steps is not.
+3. **Automated testing is mandatory.** Tests are how you verify that AI-generated code does what it claims, not just what it appears to do.
+4. **Humans remain accountable for every engineering decision.** AI can draft, suggest and accelerate. It cannot own the consequences of what ships.
+
+Nearly every practice in this book is one of these principles applied to a specific situation.
 
 ---
 
 ## 1.2 The Evolution of Software Engineering
 
-AI-assisted development did not appear in isolation. It's the latest step in a long pattern of tools that abstract away repetitive work so engineers can operate at a higher level.
+AI-assisted development is the latest step in a long pattern of tools that take over repetitive work so engineers can operate at a higher level.
 
 | Era | Breakthrough | Result |
 |---|---|---|
@@ -57,21 +47,21 @@ AI-assisted development did not appear in isolation. It's the latest step in a l
 | 1950s | First high-level languages (FORTRAN, 1957; COBOL, 1959) | Scientific and business programs written in terms of the problem, not the machine |
 | 1970s–80s | Structured and systems languages (C, Pascal, later C++) | Portable, maintainable systems and application software |
 | 1980s–90s | IDEs and debuggers | Faster iteration, fewer manual build steps |
-| 2000s | Distributed version control (Git) | Real team collaboration at scale |
+| 2000s | Distributed version control (Git) | Team collaboration at scale |
 | 2010s | Cloud infrastructure and DevOps | Continuous delivery, elastic infrastructure |
 | 2020s | Generative AI | Machine participation across the entire SDLC |
 
-Every prior generation reduced repetitive, mechanical work and shifted more of an engineer's time toward judgment, design, and problem framing. AI extends that same trend — but because it operates in natural language and can generate large volumes of plausible-looking output quickly, it also raises the cost of skipping review. The rest of this book is largely about capturing the gains from that shift without absorbing its risks.
+Each generation reduced mechanical work and shifted engineers' time toward judgment, design and problem framing. AI extends that trend, but because it produces large volumes of plausible output quickly, it also raises the cost of skipping review.
 
 ---
 
 ## 1.3 What Is AI-Assisted Software Development?
 
-**AI-assisted software development** is the disciplined practice of using AI systems to improve engineering activities while human engineers retain responsibility for design decisions, validation, deployment, and long-term maintenance.
+**AI-assisted software development** is the disciplined practice of using AI systems to improve engineering activities while human engineers keep responsibility for design decisions, validation, deployment and long-term maintenance.
 
-That definition matters more than it might first appear, because it draws a clear line against two common failure patterns: treating AI output as authoritative without review, and using AI so heavily that no one on the team fully understands the resulting system. AI-assisted development sits deliberately between those two extremes.
+The definition rules out two failure patterns: treating AI output as authoritative without review, and using AI so heavily that no one understands the resulting system.
 
-In practice, this shows up across activities such as:
+In practice, AI assistance shows up in:
 
 - Requirements analysis and user story refinement
 - Architecture exploration and trade-off comparison
@@ -83,13 +73,13 @@ In practice, this shows up across activities such as:
 - Code review support
 - Release notes and operational runbooks
 
-The operative word is **assisted**. AI proposes; engineers decide. That distinction is the difference between a productivity tool and a liability.
+The key word is **assisted**. AI proposes; engineers decide. That distinction is the difference between a productivity tool and a liability.
 
 ---
 
 ## 1.4 Human and AI: Complementary Strengths
 
-Human engineers and AI systems are good at different things, and it pays to design your workflow around that difference rather than ignoring it.
+Human engineers and AI systems are good at different things. Design your workflow around that difference.
 
 | Human Engineers | AI Systems |
 |---|---|
@@ -98,31 +88,31 @@ Human engineers and AI systems are good at different things, and it pays to desi
 | Weigh trade-offs against long-term maintainability | Automate repetitive, mechanical work |
 | Own quality, delivery, and consequences | Accelerate the first draft of almost any engineering artifact |
 
-A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code and documentation, works extremely fast, never gets tired — and still needs their work reviewed before it ships. In this book's view, that mental model matters more than any specific prompting technique for getting consistent value out of AI tools instead of getting burned by them.
+A useful mental model: treat AI like a talented junior engineer who has read an enormous amount of code, works extremely fast, never gets tired, and still needs their work reviewed before it ships. This mental model matters more than any prompting technique.
 
 ---
 
 ## 1.5 AI Across the SDLC
 
-AI can contribute at every stage of the software development lifecycle, though the nature of that contribution — and the amount of scrutiny it needs — changes from stage to stage.
+AI can contribute at every stage of the lifecycle, but the kind of contribution, and the scrutiny it needs, changes from stage to stage.
 
-- **Requirements** — surfacing ambiguity, missing acceptance criteria, and edge cases in a specification before implementation begins.
-- **Design** — comparing architectural options and articulating trade-offs an engineer can then evaluate against real constraints.
-- **Implementation** — generating scaffolding, boilerplate, and repetitive code so engineers can focus on the parts that require genuine design decisions.
-- **Testing** — proposing unit, integration, and edge-case tests, including cases a developer under deadline pressure might otherwise skip.
-- **Documentation** — drafting READMEs, API references, and inline comments that a human then verifies for accuracy.
-- **Review** — flagging likely defects, inconsistent naming, and maintainability concerns before a human reviewer looks at the diff.
-- **Operations** — summarizing logs, correlating incidents, and suggesting diagnostic paths during an on-call investigation.
+- **Requirements** — surfacing ambiguity, missing acceptance criteria and edge cases before implementation begins.
+- **Design** — comparing architectural options and stating trade-offs for an engineer to evaluate against real constraints.
+- **Implementation** — generating scaffolding and boilerplate so engineers can focus on the parts that need design decisions.
+- **Testing** — proposing unit, integration and edge-case tests, including cases a developer under deadline pressure might skip.
+- **Documentation** — drafting READMEs, API references and comments that a human then checks for accuracy.
+- **Review** — flagging likely defects, inconsistent naming and maintainability concerns before a human reviewer looks at the diff.
+- **Operations** — summarizing logs, correlating incidents and suggesting diagnostic paths during an investigation.
 
-Notice what doesn't appear on this list: final sign-off. Engineering ownership never transfers to the AI, regardless of which stage it's contributing to.
+What isn't on this list is final sign-off. Ownership never transfers to the AI, at any stage.
 
 ---
 
 ## 1.6 Strengths and Limitations
 
-Using AI well requires an accurate, unsentimental picture of what it's actually good and bad at — not the marketing version, and not the doom-laden version either.
+Using AI well requires an accurate picture of what it's good and bad at — neither the marketing version nor the doom-laden one.
 
-**Where AI is genuinely strong:**
+**Where AI is strong:**
 
 - Explaining unfamiliar code, including legacy systems with little documentation
 - Summarizing long technical documents, tickets, or discussion threads
@@ -133,14 +123,14 @@ Using AI well requires an accurate, unsentimental picture of what it's actually 
 
 **Where AI reliably struggles:**
 
-- Inventing APIs, functions, or library behavior that don't actually exist
-- Misreading vague or incomplete requirements — and filling the gap with a plausible guess instead of asking
+- Inventing APIs, functions, or library behavior that don't exist
+- Misreading vague or incomplete requirements, and filling the gap with a plausible guess instead of asking
 - Missing business rules that were never written down anywhere the model could see
 - Producing code with security flaws that look correct at a glance (missing input validation, weak auth checks, unsafe defaults)
 - Ignoring operational constraints such as latency budgets, cost limits, or existing infrastructure
-- Stating incorrect answers with the same confident tone as correct ones
+- Stating incorrect answers in the same confident tone as correct ones
 
-That last point is the one worth internalizing most. An AI system's tone gives you no information about its accuracy. Every AI-generated artifact — a function, a test, a paragraph of documentation, a claimed API signature — needs to be reviewed and validated exactly as if a new, unvetted contributor had submitted it. Because, functionally, one has.
+The last point matters most. An AI system's tone tells you nothing about its accuracy. Review every AI-generated artifact — a function, a test, a paragraph of documentation, a claimed API signature — as if a new, unvetted contributor had submitted it. In effect, one has.
 
 ---
 
@@ -150,26 +140,26 @@ Consider a request that lands in almost every backend engineer's queue at some p
 
 > "Implement password reset."
 
-**A poor workflow** treats this as a single prompt: ask the AI to generate the entire feature — endpoint, email delivery, token handling, and frontend form — in one pass, skim the output, and merge it. This is a common way for AI-assisted development to go wrong, not because the AI is incapable, but because a security-sensitive, multi-component feature was never actually decomposed or reviewed at the level it needs.
+**A poor workflow** asks the AI for the whole feature — endpoint, email delivery, token handling and frontend form — in one pass, skims the output, and merges it. The AI may be capable, but a security-sensitive, multi-component feature was never broken down or reviewed properly.
 
 **A professional workflow** looks different:
 
 1. **Clarify requirements.** Does "reset" mean an emailed link, an emailed one-time code, or an SMS code? What's the token expiry? Is there a rate limit on reset requests?
-2. **Identify security requirements up front.** Tokens must be single-use, cryptographically random, and time-limited. Reset requests must not reveal whether an email address exists in the system (a common information-leak bug).
-3. **Design the workflow** before writing code — request → token generation → email delivery → verification → password update — and use AI to compare implementation options, not to skip the design step.
-4. **Implement one endpoint at a time**, reviewing each before moving to the next, rather than generating the whole feature in one shot.
+2. **Identify security requirements up front.** Tokens must be single-use, cryptographically random and time-limited. Reset requests must not reveal whether an email address exists in the system (a common information-leak bug).
+3. **Design the flow** before writing code — request → token generation → email delivery → verification → password update — using AI to compare options, not to skip design.
+4. **Implement one endpoint at a time**, reviewing each before moving to the next.
 5. **Add tests** for the expected path *and* the edge cases: expired tokens, reused tokens, non-existent accounts, malformed requests.
-6. **Review the implementation** manually, with particular attention to anything security-related — this is not a step to delegate.
-7. **Update documentation** so the next engineer who touches this code understands the token lifecycle and the rate-limiting behavior.
+6. **Review the implementation** manually, with particular attention to anything security-related. Don't delegate this step.
+7. **Update documentation** so the next engineer understands the token lifecycle and the rate-limiting behavior.
 8. **Merge only after verification** — tests pass, review is complete, and the security requirements from step 2 are demonstrably met.
 
-The two workflows can use the exact same AI tool. The difference in outcome comes entirely from how the work was decomposed and reviewed — which is the central argument of this book.
+Both workflows can use the same AI tool. The difference in outcome comes from how the work was decomposed and reviewed, which is the central argument of this book.
 
 ---
 
 ## 1.8 The Workflow Used Throughout This Book
 
-Every feature example in the chapters that follow uses the same underlying workflow:
+Every feature example in the chapters that follow uses the same workflow:
 
 1. Understand the business problem before touching a prompt or an editor.
 2. Clarify missing information — ask questions rather than let the AI assume.
@@ -180,35 +170,47 @@ Every feature example in the chapters that follow uses the same underlying workf
 7. Review manually — every AI contribution, every time.
 8. Commit only validated work.
 
-You'll see this same eight-step shape recur throughout the book, applied to requirements, architecture, testing, and the complete project in Chapter 6, and it continues in later volumes. It's worth memorizing.
+Before you accept any AI-generated work in step 7, ask:
 
----
-
-## Engineering Checklist
-
-Before accepting any AI-generated work, ask:
-
-- Does it actually satisfy the requirement — not just resemble a plausible solution?
+- Does it satisfy the requirement, or does it only resemble a plausible solution?
 - Is it secure?
-- Is it maintainable by someone who wasn't in the room when it was generated?
+- Can someone who wasn't there when it was generated maintain it?
 - Has it been tested, including edge cases?
 - Is the documentation updated to match?
 
-If the answer to any of these is **no**, the work isn't done — regardless of how complete it looks.
+If any answer is **no**, the work isn't done, however complete it looks.
+
+Later chapters apply this workflow to requirements, architecture, testing and tools, and Chapter 6 uses it to build a complete project. They refer back to this section rather than repeating it.
+
+---
+
+## Engineering Insight
+
+> AI proposes; engineers decide. A tool's confidence is not evidence, and ownership of what ships never moves to the AI.
+
+---
+
+## Common Mistakes
+
+- Asking for a whole feature in one prompt, then skimming the result because it looks complete.
+- Treating a confident answer as a correct one.
+- Leaving requirements unstated and expecting the AI to infer them.
+- Writing tests only at the end, or not reviewing AI-written tests.
+- Merging work that nobody on the team fully understands.
 
 ---
 
 ## Hands-On Lab: Build a Command-Line Calculator
 
-This lab is intentionally simple. The goal isn't the calculator — it's practicing the workflow from Section 1.8 on something small enough that the process, not the problem, stays in focus.
+This lab is intentionally simple. The goal isn't the calculator. It's practicing the workflow from Section 1.8 on something small enough that the process stays in focus.
 
-Using an AI assistant of your choice, and the prompting basics from [Chapter 0, Section 0.5](../00-before-you-begin.md#05-prompting-basics), build a command-line calculator that supports addition, subtraction, multiplication, and division, and handles invalid input gracefully. Work through it in stages:
+Using an AI assistant of your choice, and the prompting basics from [Chapter 0, Section 0.5](../00-before-you-begin.md#05-prompting-basics), build a command-line calculator that supports addition, subtraction, multiplication and division, and handles invalid input gracefully. Work through it in stages:
 
 1. Define the requirements yourself first (supported operations, input format, error handling for things like division by zero) before asking AI for anything.
 2. Use AI to explore two or three possible designs — a single-file script versus a small module with separate parsing and evaluation logic, for example — and choose one deliberately.
 3. Implement one operation at a time, reviewing each before moving to the next.
 4. Write tests for each operation, including invalid input and edge cases.
-5. Ask AI to draft a short README, then verify every claim in it against the actual code.
+5. Ask AI to draft a short README, then verify every claim in it against the code.
 6. Review the completed solution end-to-end as if you were reviewing a colleague's pull request.
 
 **Keep a development journal** as you work, recording:
@@ -218,17 +220,15 @@ Using an AI assistant of your choice, and the prompting basics from [Chapter 0, 
 - Which suggestions you rejected, and why
 - What you'd do differently next time
 
-This journal is more valuable than the calculator itself — it's the first concrete record of your own AI-assisted workflow, and you'll refine it throughout the rest of the book.
+The journal is more valuable than the calculator. It's the first record of your own AI-assisted workflow, and you'll refine it throughout the book.
 
 ---
 
 ## Chapter Summary
 
-Artificial intelligence is changing how software gets built, but it does not change *why* engineering discipline matters — if anything, it raises the stakes for keeping that discipline intact. AI can accelerate requirements analysis, implementation, testing, and documentation, but it cannot own the judgment calls, the trade-offs, or the consequences that come with shipping software.
+AI is changing how software gets built, but it doesn't change *why* engineering discipline matters; it raises the stakes for keeping it. AI can accelerate requirements analysis, implementation, testing and documentation, but it cannot own the judgment calls, the trade-offs or the consequences of shipping software.
 
-The engineers who gain the most from this shift aren't the ones who prompt the most fluently. They're the ones who combine strong software engineering fundamentals with a clear-eyed, disciplined use of AI — treating it as a fast and capable collaborator that never gets the final word.
-
-That combination — human expertise, supported by intelligent tools, without ever being replaced by them — is the central theme of this book.
+The engineers who gain the most aren't the ones who prompt most fluently. They combine strong engineering fundamentals with disciplined use of AI, treating it as a fast, capable collaborator that never gets the final word.
 
 ---
 
@@ -237,7 +237,7 @@ That combination — human expertise, supported by intelligent tools, without ev
 1. Define AI-assisted software development in your own words, and explain how it differs from simply asking AI to generate a feature end-to-end.
 2. Why does engineering accountability remain with human engineers even as AI takes on more of the implementation work?
 3. Name five stages of the SDLC where AI can add value, and one specific risk to watch for at each stage.
-4. List three genuine strengths and three recurring limitations of current AI systems.
+4. List three strengths and three recurring limitations of current AI systems.
 5. Using the password reset case study, explain why iterative, reviewed development produces more reliable outcomes than one-shot generation — even when the same AI tool is used in both cases.
 
 ---
@@ -251,6 +251,6 @@ Research on how much AI tools help developers is still young, and the results ar
 
 ---
 
-## Preview
+## Next Chapter
 
-Chapter 2 examines **why AI is transforming software development**, looking at the technical, economic, and organizational forces driving this shift — and what they mean for how professional engineering teams actually work day to day.
+Chapter 2 examines **why AI is transforming software development**: the technical, economic and organizational forces behind the shift, and what they mean for how engineering teams work day to day.
