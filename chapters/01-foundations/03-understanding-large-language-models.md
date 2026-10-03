@@ -261,6 +261,8 @@ print(f"Tokens: {len(tokens)}")
 print(f"Ratio: {len(code) / len(tokens):.2f} chars/token")
 ```
 
+*Illustrative: replace `your_file.py` with a real file. This script isn't run by the book's tests.*
+
 Compare the character count to the token count. This ratio is roughly what you budget against when you paste large files into a prompt. The count will differ for the model you use, which has its own tokenizer.
 
 **Step 2 — Trigger a hallucination.** Pick a library you know well and ask an AI assistant how to use a method or flag that sounds plausible but doesn't exist, such as a made-up flag on a CLI tool you use often. Note how confidently it answers, then check the documentation or `--help` output.

@@ -276,6 +276,8 @@ jobs:
         run: bandit -r app/
 ```
 
+*Illustrative: adapt the requirements files, package name and coverage threshold to your project. This workflow isn't run by the book's CI.*
+
 This workflow can't require a review on its own, because a CI job can't approve a pull request. Reviews are enforced by a branch protection rule (`Settings → Branches → Require pull request reviews before merging`). Pairing the rule with this workflow turns "we review AI-generated code" from a stated policy into something the repository enforces.
 
 ---
