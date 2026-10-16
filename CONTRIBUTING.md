@@ -2,9 +2,22 @@
 
 First off, **thank you** for considering contributing! ❤️
 
-Whether you're fixing a typo, improving an example, reporting a bug, or
-adding a new lab, every contribution helps make this book better for the
-community.
+Whether you're spotting a typo, suggesting a better example, reporting a
+bug, or proposing a new lab, every contribution helps make this book better
+for the community.
+
+------------------------------------------------------------------------
+
+# How Contributions Work
+
+Pull requests on this repository are limited to collaborators, so outside
+pull requests can't be opened. Please contribute through
+[Issues](https://github.com/ashwinkrpi/ai-assisted-development-book/issues)
+instead: describe the problem or suggestion, and the change will be made
+in the book.
+
+You're also welcome to fork the repository and adapt the examples for
+your own use.
 
 ------------------------------------------------------------------------
 
@@ -19,9 +32,11 @@ hobbyists, and open-source contributors of all experience levels.
 
 # Ways You Can Contribute
 
+Open an issue for any of the following.
+
 ## 📝 Improve Documentation
 
--   Fix grammar or spelling
+-   Report grammar or spelling mistakes
 -   Improve explanations
 -   Add diagrams
 -   Clarify examples
@@ -29,20 +44,20 @@ hobbyists, and open-source contributors of all experience levels.
 
 ## 💻 Improve Code
 
--   Fix bugs
--   Improve readability
--   Optimize performance
--   Add comments
--   Refactor examples
+-   Report bugs in the examples
+-   Suggest readability improvements
+-   Point out performance problems
+-   Flag code that needs comments
+-   Propose refactorings
 
-## 🧪 Add Tests
+## 🧪 Suggest Tests
 
 -   Unit tests
 -   Integration tests
 -   Edge cases
 -   Regression tests
 
-## 🎓 Improve Learning Material
+## 🎓 Suggest Learning Material
 
 -   New labs
 -   Exercises
@@ -54,7 +69,7 @@ hobbyists, and open-source contributors of all experience levels.
 
 # Development Principles
 
-Every contribution should follow these principles:
+Every change to the book follows these principles:
 
 -   Requirements before implementation
 -   Small, focused pull requests
@@ -79,6 +94,9 @@ images/                   # README banner images
 mkdocs.yml                # site configuration and navigation
 ```
 
+This layout helps you point to the right file in an issue, or find your
+way around a fork.
+
 Chapter text goes in `chapters/`. If you add a page, also add it to the
 `nav` section of `mkdocs.yml`, and check that `mkdocs build --strict`
 passes. Don't commit `site/`, because CI builds it.
@@ -102,14 +120,15 @@ Please include:
 -   Steps to reproduce
 -   Screenshots (if applicable)
 -   Environment details
+-   The chapter and section, for problems in the book text
 
 Search existing issues before opening a new one.
 
 ------------------------------------------------------------------------
 
-# Pull Request Checklist
+# Pull Request Checklist (Collaborators)
 
-Before submitting a Pull Request:
+Before a collaborator submits a Pull Request:
 
 -   [ ] The change solves a specific problem.
 -   [ ] Documentation has been updated.
@@ -134,10 +153,11 @@ For documentation:
 
 # AI-Assisted Contributions
 
-AI-generated content is welcome, but contributors are responsible for:
+Using AI to help write an issue or a suggested fix is welcome, but you're
+responsible for:
 
 -   Reviewing technical accuracy
--   Verifying code compiles and runs
+-   Verifying any suggested code compiles and runs
 -   Checking security implications
 -   Ensuring originality where required
 -   Editing for clarity and consistency
@@ -147,7 +167,7 @@ engineering.
 
 ------------------------------------------------------------------------
 
-# Commit Message Examples
+# Commit Message Examples (Collaborators)
 
 ``` text
 docs(ch3): clarify context window example
@@ -161,7 +181,7 @@ refactor: simplify repository abstraction
 
 # Review Process
 
-Maintainers review contributions for:
+Maintainers review issues and suggested changes for:
 
 -   Technical correctness
 -   Consistency with the book
@@ -170,14 +190,15 @@ Maintainers review contributions for:
 -   Security and maintainability
 
 Feedback is part of the collaboration process. Please don't be
-discouraged if changes are requested.
+discouraged if a suggestion is changed, combined with others, or not
+taken up.
 
 ------------------------------------------------------------------------
 
 # Recognition
 
-All meaningful contributors will be acknowledged in the project's
-contributors list and Git history.
+Everyone whose issue leads to a meaningful change will be acknowledged
+in the commit that makes it.
 
 ------------------------------------------------------------------------
 
