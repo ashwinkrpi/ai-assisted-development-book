@@ -121,7 +121,7 @@ Then open `http://127.0.0.1:8000`. Pushes to `main` that change `chapters/**` or
 
 ## 🤝 Contributing
 
-Contributions are welcome. Please read **[CONTRIBUTING.md](CONTRIBUTING.md)** before opening an issue or pull request.
+Pull requests are limited to collaborators, so outside pull requests can't be opened. Corrections, suggestions and bug reports are very welcome in [Issues](https://github.com/ashwinkrpi/ai-assisted-development-book/issues); please read **[CONTRIBUTING.md](CONTRIBUTING.md)** before opening one. You're also welcome to fork the repository for your own use.
 
 ---
 
