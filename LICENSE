@@ -1,13 +1,65 @@
 # Licensing
 
+This repository contains two kinds of material under two licenses. Unless otherwise noted, each file is licensed according to the directory it is in, as listed below.
+
+Copyright (c) 2026 Ashwin Koppam Raghavendra
+
+## Documentation and book content
+
+**License:** Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+
+**Covers:**
+
+- `chapters/` — the book text, including the glossary and the site home page
+- `images/` — banner images (generated with an AI tool; licensed to the extent the author holds rights in them)
+- `transcripts/` — the AI session transcript behind Chapter 6
+- `README.md` and `CONTRIBUTING.md`
+
+You may share and adapt this content for non-commercial purposes, provided you give appropriate credit, indicate if changes were made, and distribute your contributions under the same license. Commercial use, including selling print or ebook editions, requires written permission from the author.
+
+- Summary: https://creativecommons.org/licenses/by-nc-sa/4.0/
+- Legal code: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en
+
 ## Code
 
-Unless otherwise noted, all source code in this repository is licensed under the MIT License.
+**License:** MIT License
 
-## Documentation
+**Covers:**
 
-Unless otherwise noted, all documentation and book content is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+- `examples/` — runnable companion code, including its README files and tests
+- `scripts/` — repository tooling
+- `.github/` — CI and deployment workflows
+- `mkdocs.yml` — site configuration
+- Code listings in the chapters that also appear in `examples/`. These are additionally available under the MIT License, so you may use them under either license.
 
-See:
-- https://opensource.org/licenses/MIT
-- https://creativecommons.org/licenses/by/4.0/
+```text
+MIT License
+
+Copyright (c) 2026 Ashwin Koppam Raghavendra
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Third-party material
+
+Quoted third-party material, such as tool output reproduced in the chapters (for example, license text printed by `ollama show`) and short quotations from cited works, remains under its original terms and is not covered by either license above.
+
+## Earlier versions
+
+Earlier releases were published under different terms for book content. See `CHANGELOG.md`.

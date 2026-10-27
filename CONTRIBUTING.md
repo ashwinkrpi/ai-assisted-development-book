@@ -174,6 +174,17 @@ discouraged if changes are requested.
 
 ------------------------------------------------------------------------
 
+# Licensing of Contributions
+
+By submitting a contribution, you agree that it is licensed under the
+same terms as the part of the repository it changes: CC BY-NC-SA 4.0
+for book content and MIT for code (see [LICENSE](LICENSE)). You also
+grant the author, Ashwin Koppam Raghavendra, permission to include your
+contribution in commercial editions of the book, such as print or ebook
+editions. Only submit work you have the right to license this way.
+
+------------------------------------------------------------------------
+
 # Recognition
 
 All meaningful contributors will be acknowledged in the project's

@@ -3,6 +3,7 @@ site_description: "Volume 1 (Part 1: Foundations) of a publication-ready, practi
 site_author: Ashwin
 repo_url: https://github.com/ashwinkrpi/ai-assisted-development-book
 repo_name: ashwinkrpi/ai-assisted-development-book
+copyright: '&copy; 2026 Ashwin Koppam Raghavendra. Book content licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>; code under MIT. <a href="https://github.com/ashwinkrpi/ai-assisted-development-book/blob/main/LICENSE">License details</a>.'
 site_url: https://ashwinkrpi.github.io/ai-assisted-development-book/
 
 docs_dir: chapters
