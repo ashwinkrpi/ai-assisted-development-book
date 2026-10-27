@@ -14,7 +14,7 @@
 [![Chapters](https://img.shields.io/badge/Chapters-0%E2%80%936-blue?style=for-the-badge)](chapters/index.md)
 [![Site](https://img.shields.io/badge/Site-Live-success?style=for-the-badge)](https://ashwinkrpi.github.io/ai-assisted-development-book/)
 [![Examples](https://img.shields.io/github/actions/workflow/status/ashwinkrpi/ai-assisted-development-book/examples.yml?branch=main&label=Examples&style=for-the-badge)](https://github.com/ashwinkrpi/ai-assisted-development-book/actions/workflows/examples.yml)
-[![License](https://img.shields.io/badge/License-CC%20BY%204.0%20%2B%20MIT-green?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0%20%2B%20MIT-green?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -91,6 +91,7 @@ images/                   # README banner images
 ├── deploy-docs.yml       # builds and deploys the site
 └── examples.yml          # runs the example tests
 mkdocs.yml
+CHANGELOG.md
 CONTRIBUTING.md
 LICENSE
 README.md
@@ -122,6 +123,18 @@ Then open `http://127.0.0.1:8000`. Pushes to `main` that change `chapters/**` or
 ## 🤝 Contributing
 
 Pull requests are limited to collaborators, so outside pull requests can't be opened. Corrections, suggestions and bug reports are very welcome in [Issues](https://github.com/ashwinkrpi/ai-assisted-development-book/issues); please read **[CONTRIBUTING.md](CONTRIBUTING.md)** before opening one. You're also welcome to fork the repository for your own use.
+
+---
+
+## 📜 License
+
+- **Book content** (`chapters/`, `images/`, `transcripts/` and this README) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). You may share and adapt it for non-commercial purposes, with attribution, under the same license.
+- **Commercial use**, including selling print or ebook editions, requires written permission from the author.
+- **Code** (`examples/`, `scripts/`, CI and tooling, and the code listings in the chapters that also appear in `examples/`) is licensed under the MIT License.
+
+See [LICENSE](LICENSE) for the full terms, and [CHANGELOG.md](CHANGELOG.md) for how licensing changed between releases.
+
+**How to cite or attribute:** Ashwin Koppam Raghavendra, *AI Assisted Development Book — Volume 1*, 2026, https://ashwinkrpi.github.io/ai-assisted-development-book/, licensed under CC BY-NC-SA 4.0.
 
 ---
 

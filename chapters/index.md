@@ -31,3 +31,7 @@ New to AI tools? Start with [Chapter 0 — Before You Begin](00-before-you-begin
 Reference: [Glossary](glossary.md)
 
 Every chapter ends with a hands-on lab and review questions. Volume 2 (Part 2) continues with prompt engineering and communicating effectively with AI.
+
+## License
+
+The book's text and images are licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/): you may share and adapt them for non-commercial purposes, with attribution, under the same license. Commercial use requires written permission from the author. The companion code, and the code listings in the chapters that also appear in it, are MIT-licensed. See the [LICENSE file](https://github.com/ashwinkrpi/ai-assisted-development-book/blob/main/LICENSE) for details.
