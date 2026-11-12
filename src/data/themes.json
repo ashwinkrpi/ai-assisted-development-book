@@ -1,0 +1,29 @@
+{
+	"defaultTheme": "warm-tactile",
+	"themes": {
+		"warm-tactile": "Warm Tactile",
+		"liquid-glass": "Liquid Glass",
+		"dasara-jamboo": "Dasara – Jamboo Savari",
+		"rajyotsava": "Kannada Rajyotsava",
+		"deepa": "Deepavali – Deepa"
+	},
+	"schedule": [
+		{
+			"from": "2026-10-17",
+			"to": "2026-10-20",
+			"theme": "dasara-jamboo"
+		},
+		{
+			"from": "2026-11-07",
+			"to": "2026-11-10",
+			"theme": "deepa"
+		},
+		{
+			"monthDay": [
+				"11-01",
+				"11-07"
+			],
+			"theme": "rajyotsava"
+		}
+	]
+}

@@ -1,0 +1,17 @@
+/* Starlight's fonts are the somaari theme fonts. --font-body and --font-display are set on :root by
+   the <Font> tags in src/components/Head.astro (warm-tactile: Hanken Grotesk and Fraunces). The
+   other themes re-point them at --font-onest, --font-mukta, --font-rozha and --font-baloo in
+   their [data-theme] blocks. */
+:root {
+	--sl-font: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title {
+	font-family: var(--font-display);
+}
