@@ -1,6 +1,15 @@
 // @ts-check
+import { readFileSync } from 'node:fs';
 import { defineConfig, fontProviders } from 'astro/config';
 import starlight from '@astrojs/starlight';
+
+// Each somaari theme's color-scheme (light or dark), read from the vendored themes.css.
+const themesCss = readFileSync(new URL('./vendor/somaari-common/theme/themes.css', import.meta.url), 'utf8');
+const themeSchemes = [...themesCss.matchAll(/:root\[data-theme="([a-z-]+)"\]\s*\{\s*color-scheme:\s*(light|dark)/g)];
+const themeSelectors = (scheme) =>
+  themeSchemes.filter((m) => m[2] === scheme).map((m) => `[data-theme="${m[1]}"]`);
+const lightThemesSelector = `:is(${[':not([data-theme])', ...themeSelectors('light')].join(',')})`;
+const darkThemesSelector = `:is(${themeSelectors('dark').join(',')})`;
 
 export default defineConfig({
   site: 'https://book.somaari.in',
@@ -8,10 +17,22 @@ export default defineConfig({
     starlight({
       title: 'AI Assisted Development Book',
       // Head.astro adds the <Font> tags; fonts.css points Starlight at --font-body and --font-display.
+      // ThemeProvider and ThemeSelect replace Starlight's light/dark logic with the somaari themes;
+      // somaari.css maps the somaari tokens onto --sl-color-*.
       components: {
         Head: './src/components/Head.astro',
+        ThemeProvider: './src/components/ThemeProvider.astro',
+        ThemeSelect: './src/components/ThemeSelect.astro',
       },
-      customCss: ['./src/styles/fonts.css'],
+      customCss: ['./src/styles/fonts.css', './src/styles/somaari.css'],
+      // Code blocks follow the color-scheme of the active somaari theme. The dark code theme is
+      // the base; the light one applies to the light somaari themes and when there is no
+      // data-theme (no JavaScript: warm-tactile).
+      expressiveCode: {
+        useStarlightDarkModeSwitch: false,
+        useDarkModeMediaQuery: false,
+        themeCssSelector: (theme) => (theme.type === 'light' ? lightThemesSelector : darkThemesSelector),
+      },
     }),
   ],
   // Registered as in somaari-blog. The files in src/assets/fonts/ come from somaari-common
