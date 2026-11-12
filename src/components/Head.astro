@@ -1,0 +1,15 @@
+---
+// Starlight's <head>, plus the somaari fonts registered in astro.config.mjs (as in the blog's
+// BaseHead.astro). Only the two warm-tactile fonts are preloaded; a browser downloads the others
+// only when a theme uses them.
+import Default from '@astrojs/starlight/components/Head.astro';
+import { Font } from 'astro:assets';
+---
+
+<Default />
+<Font cssVariable="--font-body" preload />
+<Font cssVariable="--font-display" preload />
+<Font cssVariable="--font-onest" />
+<Font cssVariable="--font-mukta" />
+<Font cssVariable="--font-rozha" />
+<Font cssVariable="--font-baloo" />
