@@ -1,0 +1,35 @@
+---
+// Starlight's footer (edit link, last updated, previous/next), then the book's copyright and
+// licence line (the `copyright` text of mkdocs.yml) and a link to the somaari blog (TH-03).
+// Starlight has no option for footer text, so Footer is overridden.
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default><slot /></Default>
+<div class="somaari-footer">
+	<p>
+		&copy; 2026 Ashwin Koppam Raghavendra. Book content licensed under
+		<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>; code under MIT.
+		<a href="https://github.com/ashwinkrpi/ai-assisted-development-book/blob/main/LICENSE">License details</a>.
+	</p>
+	<p><a href="https://blog.somaari.in">Somaari blog</a></p>
+</div>
+
+<style>
+	.somaari-footer {
+		margin-top: 2rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--sl-color-hairline);
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+	}
+	.somaari-footer p {
+		margin: 0;
+	}
+	.somaari-footer p + p {
+		margin-top: 0.5rem;
+	}
+	.somaari-footer a {
+		color: var(--sl-color-text-accent);
+	}
+</style>

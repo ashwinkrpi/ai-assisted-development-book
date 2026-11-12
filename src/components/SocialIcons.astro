@@ -1,0 +1,33 @@
+---
+// Starlight's header icons (the `social` option: GitHub), with a link to somaari.in before them
+// (TH-03). The Somaari icon is public/favicon.svg, the copy of somaari-site's favicon; while that
+// file is missing, the link shows the name instead of a broken image.
+import { existsSync } from 'node:fs';
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+
+const hasIcon = existsSync(new URL('../../public/favicon.svg', import.meta.url));
+---
+
+<a class="somaari-home" href="https://somaari.in" aria-label={hasIcon ? 'Somaari' : undefined}>
+	{hasIcon ? <img src="/favicon.svg" alt="" width="24" height="24" /> : <span>Somaari</span>}
+</a>
+<Default><slot /></Default>
+
+<style>
+	.somaari-home {
+		display: inline-flex;
+		align-items: center;
+		color: var(--sl-color-text-accent);
+		font-size: var(--sl-text-sm);
+		text-decoration: none;
+		border-radius: var(--btn-radius);
+	}
+	.somaari-home:hover {
+		opacity: 0.66;
+	}
+	.somaari-home img {
+		display: block;
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+</style>
