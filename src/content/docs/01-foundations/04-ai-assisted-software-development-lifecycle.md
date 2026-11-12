@@ -1,3 +1,7 @@
+---
+title: Chapter 4 — The AI-Assisted Software Development Lifecycle
+---
+
 # Chapter 4 — The AI-Assisted Software Development Lifecycle
 
 > *AI delivers the greatest value when it is integrated into an engineering process, not treated as a shortcut around one.*

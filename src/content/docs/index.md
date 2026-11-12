@@ -1,3 +1,7 @@
+---
+title: AI Assisted Development Book — Volume 1
+---
+
 # AI Assisted Development Book — Volume 1
 
 ### *Part 1: Foundations of AI-Assisted Software Development*

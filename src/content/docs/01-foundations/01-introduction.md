@@ -1,3 +1,7 @@
+---
+title: Chapter 1 — Introduction to AI-Assisted Software Development
+---
+
 # Chapter 1 — Introduction to AI-Assisted Software Development
 
 > *"The future of software development is not human **or** AI. It is human **with** AI."*

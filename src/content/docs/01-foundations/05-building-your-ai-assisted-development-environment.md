@@ -1,3 +1,7 @@
+---
+title: Chapter 5 — Building Your AI-Assisted Development Environment
+---
+
 # Chapter 5 — Building Your AI-Assisted Development Environment
 
 > *A productive AI workflow begins with a well-designed development environment, not with a powerful model.*

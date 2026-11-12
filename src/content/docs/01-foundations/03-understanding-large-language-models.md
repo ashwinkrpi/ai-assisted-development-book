@@ -1,3 +1,7 @@
+---
+title: Chapter 3 — Understanding Large Language Models for Software Engineers
+---
+
 # Chapter 3 — Understanding Large Language Models for Software Engineers
 
 > *You do not need to become an AI researcher to use AI effectively, but you do need to understand how modern language models generate text, where that mechanism breaks down, and what that means for the code you ship.*
