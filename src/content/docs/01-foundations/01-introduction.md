@@ -1,8 +1,7 @@
 ---
 title: Chapter 1 — Introduction to AI-Assisted Software Development
+description: "The future of software development is not human or AI. It is human with AI."
 ---
-
-# Chapter 1 — Introduction to AI-Assisted Software Development
 
 > *"The future of software development is not human **or** AI. It is human **with** AI."*
 
@@ -21,8 +20,9 @@ By the end of this chapter, you will be able to:
 
 ## 1.1 Why This Book Exists
 
-!!! info "Who this book is for"
-    Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read [Chapter 0 — Before You Begin](../00-before-you-begin.md) first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.
+:::note[Who this book is for]
+Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read [Chapter 0 — Before You Begin](../00-before-you-begin.md) first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.
+:::
 
 Earlier tools each sped up one stage of development: a compiler sped up translation to machine code, a debugger sped up fault isolation. AI can take part in the *entire* software development lifecycle (SDLC). The same technology that drafts a function can review a pull request, explain an old codebase, propose an architecture or write a first test suite.
 

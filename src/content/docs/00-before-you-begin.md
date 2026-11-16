@@ -1,8 +1,7 @@
 ---
 title: Chapter 0 — Before You Begin
+description: "You don't need to understand everything about AI to start using it well."
 ---
-
-# Chapter 0 — Before You Begin
 
 > *You don't need to understand everything about AI to start using it well. You need to know what kind of tool you're holding, what it can see, and how to check its work.*
 

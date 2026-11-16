@@ -1,8 +1,7 @@
 ---
 title: Chapter 6 — Your First AI-Assisted Software Project
+description: "The fastest way to learn AI-assisted development is to build a complete project using disciplined engineering practices from the very beginning — not after the first time something breaks."
 ---
-
-# Chapter 6 — Your First AI-Assisted Software Project
 
 > *The fastest way to learn AI-assisted development is to build a complete project using disciplined engineering practices from the very beginning — not after the first time something breaks.*
 

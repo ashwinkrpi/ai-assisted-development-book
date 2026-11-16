@@ -1,8 +1,7 @@
 ---
 title: Glossary
+description: "Short definitions of the AI terms used in this book, plus a few you'll often meet in AI tool documentation."
 ---
-
-# Glossary
 
 Short definitions of the AI terms used in this book, plus a few you'll often meet in AI tool documentation. Each entry links to where the book explains the term in more detail.
 

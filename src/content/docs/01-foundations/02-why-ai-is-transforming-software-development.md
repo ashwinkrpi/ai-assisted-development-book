@@ -1,8 +1,7 @@
 ---
 title: Chapter 2 — Why AI Is Transforming Software Development
+description: "Every major leap in software engineering has reduced accidental complexity."
 ---
-
-# Chapter 2 — Why AI Is Transforming Software Development
 
 > *Every major leap in software engineering has reduced accidental complexity. Artificial intelligence is the first leap that also reduces cognitive effort — the mental overhead of understanding, recalling, and translating, rather than just the mechanical work of typing.*
 

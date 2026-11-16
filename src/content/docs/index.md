@@ -1,8 +1,7 @@
 ---
 title: AI Assisted Development Book — Volume 1
+description: "This book teaches you how to use AI tools to write software while keeping the practices that make software reliable: clear requirements, small steps, automated tests, and human review."
 ---
-
-# AI Assisted Development Book — Volume 1
 
 ### *Part 1: Foundations of AI-Assisted Software Development*
 
