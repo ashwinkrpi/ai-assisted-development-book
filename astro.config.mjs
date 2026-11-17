@@ -2,6 +2,8 @@
 import { readFileSync } from 'node:fs';
 import { defineConfig, fontProviders } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightLinksValidator from 'starlight-links-validator';
+import remarkCustomHeadingId from 'remark-custom-heading-id';
 
 // Each somaari theme's color-scheme (light or dark), read from the vendored themes.css.
 const themesCss = readFileSync(new URL('./vendor/somaari-common/theme/themes.css', import.meta.url), 'utf8');
@@ -13,9 +15,16 @@ const darkThemesSelector = `:is(${themeSelectors('dark').join(',')})`;
 
 export default defineConfig({
   site: 'https://book.somaari.in',
+  // `### Agent {#agent}` in the glossary keeps the id `agent` (as MkDocs attr_list did),
+  // and the `{#…}` text is removed from the heading.
+  markdown: {
+    remarkPlugins: [remarkCustomHeadingId],
+  },
   integrations: [
     starlight({
       title: 'AI Assisted Development Book',
+      // Fails the build on a broken internal link or heading anchor.
+      plugins: [starlightLinksValidator()],
       // Head.astro adds the <Font> tags; fonts.css points Starlight at --font-body and --font-display.
       // ThemeProvider and ThemeSelect replace Starlight's light/dark logic with the somaari themes;
       // somaari.css maps the somaari tokens onto --sl-color-*.

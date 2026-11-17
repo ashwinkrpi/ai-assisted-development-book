@@ -13,7 +13,7 @@ By the end of this chapter, you will be able to:
 - Build a repeatable AI-assisted engineering workflow you can apply to any feature.
 - Define and enforce quality gates that keep humans in control of every consequential decision.
 - Integrate testing, documentation and review into every iteration.
-- Work safely with AI [agents](../glossary.md#agent): review diffs, choose permission settings, keep tasks small, and give the agent a context file.
+- Work safely with AI [agents](/glossary/#agent): review diffs, choose permission settings, keep tasks small, and give the agent a context file.
 
 ---
 
@@ -43,7 +43,7 @@ J --> B
 
 Every stage benefits from AI assistance, and every stage needs human verification before its output feeds the next. Note the loop back from Continuous Improvement to Requirements: lessons from operations shape how the next requirement is written.
 
-Within each stage, use the eight-step workflow from [Chapter 1, Section 1.8](01-introduction.md#18-the-workflow-used-throughout-this-book). This chapter adds what is specific to each phase: the [prompts](../glossary.md#prompt) that work, the checks that matter, and the quality gates in Section 4.4 that a change must pass before it ships.
+Within each stage, use the eight-step workflow from [Chapter 1, Section 1.8](/01-foundations/01-introduction/#18-the-workflow-used-throughout-this-book). This chapter adds what is specific to each phase: the [prompts](/glossary/#prompt) that work, the checks that matter, and the quality gates in Section 4.4 that a change must pass before it ships.
 
 ---
 
@@ -184,7 +184,7 @@ code below — do not describe behavior the code doesn't actually implement.
 
 (**Flask** is a small Python web framework; an endpoint is a function that handles requests to one URL.)
 
-The last sentence of the prompt guards against the [hallucination](../glossary.md#hallucination) described in Chapter 3. In documentation a plausible but wrong claim is especially costly, because readers trust docs by default.
+The last sentence of the prompt guards against the [hallucination](/glossary/#hallucination) described in Chapter 3. In documentation a plausible but wrong claim is especially costly, because readers trust docs by default.
 
 ### Review
 
@@ -287,7 +287,7 @@ This workflow can't require a review on its own, because a CI job can't approve 
 
 ## 4.5 Working with AI Agents
 
-[Agentic tools](../glossary.md#agent) read your repository, run commands and edit files themselves (Chapter 0, Section 0.2). They need extra habits, because they can change many files before you've looked at any of them.
+[Agentic tools](/glossary/#agent) read your repository, run commands and edit files themselves (Chapter 0, Section 0.2). They need extra habits, because they can change many files before you've looked at any of them.
 
 **Review the diff, not the chat.** An agent's summary ("I added validation and updated the tests") is a description, not evidence, and it can be incomplete or wrong. What matters is what changed in your files. Before you keep an agent's work, read the diff in your editor's source-control view or with:
 
@@ -309,7 +309,7 @@ Names differ between tools (Claude Code calls these *permission modes*). Start w
 
 **Keep tasks small.** Give an agent one task the size of one commit: "add input validation to `create_note` and a test for an empty title," not "build the notes app." Small tasks produce reviewable diffs. Commit after each reviewed task so you can roll back the next one.
 
-**Give the agent a context file.** Agents start each session knowing nothing about your conventions. A short Markdown file in the repository fixes that: build and test commands, coding conventions, and rules such as "never commit directly to `main`." Many tools read one automatically, for example `CLAUDE.md` for Claude Code, `.github/copilot-instructions.md` for GitHub Copilot, and `AGENTS.md`, a shared format that many tools support. Like a [system prompt](../glossary.md#system-prompt), it shapes every response without you repeating it. Keep it short, accurate and up to date.
+**Give the agent a context file.** Agents start each session knowing nothing about your conventions. A short Markdown file in the repository fixes that: build and test commands, coding conventions, and rules such as "never commit directly to `main`." Many tools read one automatically, for example `CLAUDE.md` for Claude Code, `.github/copilot-instructions.md` for GitHub Copilot, and `AGENTS.md`, a shared format that many tools support. Like a [system prompt](/glossary/#system-prompt), it shapes every response without you repeating it. Keep it short, accurate and up to date.
 
 **Run the tests yourself.** Agents often report that tests pass. Run them yourself before committing, to confirm the right tests ran on the final code.
 
