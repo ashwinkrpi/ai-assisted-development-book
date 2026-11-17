@@ -1,4 +1,7 @@
-# Chapter 6 — Your First AI-Assisted Software Project
+---
+title: Chapter 6 — Your First AI-Assisted Software Project
+description: "The fastest way to learn AI-assisted development is to build a complete project using disciplined engineering practices from the very beginning — not after the first time something breaks."
+---
 
 > *The fastest way to learn AI-assisted development is to build a complete project using disciplined engineering practices from the very beginning — not after the first time something breaks.*
 
@@ -51,7 +54,7 @@ This separation is also what makes the test suite in Section 6.5 possible withou
 
 ### How this chapter was made
 
-This chapter records a real AI session, not code that was tidied up afterwards. On 2026-10-03 the project was built step by step with an [agentic](../glossary.md#agent) tool (Claude Code, using the model `claude-opus-5-5`). Any of the tools from Chapter 0 would work. Your tool, and even the same tool on another day, will give different answers to the same [prompts](../glossary.md#prompt), because models sample their output (Chapter 3, Section 3.2).
+This chapter records a real AI session, not code that was tidied up afterwards. On 2026-10-03 the project was built step by step with an [agentic](/glossary/#agent) tool (Claude Code, using the model `claude-opus-5-5`). Any of the tools from Chapter 0 would work. Your tool, and even the same tool on another day, will give different answers to the same [prompts](/glossary/#prompt), because models sample their output (Chapter 3, Section 3.2).
 
 The AI was allowed to read and edit files but not to run commands, one of the permission choices from Chapter 4, Section 4.5. So every test run and every commit in this chapter was done by hand. Each step followed the same loop:
 

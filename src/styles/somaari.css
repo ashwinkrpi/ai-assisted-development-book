@@ -105,6 +105,37 @@ h6,
 	font-weight: var(--display-weight);
 }
 
+/* Mermaid flowcharts (astro-mermaid). Its client only knows data-theme 'light' and 'dark', so with
+   a somaari theme id it always draws Mermaid's light theme. These rules recolor the drawn SVG from
+   the somaari tokens instead, so the diagrams follow every theme. !important beats Mermaid's own
+   `#mermaid-… .node rect` rules inside the SVG. */
+pre.mermaid {
+	background: transparent;
+}
+pre.mermaid svg :is(.node, .cluster) :is(rect, circle, ellipse, polygon, path) {
+	fill: var(--book-gray-6) !important;
+	stroke: var(--accent) !important;
+}
+pre.mermaid svg :is(.flowchart-link, .edgePath path, .edge-pattern-solid) {
+	stroke: var(--book-gray-3) !important;
+}
+pre.mermaid svg :is(marker path, .marker, .arrowheadPath) {
+	fill: var(--book-gray-3) !important;
+	stroke: var(--book-gray-3) !important;
+}
+pre.mermaid svg text {
+	fill: var(--fg) !important;
+}
+pre.mermaid svg :is(.nodeLabel, .edgeLabel, .cluster-label, .label, p) {
+	color: var(--fg) !important;
+}
+pre.mermaid svg :is(.edgeLabel, .labelBkg, .edgeLabel p) {
+	background-color: var(--book-bg) !important;
+}
+pre.mermaid svg .edgeLabel rect {
+	fill: var(--book-bg) !important;
+}
+
 :focus-visible {
 	outline: 2px solid var(--focus);
 	outline-offset: 2px;

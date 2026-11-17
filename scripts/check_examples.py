@@ -19,7 +19,7 @@ EXTRA = {(6, "# Notes Manager"): "README.md"}
 def main() -> int:
     errors = []
     checked = 0
-    for chapter in sorted((ROOT / "chapters").glob("*/[0-9][0-9]-*.md")):
+    for chapter in sorted((ROOT / "src/content/docs").glob("*/[0-9][0-9]-*.md")):
         number = int(chapter.name[:2])
         folders = list((ROOT / "examples").glob(f"ch{number:02d}-*"))
         if not folders:

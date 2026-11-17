@@ -1,4 +1,7 @@
-# Chapter 1 — Introduction to AI-Assisted Software Development
+---
+title: Chapter 1 — Introduction to AI-Assisted Software Development
+description: "The future of software development is not human or AI. It is human with AI."
+---
 
 > *"The future of software development is not human **or** AI. It is human **with** AI."*
 
@@ -17,14 +20,15 @@ By the end of this chapter, you will be able to:
 
 ## 1.1 Why This Book Exists
 
-!!! info "Who this book is for"
-    Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read [Chapter 0 — Before You Begin](../00-before-you-begin.md) first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.
+:::note[Who this book is for]
+Developers who have written some code but are new to using AI tools. You'll need basic Python, git and the command line; no AI background is required. If you haven't used an AI coding tool before, read [Chapter 0 — Before You Begin](/00-before-you-begin/) first. It covers the kinds of tools, setup, privacy, and the prompting basics this chapter's lab relies on.
+:::
 
 Earlier tools each sped up one stage of development: a compiler sped up translation to machine code, a debugger sped up fault isolation. AI can take part in the *entire* software development lifecycle (SDLC). The same technology that drafts a function can review a pull request, explain an old codebase, propose an architecture or write a first test suite.
 
 That range is why AI is easy to misuse. A tool that touches every stage of engineering can also erode the discipline that makes engineering reliable, if it isn't used deliberately.
 
-Much existing material treats [prompt](../glossary.md#prompt) phrasing as the whole skill, or ranks tools by benchmark score. This book asks a different question: **how does professional software engineering change once AI becomes a working member of the team?** It isn't about replacing engineers. It's about collaborating with AI while keeping the practices that make software durable.
+Much existing material treats [prompt](/glossary/#prompt) phrasing as the whole skill, or ranks tools by benchmark score. This book asks a different question: **how does professional software engineering change once AI becomes a working member of the team?** It isn't about replacing engineers. It's about collaborating with AI while keeping the practices that make software durable.
 
 Throughout the book, AI is treated as a capable but fallible collaborator, closer to a fast, well-read junior engineer than to an oracle. Every technique in the book rests on four principles:
 
@@ -204,7 +208,7 @@ Later chapters apply this workflow to requirements, architecture, testing and to
 
 This lab is intentionally simple. The goal isn't the calculator. It's practicing the workflow from Section 1.8 on something small enough that the process stays in focus.
 
-Using an AI assistant of your choice, and the prompting basics from [Chapter 0, Section 0.5](../00-before-you-begin.md#05-prompting-basics), build a command-line calculator that supports addition, subtraction, multiplication and division, and handles invalid input gracefully. Work through it in stages:
+Using an AI assistant of your choice, and the prompting basics from [Chapter 0, Section 0.5](/00-before-you-begin/#05-prompting-basics), build a command-line calculator that supports addition, subtraction, multiplication and division, and handles invalid input gracefully. Work through it in stages:
 
 1. Define the requirements yourself first (supported operations, input format, error handling for things like division by zero) before asking AI for anything.
 2. Use AI to explore two or three possible designs — a single-file script versus a small module with separate parsing and evaluation logic, for example — and choose one deliberately.
