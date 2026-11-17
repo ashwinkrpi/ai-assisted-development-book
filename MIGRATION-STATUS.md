@@ -82,3 +82,9 @@ Short notes per sub-task, newest last. The next session reads this instead of th
 - Why the CSS: the built astro-mermaid client maps only `data-theme` `light`/`dark` to Mermaid themes, so with somaari theme ids it always draws Mermaid's light theme. The CSS overrides that so diagrams follow every theme (LT-03). Works for the 5 plain flowcharts; diagrams with their own `style`/`classDef` would be overridden too.
 - Checked: `npm run build` passes, links valid, 5 mermaid blocks transformed; prev/next run Home → Ch0 → Ch1 … Ch6 → Glossary; ch6 shows "On this page", no code-frame titles, and `# tests/test_service.py` stays in the code. Not run: `check_examples.py` (no chapter changes), the whole `sh scripts/check.sh`.
 - Open: the diagram colors are **not checked in a browser** (no browser here); check all five themes by eye. The `gitignore` language warning and the `markdown.remarkPlugins` deprecation remain. No package is missing.
+
+### Stage 1.3 verify (2026-11-17)
+
+- Verified: Stage 1.3 Done-when is met. `npm run build` passes with the links validator (all internal links valid) and writes all paths of §2.2; `check_examples.py` gives 10 blocks, 0 mismatches (the Stage 1.1 count); `git log --follow` on `01-introduction.md` shows the pre-move history; no `.md)`/`.md#` targets in the pages except two absolute external GitHub links to `transcripts/…md` in ch6; no `{#` or `!!!` in `dist/`; the glossary has 14 heading IDs. Not run here: the whole `sh scripts/check.sh` (the runner runs it at the end).
+- For review in a browser before merging: Mermaid diagram colors in all five themes, sidebar and "On this page" look, the ch1 note aside.
+- Open: `gitignore` language warning (ch5), `markdown.remarkPlugins` deprecation, and README/CONTRIBUTING/CLAUDE.md/mkdocs.yml/deploy workflow still name `chapters/`. No package is missing.
