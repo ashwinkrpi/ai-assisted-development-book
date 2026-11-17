@@ -60,14 +60,14 @@ SOFTWARE.
 
 Quoted third-party material, such as tool output reproduced in the chapters (for example, license text printed by `ollama show`) and short quotations from cited works, remains under its original terms and is not covered by either license above.
 
-The fonts in `src/assets/fonts/` are third-party material, licensed under the SIL Open Font License, Version 1.1. Each font's license, with its copyright notice, is in the same folder:
+The fonts in `public/theme/fonts/` are third-party material, licensed under the SIL Open Font License, Version 1.1. Each font's license, with its copyright notice, is in the same folder:
 
-- Baloo Tamma 2 — `OFL-BalooTamma2.txt`
-- Fraunces — `OFL-Fraunces.txt`
 - Hanken Grotesk — `OFL-HankenGrotesk.txt`
-- Mukta — `OFL-Mukta.txt`
+- Inter — `OFL-Inter.txt`
+- Inter Tight — `OFL-InterTight.txt`
+- Literata — `OFL-Literata.txt`
+- Marcellus — `OFL-Marcellus.txt`
 - Onest — `OFL-Onest.txt`
-- Rozha One — `OFL-RozhaOne.txt`
 
 ## Earlier versions
 
