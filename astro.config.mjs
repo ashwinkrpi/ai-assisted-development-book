@@ -16,6 +16,11 @@ const darkThemesSelector = `:is(${themeSelectors('dark').join(',')})`;
 
 export default defineConfig({
   site: 'https://book.somaari.in',
+  // Emit every bundled script as a file under /_astro/ instead of inlining small ones, so the
+  // CSP in public/_headers needs hashes only for the few `is:inline` scripts (PC-02).
+  vite: {
+    build: { assetsInlineLimit: 0 },
+  },
   // `### Agent {#agent}` in the glossary keeps the id `agent` (as MkDocs attr_list did),
   // and the `{#…}` text is removed from the heading.
   markdown: {
