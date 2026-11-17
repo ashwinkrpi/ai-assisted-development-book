@@ -75,7 +75,7 @@ EXTERNAL = re.compile(r"^\s*(?:https?:)?//", re.IGNORECASE)
 CSS_URL = re.compile(r"url\(\s*['\"]?([^'\")]+)")
 
 
-def mkdocs_slugify(text):
+def legacy_slugify(text):
     """Python-Markdown `toc` default slugify (markdown.extensions.toc.slugify)."""
     value = unicodedata.normalize("NFKD", text)
     value = value.encode("ascii", "ignore").decode("ascii")
@@ -121,7 +121,7 @@ def expected_anchors(markdown):
         if explicit:
             anchor = explicit.group(1)
         else:
-            anchor = mkdocs_slugify(heading_text(text))
+            anchor = legacy_slugify(heading_text(text))
             base, n = anchor, 1
             while anchor in seen:
                 anchor = f"{base}_{n}"
