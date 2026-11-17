@@ -25,7 +25,7 @@ class SlugifyTest(unittest.TestCase):
                 "part-1-foundations-of-ai-assisted-software-development",
         }
         for text, slug in cases.items():
-            self.assertEqual(check_site.mkdocs_slugify(text), slug)
+            self.assertEqual(check_site.legacy_slugify(text), slug)
 
     def test_headings_skip_code_and_take_explicit_ids(self):
         md = "---\ntitle: X\n---\n## A *b*\n```markdown\n## Not a heading\n```\n### Agent {#agent}\n## A b\n"

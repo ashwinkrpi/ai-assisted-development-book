@@ -109,3 +109,28 @@ Short notes per sub-task, newest last. The next session reads this instead of th
 - Anchors that needed explicit IDs: the 7 ch6 headings `## 6.N Step N — …` (`{#61-step-1-project-structure}` … `{#67-step-7-documentation}`). All others matched.
 - For review in a browser before merging: Mermaid, Pagefind and the theme picker under the CSP (console errors); compare `public/_headers` with somaari-site's.
 - Open: old `#chapter-N-…` title anchors are gone; Starlight's 3 inline scripts are allowed by hash; `gitignore` language warning; `markdown.remarkPlugins` deprecation.
+
+## Stage 1.5 — Repo, CI and redirects
+
+### DC-01 (2026-11-17)
+
+- Built: `wrangler.jsonc` (name `somaari-book`, `compatibility_date` 2026-11-17, `assets.directory: "./dist"`, `not_found_handling: "404-page"`, `workers_dev: true`; the `book.somaari.in` `custom_domain` route is commented out and starts with `,` so uncommenting the three lines gives valid JSON). `.github/workflows/site.yml`: `build` job on every pull request and push (`setup-node@v4` with `node-version-file: .node-version`, `npm ci`, `sh scripts/check.sh`, uploads `dist/` on push to `main`); `deploy` job on push to `main` only, `needs: build`, downloads `dist/`, runs `npx wrangler deploy` with `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID`. Top-level `permissions: contents: read`. Same action versions and 2-space indentation as `examples.yml`. `deploy-docs.yml` left in place.
+- Checked: the YAML parses (jobs `build`, `deploy`); `wrangler.jsonc` parses as JSON with comments stripped, both as-is and with the route uncommented. Not run: wrangler (not allowed), the workflow itself, the build (no site files changed).
+- Departs from the plan: reading the blog's `wrangler.jsonc` was denied in this session, so the file follows the plan's description, not that file. Compare the two (e.g. `compatibility_date`, `observability`) before LA-02. No package is missing.
+
+### DC-02 (2026-11-17)
+
+- Built: `scripts/make_redirects.py OUTDIR` (standard library only) writes `<path>/index.html` for each §2.2 path (root → `index.html`) plus `404.html` (→ `https://book.somaari.in/`) from the A.3 template; `location.replace(... + location.hash)` keeps the anchor. It imports `PAGE_PATHS` and `SITE` from `scripts/check_site.py`, so the path list lives in one place: keep `check_site.py` next to it when running it at LA-04.
+- Test: `scripts/test_make_redirects.py` (run by `check.sh` through `scripts/test_*.py`) runs the script into a temp dir and checks the exact 10 files and the canonical, refresh, script and link URLs in each. Passes.
+- Open: `.nojekyll` is not written by the script; add it by hand at LA-04 as the plan says. No package is missing.
+
+### DC-03 (2026-11-17)
+
+- Built: `README.md` (badges and chapter/glossary links → `https://book.somaari.in/…`, Site badge "book.somaari.in", License badge "CC BY-NC-SA 4.0", new repository tree, "Building the Site Locally" with `npm ci`/`npm run dev`/`npm run build`/`sh scripts/check.sh`, citation URL `https://book.somaari.in/`); `CONTRIBUTING.md` (layout, front matter, `sidebar` in `astro.config.mjs`, `npm run dev`, `sh scripts/check.sh`); `LICENSE` (`src/content/docs/` under Covers; site config files under MIT in place of `mkdocs.yml`; the six OFL 1.1 font licences in `src/assets/fonts/` listed as third-party material); `CHANGELOG.md` "Site" entry under Unreleased; `mkdocs.yml` deleted. `CLAUDE.md` updated locally (layout, commands, Mermaid and `:::note[…]` aside syntax, `{#id}`, new URL, "Current work" → this plan); it is git-ignored, not committed.
+- Checked: no checks apply (no chapters, `examples/`, scripts or site files changed). The Done-when grep now also matches `scripts/check_site.py`/`test_check_site.py` (`mkdocs_slugify`, a function name for MkDocs-era anchors) and a comment in `src/components/Footer.astro` naming `mkdocs.yml`; left for the verify step to accept or rename (the Footer change needs a build).
+- Open: the README's chapter links point at `book.somaari.in`, which is not live until LA-03. `vendor/somaari-common/` and `src/data/themes.json` are not named in `LICENSE` (copied from somaari-common; its terms were not checked). No package is missing.
+
+### Stage 1.5 verify (2026-11-17)
+
+- Verified: the Done-when grep now matches only `deploy-docs.yml`, `CHANGELOG.md`, `MIGRATION-STATUS.md` and `make_redirects.py` (renamed `mkdocs_slugify` to `legacy_slugify`, reworded the Footer comment). `test_check_site.py`, `test_make_redirects.py` and `npm run build` pass; `site.yml` matches `examples.yml` (checkout@v4, same indentation); `wrangler.jsonc`, README, CONTRIBUTING, LICENSE and the CHANGELOG entry are in place; `mkdocs.yml` is deleted. The full `sh scripts/check.sh` was not run here (the runner runs it once at the end).
+- For review before merging: compare `wrangler.jsonc` with the blog's (`compatibility_date`, `observability`); `site.yml` deploys with `npx wrangler deploy` (wrangler is in package.json); `.nojekyll` is added by hand at LA-04; README links are not live until LA-03; `vendor/somaari-common/` licence terms unchecked.
