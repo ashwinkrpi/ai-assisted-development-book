@@ -84,10 +84,9 @@ src/
 │       └── 06-your-first-ai-assisted-software-project.md
 ├── components/           # Starlight overrides: somaari theme picker, header, footer
 ├── styles/               # somaari theme tokens and fonts for Starlight
-├── assets/fonts/         # self-hosted fonts (from somaari-common)
-└── data/themes.json      # theme list and seasonal schedule (from somaari-common)
-public/                   # robots.txt and _headers (security headers)
-vendor/somaari-common/    # committed copy of the somaari themes
+└── data/themes.json      # theme list, seasonal schedule and fonts to preload (from somaari-common)
+public/                   # robots.txt, _headers (security headers), favicon.svg
+└── theme/                # committed copy of the somaari themes and fonts (from somaari-common)
 examples/                 # runnable companion code, tested in CI
 ├── ch04-password-reset/
 └── ch06-notes-manager/

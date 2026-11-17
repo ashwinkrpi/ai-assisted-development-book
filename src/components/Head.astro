@@ -1,15 +1,14 @@
 ---
-// Starlight's <head>, plus the somaari fonts registered in astro.config.mjs (as in the blog's
-// BaseHead.astro). Only the two warm-tactile fonts are preloaded; a browser downloads the others
-// only when a theme uses them.
+// Starlight's <head>, plus somaari-common's themes.css (fonts and the standard tokens for every
+// theme), as in the blog's BaseHead.astro. public/theme/ comes from `npm run sync:common`;
+// themes.css is versioned by its somaari-common commit. The default theme's fonts are preloaded
+// (at the URL themes.css loads them from); a browser downloads the others only when a theme uses them.
 import Default from '@astrojs/starlight/components/Head.astro';
-import { Font } from 'astro:assets';
+import themeData from '../data/themes.json';
 ---
 
 <Default />
-<Font cssVariable="--font-body" preload />
-<Font cssVariable="--font-display" preload />
-<Font cssVariable="--font-onest" />
-<Font cssVariable="--font-mukta" />
-<Font cssVariable="--font-rozha" />
-<Font cssVariable="--font-baloo" />
+<link rel="stylesheet" href={`/theme/themes.css?v=${themeData.version}`} />
+{themeData.preload.map((file) => (
+	<link rel="preload" href={`/theme/${file}`} as="font" type="font/woff2" crossorigin />
+))}

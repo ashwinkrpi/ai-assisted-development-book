@@ -2,16 +2,12 @@
 // Replaces Starlight's ThemeProvider (LT-01). Sets <html data-theme> to a somaari theme id before
 // first paint, with the logic of somaari-common theme/theme.js: ?theme=<id> preview (never saved),
 // else localStorage "somaari-theme", else the seasonal schedule in IST, else the default. Without
-// JavaScript there is no data-theme and the :root tokens (warm-tactile) apply.
+// JavaScript there is no data-theme and the :root tokens (rangoli) apply.
 //
-// It also inlines the somaari tokens, taken from the vendored copies at build time so that
-// `npm run sync:common` is the only place they change:
-//   - themes.css without its @font-face rules and --font/--font-display (the fonts are registered
-//     in astro.config.mjs; Astro owns --font-display);
-//   - --theme-color per theme, from THEMES[id].color in theme.js.
-// src/styles/somaari.css maps these tokens onto Starlight's --sl-color-* variables.
-import themesCss from '../../vendor/somaari-common/theme/themes.css?raw';
-import themeJs from '../../vendor/somaari-common/theme/theme.js?raw';
+// The tokens and fonts themselves come from somaari-common's themes.css, which
+// src/components/Head.astro links; src/styles/somaari.css maps them onto Starlight's --sl-color-*.
+// The theme colours for <meta name="theme-color"> are read from the synced theme.js at build time.
+import themeJs from '../../public/theme/theme.js?raw';
 import themeData from '../data/themes.json';
 
 // theme.js exports its data when `module` exists and returns before touching `document`.
@@ -22,25 +18,9 @@ const colors = shared.exports.THEMES ?? {};
 const { defaultTheme, themes, schedule } = themeData;
 const ids = Object.keys(themes);
 
-const tokens = themesCss
-	.replace(/\/\*[\s\S]*?\*\//g, '')
-	.replace(/@font-face\s*\{[^}]*\}/g, '')
-	.replace(/^\s*--font(-display)?:[^;]*;\s*$/gm, '')
-	.replace(/\n\s*\n/g, '\n')
-	.trim();
-
-const themeColors = ids
-	.filter((id) => colors[id])
-	.map((id) => {
-		const selector = id === defaultTheme ? `:root,:root[data-theme="${id}"]` : `:root[data-theme="${id}"]`;
-		return `${selector}{--theme-color:${colors[id].color}}`;
-	})
-	.join('\n');
-
 const config = { ids, defaultTheme, schedule, colors };
 ---
 
-<style is:inline set:html={`${tokens}\n${themeColors}`}></style>
 <script is:inline define:vars={{ config }}>
 	(function () {
 		var STORAGE_KEY = 'somaari-theme';

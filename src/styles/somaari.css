@@ -1,15 +1,17 @@
-/* somaari themes for Starlight (LT-03). The somaari tokens (--fg, --accent, --on-accent, --focus,
-   --page-bg, --btn-radius, --display-weight, --theme-color, and color-scheme per theme) are inlined
-   by src/components/ThemeProvider.astro from vendor/somaari-common/theme/. This file adds the
-   book's own tokens (--book-*), derived from those, and maps them onto Starlight's --sl-color-*
-   variables. No color is written here: every --sl-color-* value is a var() token.
+/* somaari themes for Starlight (LT-03). The somaari standard tokens (--page-bg, --fg, --accent,
+   --on-accent, --focus, --btn-radius, --display-weight, --font, --font-display, and color-scheme
+   per theme) come from somaari-common's themes.css, linked in src/components/Head.astro; every
+   theme sets every one of them. This file adds the book's own tokens (--book-*), derived from
+   those once for all themes, and maps them onto Starlight's --sl-color-* variables. No color is
+   written here: every --sl-color-* value is a var() token, and no rule names a theme, so a theme
+   added in somaari-common needs only `npm run sync:common` here.
 
-   :root is warm-tactile (also what shows without JavaScript). Starlight's own
+   :root is rangoli (also what shows without JavaScript). Starlight's own
    :root[data-theme='light'] block never matches, because data-theme holds a somaari theme id. */
 
 :root {
 	/* The page background, and the steps from text (--fg) to it. */
-	--book-bg: var(--theme-color);
+	--book-bg: var(--page-bg);
 	--book-gray-1: color-mix(in srgb, var(--fg) 92%, var(--book-bg));
 	--book-gray-2: color-mix(in srgb, var(--fg) 84%, var(--book-bg));
 	--book-gray-3: color-mix(in srgb, var(--fg) 70%, var(--book-bg));
@@ -73,26 +75,6 @@
 	--sl-badge-success-text: var(--fg);
 	--sl-badge-caution-text: var(--fg);
 	--sl-badge-tip-text: var(--fg);
-}
-
-/* themes.css gives this theme its own page background. */
-:root[data-theme='dasara-jamboo'] {
-	--book-bg: var(--page-bg);
-}
-
-/* Fonts per theme, as in somaari-common theme/themes.css. warm-tactile and deepa keep the :root
-   fonts (Hanken Grotesk and Fraunces). */
-:root[data-theme='liquid-glass'] {
-	--font-body: var(--font-onest);
-	--font-display: var(--font-onest);
-}
-:root[data-theme='dasara-jamboo'] {
-	--font-body: var(--font-mukta);
-	--font-display: var(--font-rozha);
-}
-:root[data-theme='rajyotsava'] {
-	--font-body: var(--font-mukta);
-	--font-display: var(--font-baloo);
 }
 
 h1,
