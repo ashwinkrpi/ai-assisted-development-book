@@ -83,23 +83,30 @@ Every change to the book follows these principles:
 # Repository Structure
 
 ``` text
-chapters/                 # book source, published by MkDocs
+src/content/docs/         # book source, published by Astro Starlight
 ├── index.md              # site landing page
 └── 01-foundations/       # Part 1 (Volume 1): chapters 1–6
+src/components/           # Starlight overrides (somaari theme picker, footer)
+src/styles/               # somaari theme tokens and fonts
 examples/                 # runnable companion code, one folder per example
 transcripts/              # verbatim AI session transcripts behind worked examples
+scripts/check.sh          # the full check: examples, script tests, build, site checks
 scripts/check_examples.py # checks chapter code blocks match examples/
 images/                   # README banner images
-.github/workflows/        # site deployment and example tests
-mkdocs.yml                # site configuration and navigation
+.github/workflows/        # site build and deployment, and example tests
+astro.config.mjs          # site configuration and sidebar
 ```
 
 This layout helps you point to the right file in an issue, or find your
 way around a fork.
 
-Chapter text goes in `chapters/`. If you add a page, also add it to the
-`nav` section of `mkdocs.yml`, and check that `mkdocs build --strict`
-passes. Don't commit `site/`, because CI builds it.
+Chapter text goes in `src/content/docs/`. Each page starts with front
+matter holding its `title` and `description`. If you add a page, also add
+it to the `sidebar` in `astro.config.mjs`. Preview the site with
+`npm ci` and then `npm run dev`, and run `sh scripts/check.sh` before
+committing: it checks the examples, runs the script tests, builds the
+site (failing on broken internal links) and checks the build. Don't
+commit `dist/`, `.astro/` or `node_modules/`.
 
 Code in a chapter that readers are meant to run lives in `examples/`.
 Start the chapter's code block with a comment naming the file, such as
