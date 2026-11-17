@@ -1,4 +1,7 @@
-# Chapter 6 — Your First AI-Assisted Software Project
+---
+title: Chapter 6 — Your First AI-Assisted Software Project
+description: "The fastest way to learn AI-assisted development is to build a complete project using disciplined engineering practices from the very beginning — not after the first time something breaks."
+---
 
 > *The fastest way to learn AI-assisted development is to build a complete project using disciplined engineering practices from the very beginning — not after the first time something breaks.*
 
@@ -51,7 +54,7 @@ This separation is also what makes the test suite in Section 6.5 possible withou
 
 ### How this chapter was made
 
-This chapter records a real AI session, not code that was tidied up afterwards. On 2026-10-03 the project was built step by step with an [agentic](../glossary.md#agent) tool (Claude Code, using the model `claude-opus-5-5`). Any of the tools from Chapter 0 would work. Your tool, and even the same tool on another day, will give different answers to the same [prompts](../glossary.md#prompt), because models sample their output (Chapter 3, Section 3.2).
+This chapter records a real AI session, not code that was tidied up afterwards. On 2026-10-03 the project was built step by step with an [agentic](/glossary/#agent) tool (Claude Code, using the model `claude-opus-5-5`). Any of the tools from Chapter 0 would work. Your tool, and even the same tool on another day, will give different answers to the same [prompts](/glossary/#prompt), because models sample their output (Chapter 3, Section 3.2).
 
 The AI was allowed to read and edit files but not to run commands, one of the permission choices from Chapter 4, Section 4.5. So every test run and every commit in this chapter was done by hand. Each step followed the same loop:
 
@@ -67,7 +70,7 @@ Each code listing is the final, reviewed version of the file, the same as in the
 
 ---
 
-## 6.1 Step 1 — Project Structure
+## 6.1 Step 1 — Project Structure {#61-step-1-project-structure}
 
 This step was done by hand. There's nothing here for an AI to decide, and a fixed starting point makes the later prompts simpler.
 
@@ -143,7 +146,7 @@ git commit -m "Add project skeleton and pyproject.toml"
 
 ---
 
-## 6.2 Step 2 — The Data Model
+## 6.2 Step 2 — The Data Model {#62-step-2-the-data-model}
 
 The first prompt gives the context (what the project is and what already exists), the goal for this step only, and a constraint on scope. It also asks for assumptions, as Chapter 0, Section 0.5 suggests:
 
@@ -219,7 +222,7 @@ git commit -m "Add Note data model"
 
 ---
 
-## 6.3 Step 3 — Storage (Repository Layer)
+## 6.3 Step 3 — Storage (Repository Layer) {#63-step-3-storage-repository-layer}
 
 The prompt starts by telling the AI what changed in review:
 
@@ -321,7 +324,7 @@ The read-modify-write pattern here is simple on purpose. For a single-user local
 
 ---
 
-## 6.4 Step 4 — Business Logic (Service Layer)
+## 6.4 Step 4 — Business Logic (Service Layer) {#64-step-4-business-logic-service-layer}
 
 ```
 I've reviewed repository.py and committed a simpler version; please re-read
@@ -456,7 +459,7 @@ git commit -m "Add note service with validation and search"
 
 ---
 
-## 6.5 Step 5 — Tests
+## 6.5 Step 5 — Tests {#65-step-5-tests}
 
 ```
 I've committed my reviewed service.py; please re-read it. The methods are
@@ -633,7 +636,7 @@ git commit -m "Add service layer test suite"
 
 ---
 
-## 6.6 Step 6 — The CLI Layer
+## 6.6 Step 6 — The CLI Layer {#66-step-6-the-cli-layer}
 
 ```
 Tests pass. I kept a shorter test file for now plus your "Nothing to edit"
@@ -913,7 +916,7 @@ Error: No note found starting with 1ea7
 
 ---
 
-## 6.7 Step 7 — Documentation
+## 6.7 Step 7 — Documentation {#67-step-7-documentation}
 
 ```
 I've committed a reviewed cli.py, test_cli.py and service.py, with some

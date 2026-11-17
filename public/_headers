@@ -1,0 +1,26 @@
+# Response headers for Cloudflare static assets (PC-02). Copied to dist/ by the build.
+#
+# Content-Security-Policy:
+# - script-src: only scripts from this site, plus the inline scripts listed by hash: the somaari
+#   theme script (src/components/ThemeProvider.astro) and Starlight's own three small inline
+#   scripts (search shortcut label, sidebar state restore, sidebar scroll restore). All other
+#   scripts are files under /_astro/ (vite.build.assetsInlineLimit: 0 in astro.config.mjs).
+#   scripts/check_site.py fails when an inline script in dist/ has no hash here, or a hash here
+#   matches no inline script, so a change to the theme script fails the check until its hash is
+#   updated. The failure message prints the new hash.
+#   'wasm-unsafe-eval' lets Pagefind search run its WebAssembly.
+#   static.cloudflareinsights.com / cloudflareinsights.com: Cloudflare Web Analytics.
+# - style-src 'unsafe-inline': the inlined theme tokens, Astro's inlined CSS and the <style> that
+#   Mermaid writes into each diagram SVG.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-MkXhs3VTwzDlUeGxVWZ8SfGdsKIofJzQ68FMm6Xyu88=' 'sha256-f/zAUE74ucc3JYp4r4QQvkJofoQdkOIhHYK+jeZ6eko=' 'sha256-wX2yOADeV+NMngflD5uYi3vl50SHC4sfM1EmylVjlX4=' 'sha256-7eCV4jtsr4t4knb3c4FCRPeu7GGZeOUGE3XvWix0XOQ=' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Hashed file names: safe to cache for a year.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

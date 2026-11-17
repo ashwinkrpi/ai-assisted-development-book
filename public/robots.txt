@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://book.somaari.in/sitemap-index.xml

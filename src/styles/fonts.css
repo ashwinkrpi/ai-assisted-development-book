@@ -1,0 +1,15 @@
+/* Starlight's fonts are the somaari theme fonts. --font and --font-display are set per theme by
+   somaari-common's themes.css (linked in src/components/Head.astro). */
+:root {
+	--sl-font: var(--font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title {
+	font-family: var(--font-display);
+}

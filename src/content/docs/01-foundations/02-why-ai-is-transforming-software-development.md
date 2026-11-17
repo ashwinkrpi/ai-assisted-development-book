@@ -1,4 +1,7 @@
-# Chapter 2 — Why AI Is Transforming Software Development
+---
+title: Chapter 2 — Why AI Is Transforming Software Development
+description: "Every major leap in software engineering has reduced accidental complexity."
+---
 
 > *Every major leap in software engineering has reduced accidental complexity. Artificial intelligence is the first leap that also reduces cognitive effort — the mental overhead of understanding, recalling, and translating, rather than just the mechanical work of typing.*
 
@@ -115,7 +118,7 @@ To get lasting value from AI tools, rather than a short productivity bump follow
 2. **Set review standards before scaling up.** Decide as a team what level of review AI-generated code requires, and hold to it even when it's inconvenient.
 3. **Protect confidential data.** Understand what your AI tools do with the code and data you send them, and set clear policies about what can be shared with which tools.
 4. **Measure productivity and quality together.** Faster delivery that increases defect rates isn't a win; it's a cost shifted downstream.
-5. **Keep improving [prompts](../glossary.md#prompt), context and workflows** as a team practice, like any other engineering process.
+5. **Keep improving [prompts](/glossary/#prompt), context and workflows** as a team practice, like any other engineering process.
 
 ---
 
@@ -145,7 +148,7 @@ Two lessons follow. First, how fast AI *feels* is not a reliable measure of whet
 - Sharing sensitive or proprietary information with tools that weren't vetted for it.
 - Measuring success by volume — lines generated, pull requests merged — instead of outcomes.
 
-The workflow in [Chapter 1, Section 1.8](01-introduction.md#18-the-workflow-used-throughout-this-book), applied every time, avoids each of these.
+The workflow in [Chapter 1, Section 1.8](/01-foundations/01-introduction/#18-the-workflow-used-throughout-this-book), applied every time, avoids each of these.
 
 ---
 
@@ -194,4 +197,4 @@ The evidence on productivity is mixed: some studies find large speedups on small
 
 ## Next Chapter
 
-Chapter 3 explores how [large language models](../glossary.md#llm) work, why they produce convincing responses even when they're wrong, and what every software engineer should understand about their capabilities and limits before relying on them.
+Chapter 3 explores how [large language models](/glossary/#llm) work, why they produce convincing responses even when they're wrong, and what every software engineer should understand about their capabilities and limits before relying on them.

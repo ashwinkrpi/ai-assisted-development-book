@@ -1,0 +1,124 @@
+/* somaari themes for Starlight (LT-03). The somaari standard tokens (--page-bg, --fg, --accent,
+   --on-accent, --focus, --btn-radius, --display-weight, --font, --font-display, and color-scheme
+   per theme) come from somaari-common's themes.css, linked in src/components/Head.astro; every
+   theme sets every one of them. This file adds the book's own tokens (--book-*), derived from
+   those once for all themes, and maps them onto Starlight's --sl-color-* variables. No color is
+   written here: every --sl-color-* value is a var() token, and no rule names a theme, so a theme
+   added in somaari-common needs only `npm run sync:common` here.
+
+   :root is rangoli (also what shows without JavaScript). Starlight's own
+   :root[data-theme='light'] block never matches, because data-theme holds a somaari theme id. */
+
+:root {
+	/* The page background, and the steps from text (--fg) to it. */
+	--book-bg: var(--page-bg);
+	--book-gray-1: color-mix(in srgb, var(--fg) 92%, var(--book-bg));
+	--book-gray-2: color-mix(in srgb, var(--fg) 84%, var(--book-bg));
+	--book-gray-3: color-mix(in srgb, var(--fg) 70%, var(--book-bg));
+	--book-gray-4: color-mix(in srgb, var(--fg) 45%, var(--book-bg));
+	--book-gray-5: color-mix(in srgb, var(--fg) 22%, var(--book-bg));
+	--book-gray-6: color-mix(in srgb, var(--fg) 10%, var(--book-bg));
+	--book-gray-7: color-mix(in srgb, var(--fg) 5%, var(--book-bg));
+	--book-accent-low: color-mix(in srgb, var(--accent) 18%, var(--book-bg));
+	--book-accent-high: color-mix(in srgb, var(--accent) 70%, var(--fg));
+	--book-overlay: color-mix(in srgb, var(--book-bg) 80%, transparent);
+
+	--sl-color-white: var(--fg);
+	--sl-color-gray-1: var(--book-gray-1);
+	--sl-color-gray-2: var(--book-gray-2);
+	--sl-color-gray-3: var(--book-gray-3);
+	--sl-color-gray-4: var(--book-gray-4);
+	--sl-color-gray-5: var(--book-gray-5);
+	--sl-color-gray-6: var(--book-gray-6);
+	--sl-color-gray-7: var(--book-gray-7);
+	--sl-color-black: var(--book-bg);
+
+	--sl-color-accent-low: var(--book-accent-low);
+	--sl-color-accent: var(--accent);
+	--sl-color-accent-high: var(--book-accent-high);
+
+	/* somaari has no separate hues for notes, tips, cautions and dangers: all use the accent. */
+	--sl-color-orange-low: var(--book-accent-low);
+	--sl-color-orange: var(--accent);
+	--sl-color-orange-high: var(--book-accent-high);
+	--sl-color-green-low: var(--book-accent-low);
+	--sl-color-green: var(--accent);
+	--sl-color-green-high: var(--book-accent-high);
+	--sl-color-blue-low: var(--book-accent-low);
+	--sl-color-blue: var(--accent);
+	--sl-color-blue-high: var(--book-accent-high);
+	--sl-color-purple-low: var(--book-accent-low);
+	--sl-color-purple: var(--accent);
+	--sl-color-purple-high: var(--book-accent-high);
+	--sl-color-red-low: var(--book-accent-low);
+	--sl-color-red: var(--accent);
+	--sl-color-red-high: var(--book-accent-high);
+
+	--sl-color-text: var(--book-gray-2);
+	--sl-color-text-accent: var(--accent);
+	--sl-color-text-invert: var(--on-accent);
+	--sl-color-bg: var(--book-bg);
+	--sl-color-bg-nav: var(--book-gray-6);
+	--sl-color-bg-sidebar: var(--book-gray-7);
+	--sl-color-bg-inline-code: var(--book-gray-5);
+	--sl-color-bg-accent: var(--accent);
+	--sl-color-hairline-light: var(--book-gray-5);
+	--sl-color-hairline: var(--book-gray-6);
+	--sl-color-hairline-shade: var(--book-bg);
+	--sl-color-backdrop-overlay: var(--book-overlay);
+
+	/* Starlight's badge text is white unless data-theme is 'light'; on a -low background the
+	   text color of the theme reads in both schemes. */
+	--sl-badge-default-text: var(--fg);
+	--sl-badge-note-text: var(--fg);
+	--sl-badge-danger-text: var(--fg);
+	--sl-badge-success-text: var(--fg);
+	--sl-badge-caution-text: var(--fg);
+	--sl-badge-tip-text: var(--fg);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title {
+	font-weight: var(--display-weight);
+}
+
+/* Mermaid flowcharts (astro-mermaid). Its client only knows data-theme 'light' and 'dark', so with
+   a somaari theme id it always draws Mermaid's light theme. These rules recolor the drawn SVG from
+   the somaari tokens instead, so the diagrams follow every theme. !important beats Mermaid's own
+   `#mermaid-… .node rect` rules inside the SVG. */
+pre.mermaid {
+	background: transparent;
+}
+pre.mermaid svg :is(.node, .cluster) :is(rect, circle, ellipse, polygon, path) {
+	fill: var(--book-gray-6) !important;
+	stroke: var(--accent) !important;
+}
+pre.mermaid svg :is(.flowchart-link, .edgePath path, .edge-pattern-solid) {
+	stroke: var(--book-gray-3) !important;
+}
+pre.mermaid svg :is(marker path, .marker, .arrowheadPath) {
+	fill: var(--book-gray-3) !important;
+	stroke: var(--book-gray-3) !important;
+}
+pre.mermaid svg text {
+	fill: var(--fg) !important;
+}
+pre.mermaid svg :is(.nodeLabel, .edgeLabel, .cluster-label, .label, p) {
+	color: var(--fg) !important;
+}
+pre.mermaid svg :is(.edgeLabel, .labelBkg, .edgeLabel p) {
+	background-color: var(--book-bg) !important;
+}
+pre.mermaid svg .edgeLabel rect {
+	fill: var(--book-bg) !important;
+}
+
+:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 2px;
+}

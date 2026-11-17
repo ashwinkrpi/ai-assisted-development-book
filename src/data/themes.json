@@ -1,0 +1,15 @@
+{
+	"defaultTheme": "graphite",
+	"themes": {
+		"rangoli": "Rangoli",
+		"monsoon": "Monsoon",
+		"graphite": "Graphite",
+		"liquid-glass": "Liquid Glass"
+	},
+	"schedule": [],
+	"version": "fc59443",
+	"preload": [
+		"fonts/Inter.woff2",
+		"fonts/InterTight.woff2"
+	]
+}

@@ -25,3 +25,7 @@ site/
 # Local planning and assistant files
 BUILD-PLAN.md
 CLAUDE.md
+
+# Astro build output
+dist/
+.astro/

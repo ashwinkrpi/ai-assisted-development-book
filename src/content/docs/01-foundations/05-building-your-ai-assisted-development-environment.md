@@ -1,4 +1,7 @@
-# Chapter 5 — Building Your AI-Assisted Development Environment
+---
+title: Chapter 5 — Building Your AI-Assisted Development Environment
+description: "A productive AI workflow begins with a well-designed development environment, not with a powerful model."
+---
 
 > *A productive AI workflow begins with a well-designed development environment, not with a powerful model.*
 
@@ -114,7 +117,7 @@ project/
 └── README.md
 ```
 
-A consistent layout helps both humans and AI understand your repository. When you paste your project structure into a [prompt](../glossary.md#prompt), a predictable layout lets the model assume correctly where things live instead of guessing. Note `.env.example` (committed) versus `.env` (gitignored, never committed): the first documents the required configuration without leaking secrets, and AI assistants recognize the pattern when generating code that reads environment variables.
+A consistent layout helps both humans and AI understand your repository. When you paste your project structure into a [prompt](/glossary/#prompt), a predictable layout lets the model assume correctly where things live instead of guessing. Note `.env.example` (committed) versus `.env` (gitignored, never committed): the first documents the required configuration without leaking secrets, and AI assistants recognize the pattern when generating code that reads environment variables.
 
 ---
 
@@ -197,7 +200,7 @@ a fixed number of words surrounding a target word or token that is used to
 provide additional information for understanding and analyzing the text.
 ```
 
-(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) The answer is fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an [LLM](../glossary.md#llm) from Chapter 3. Read even a one-sentence sanity check critically. Small local models make this kind of mistake more often than large cloud models; that's part of the trade-off.
+(Real output on a Raspberry Pi 5 with 8 GB of RAM; the first run took about 45 seconds, most of it loading the model.) The answer is fluent, but it describes an older meaning of "context window" from word-embedding research, not the token budget of an [LLM](/glossary/#llm) from Chapter 3. Read even a one-sentence sanity check critically. Small local models make this kind of mistake more often than large cloud models; that's part of the trade-off.
 
 For editor integration, the [Continue](https://continue.dev) VS Code extension can point at a local Ollama endpoint instead of a cloud API:
 
@@ -250,7 +253,7 @@ Adopt these habits, and automate the ones you can instead of relying on memory:
 
 4. **Document architectural decisions** as you make them. A short `docs/decisions/0001-use-sqlite-for-local-cache.md` per significant choice is enough; the habit matters more than the format.
 5. **Maintain project context for AI.** A short context file such as `CLAUDE.md` or `AGENTS.md` describing your conventions means every session starts with the right context. Chapter 4, Section 4.5 explains what to put in one.
-6. **Review every generated change** ([Chapter 1, Section 1.8](01-introduction.md#18-the-workflow-used-throughout-this-book), step 7).
+6. **Review every generated change** ([Chapter 1, Section 1.8](/01-foundations/01-introduction/#18-the-workflow-used-throughout-this-book), step 7).
 
 ---
 

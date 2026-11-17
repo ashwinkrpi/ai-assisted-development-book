@@ -1,0 +1,129 @@
+---
+// Replaces Starlight's light/dark/auto select with the somaari picker (LT-02): a "Theme" button
+// that opens "Auto (seasonal)" plus one button per theme, each with aria-pressed. Starlight renders
+// this component twice (header and mobile menu), so it uses classes, not ids. The picker needs
+// JavaScript (window.SomaariTheme from ThemeProvider.astro), so it stays hidden without it.
+import themeData from '../data/themes.json';
+
+const choices = [['auto', 'Auto (seasonal)'], ...Object.entries(themeData.themes)];
+---
+
+<somaari-theme-picker hidden>
+	<button type="button" class="toggle" aria-expanded="false" aria-haspopup="true">Theme</button>
+	<div class="menu" role="group" aria-label="Theme" hidden>
+		{
+			choices.map(([id, label]) => (
+				<button type="button" class="choice" data-theme-choice={id} aria-pressed="false">
+					{label}
+				</button>
+			))
+		}
+	</div>
+</somaari-theme-picker>
+
+<style>
+	somaari-theme-picker {
+		position: relative;
+		display: inline-block;
+	}
+	somaari-theme-picker[hidden],
+	.menu[hidden] {
+		display: none;
+	}
+	button {
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-text);
+		background: transparent;
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: var(--btn-radius);
+		padding: 0.25rem 0.75rem;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+	button:hover {
+		color: var(--sl-color-white);
+		border-color: var(--sl-color-text-accent);
+	}
+	button:focus-visible {
+		outline: 2px solid var(--focus);
+		outline-offset: 2px;
+	}
+	.menu {
+		position: absolute;
+		inset-inline-end: 0;
+		top: calc(100% + 0.5rem);
+		z-index: var(--sl-z-index-menu);
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		padding: 0.5rem;
+		background: var(--sl-color-bg-nav);
+		border: 1px solid var(--sl-color-hairline-light);
+		border-radius: 0.5rem;
+		box-shadow: var(--sl-shadow-md);
+	}
+	.choice {
+		text-align: start;
+		border-color: transparent;
+	}
+	.choice[aria-pressed='true'] {
+		color: var(--sl-color-text-invert);
+		background: var(--sl-color-bg-accent);
+	}
+</style>
+
+<script>
+	type SomaariTheme = { choice(): string; choose(value: string): void };
+
+	class SomaariThemePicker extends HTMLElement {
+		connectedCallback() {
+			const api = (window as unknown as { SomaariTheme?: SomaariTheme }).SomaariTheme;
+			const toggle = this.querySelector<HTMLButtonElement>('.toggle');
+			const menu = this.querySelector<HTMLElement>('.menu');
+			if (!api || !toggle || !menu) return;
+			const choices = [...menu.querySelectorAll<HTMLButtonElement>('.choice')];
+
+			const setOpen = (open: boolean, refocus: boolean) => {
+				menu.hidden = !open;
+				toggle.setAttribute('aria-expanded', String(open));
+				if (open) (choices.find((c) => c.getAttribute('aria-pressed') === 'true') ?? choices[0])?.focus();
+				else if (refocus) toggle.focus();
+			};
+			// Every picker on the page shows the same choice.
+			const showChoice = () => {
+				const current = api.choice();
+				document.querySelectorAll<HTMLElement>('somaari-theme-picker .choice').forEach((c) => {
+					c.setAttribute('aria-pressed', String(c.dataset.themeChoice === current));
+				});
+			};
+
+			toggle.addEventListener('click', () => setOpen(menu.hidden, false));
+			for (const choice of choices) {
+				choice.addEventListener('click', () => {
+					api.choose(choice.dataset.themeChoice ?? 'auto');
+					showChoice();
+				});
+			}
+			// Esc closes the menu and returns focus to the button; so does a click outside, or tabbing out.
+			this.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && !menu.hidden) {
+					e.preventDefault();
+					e.stopPropagation();
+					setOpen(false, true);
+				}
+			});
+			this.addEventListener('focusout', (e) => {
+				const next = e.relatedTarget;
+				if (!menu.hidden && next instanceof Node && !this.contains(next)) setOpen(false, false);
+			});
+			document.addEventListener('click', (e) => {
+				if (!menu.hidden && e.target instanceof Node && !this.contains(e.target)) setOpen(false, false);
+			});
+
+			showChoice();
+			this.hidden = false;
+		}
+	}
+	customElements.define('somaari-theme-picker', SomaariThemePicker);
+</script>

@@ -11,10 +11,10 @@
 
 [![Volume](https://img.shields.io/badge/Volume-1-6f42c1?style=for-the-badge)](#-release-plan)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-orange?style=for-the-badge)](https://github.com/ashwinkrpi/ai-assisted-development-book/releases/tag/v1.0.0)
-[![Chapters](https://img.shields.io/badge/Chapters-0%E2%80%936-blue?style=for-the-badge)](chapters/index.md)
-[![Site](https://img.shields.io/badge/Site-Live-success?style=for-the-badge)](https://ashwinkrpi.github.io/ai-assisted-development-book/)
+[![Chapters](https://img.shields.io/badge/Chapters-0%E2%80%936-blue?style=for-the-badge)](https://book.somaari.in/)
+[![Site](https://img.shields.io/badge/Site-book.somaari.in-success?style=for-the-badge)](https://book.somaari.in/)
 [![Examples](https://img.shields.io/github/actions/workflow/status/ashwinkrpi/ai-assisted-development-book/examples.yml?branch=main&label=Examples&style=for-the-badge)](https://github.com/ashwinkrpi/ai-assisted-development-book/actions/workflows/examples.yml)
-[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0%20%2B%20MIT-green?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -32,9 +32,9 @@ The book is released one **part** at a time, and each part is published as its o
 
 ### Who this book is for
 
-Developers who have written some code but are new to using AI tools in their work. No AI or machine-learning background is needed. The examples use basic Python, git and the command line; if those are new to you, start with [the Python tutorial](https://docs.python.org/3/tutorial/), [*Pro Git*](https://git-scm.com/book/en/v2) (chapters 1–3) and [MDN's command line crash course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line). New to AI tools? Begin with [Chapter 0 — Before You Begin](chapters/00-before-you-begin.md).
+Developers who have written some code but are new to using AI tools in their work. No AI or machine-learning background is needed. The examples use basic Python, git and the command line; if those are new to you, start with [the Python tutorial](https://docs.python.org/3/tutorial/), [*Pro Git*](https://git-scm.com/book/en/v2) (chapters 1–3) and [MDN's command line crash course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line). New to AI tools? Begin with [Chapter 0 — Before You Begin](https://book.somaari.in/00-before-you-begin/).
 
-📖 **Read it online:** [ashwinkrpi.github.io/ai-assisted-development-book](https://ashwinkrpi.github.io/ai-assisted-development-book/)
+📖 **Read it online:** [book.somaari.in](https://book.somaari.in/)
 
 ---
 
@@ -54,43 +54,56 @@ Each volume stands on its own. You don't need later volumes to get value from ea
 
 | Chapter | Covers |
 |---|---|
-| [0 — Before You Begin](chapters/00-before-you-begin.md) | Who the book is for, the three kinds of AI coding tools, choosing and setting one up, privacy settings, and prompting basics |
-| [1 — Introduction to AI-Assisted Software Development](chapters/01-foundations/01-introduction.md) | What AI-assisted development is (and isn't), the four principles behind the book, a password-reset case study, and the eight-step workflow used throughout |
-| [2 — Why AI Is Transforming Software Development](chapters/01-foundations/02-why-ai-is-transforming-software-development.md) | Why organizations adopt AI, where it adds value and where it doesn't, a legacy-modernization case study, and adoption principles |
-| [3 — Understanding Large Language Models for Software Engineers](chapters/01-foundations/03-understanding-large-language-models.md) | Tokens, context windows, training versus inference, why hallucinations happen, and practical guidelines |
-| [4 — The AI-Assisted Software Development Lifecycle](chapters/01-foundations/04-ai-assisted-software-development-lifecycle.md) | AI in each phase of the SDLC, prompt patterns, human quality gates enforced in CI, and working safely with AI agents |
-| [5 — Building Your AI-Assisted Development Environment](chapters/01-foundations/05-building-your-ai-assisted-development-environment.md) | Editor and tooling setup, project layout, security, and a local AI stack on a Raspberry Pi 5 |
-| [6 — Your First AI-Assisted Software Project](chapters/01-foundations/06-your-first-ai-assisted-software-project.md) | Building a command-line Notes Manager in a real, reviewed AI session, with tests and documentation |
+| [0 — Before You Begin](https://book.somaari.in/00-before-you-begin/) | Who the book is for, the three kinds of AI coding tools, choosing and setting one up, privacy settings, and prompting basics |
+| [1 — Introduction to AI-Assisted Software Development](https://book.somaari.in/01-foundations/01-introduction/) | What AI-assisted development is (and isn't), the four principles behind the book, a password-reset case study, and the eight-step workflow used throughout |
+| [2 — Why AI Is Transforming Software Development](https://book.somaari.in/01-foundations/02-why-ai-is-transforming-software-development/) | Why organizations adopt AI, where it adds value and where it doesn't, a legacy-modernization case study, and adoption principles |
+| [3 — Understanding Large Language Models for Software Engineers](https://book.somaari.in/01-foundations/03-understanding-large-language-models/) | Tokens, context windows, training versus inference, why hallucinations happen, and practical guidelines |
+| [4 — The AI-Assisted Software Development Lifecycle](https://book.somaari.in/01-foundations/04-ai-assisted-software-development-lifecycle/) | AI in each phase of the SDLC, prompt patterns, human quality gates enforced in CI, and working safely with AI agents |
+| [5 — Building Your AI-Assisted Development Environment](https://book.somaari.in/01-foundations/05-building-your-ai-assisted-development-environment/) | Editor and tooling setup, project layout, security, and a local AI stack on a Raspberry Pi 5 |
+| [6 — Your First AI-Assisted Software Project](https://book.somaari.in/01-foundations/06-your-first-ai-assisted-software-project/) | Building a command-line Notes Manager in a real, reviewed AI session, with tests and documentation |
 
-Every chapter ends with a hands-on lab and review questions. A [glossary](chapters/glossary.md) defines the AI terms used throughout.
+Every chapter ends with a hands-on lab and review questions. A [glossary](https://book.somaari.in/glossary/) defines the AI terms used throughout.
 
 ---
 
 ## 📂 Repository Structure
 
 ```text
-chapters/                 # book source (published by MkDocs)
-├── index.md
-├── 00-before-you-begin.md
-├── glossary.md
-└── 01-foundations/
-    ├── 01-introduction.md
-    ├── 02-why-ai-is-transforming-software-development.md
-    ├── 03-understanding-large-language-models.md
-    ├── 04-ai-assisted-software-development-lifecycle.md
-    ├── 05-building-your-ai-assisted-development-environment.md
-    └── 06-your-first-ai-assisted-software-project.md
+src/
+├── content/docs/         # book source (published by Astro Starlight)
+│   ├── index.md
+│   ├── 00-before-you-begin.md
+│   ├── glossary.md
+│   ├── 404.md
+│   └── 01-foundations/
+│       ├── 01-introduction.md
+│       ├── 02-why-ai-is-transforming-software-development.md
+│       ├── 03-understanding-large-language-models.md
+│       ├── 04-ai-assisted-software-development-lifecycle.md
+│       ├── 05-building-your-ai-assisted-development-environment.md
+│       └── 06-your-first-ai-assisted-software-project.md
+├── components/           # Starlight overrides: somaari theme picker, header, footer
+├── styles/               # somaari theme tokens and fonts for Starlight
+└── data/themes.json      # theme list, seasonal schedule and fonts to preload (from somaari-common)
+public/                   # robots.txt, _headers (security headers), favicon.svg
+└── theme/                # committed copy of the somaari themes and fonts (from somaari-common)
 examples/                 # runnable companion code, tested in CI
 ├── ch04-password-reset/
 └── ch06-notes-manager/
 transcripts/              # verbatim AI session behind Chapter 6
 scripts/
-└── check_examples.py     # checks chapter code matches examples/
+├── check.sh              # the full check: examples, script tests, build, site checks
+├── check_examples.py     # checks chapter code matches examples/
+├── check_site.py         # checks the built site (paths, anchors, headers, search)
+├── make_redirects.py     # writes redirect pages for the old GitHub Pages URLs
+└── sync-common.sh        # copies themes and fonts from somaari-common
 images/                   # README banner images
 .github/workflows/
-├── deploy-docs.yml       # builds and deploys the site
+├── site.yml              # builds the site and deploys it to Cloudflare
 └── examples.yml          # runs the example tests
-mkdocs.yml
+astro.config.mjs          # site configuration and sidebar
+wrangler.jsonc            # Cloudflare Workers configuration
+package.json
 CHANGELOG.md
 CONTRIBUTING.md
 LICENSE
@@ -101,20 +114,22 @@ README.md
 
 ## 🌐 Building the Site Locally
 
-The site is built with [MkDocs](https://www.mkdocs.org) and the [Material theme](https://squidfunk.github.io/mkdocs-material/).
+The site is built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build), styled with the somaari themes. You need Node.js (the version in `.node-version`).
 
 ```bash
-pip install mkdocs-material "mkdocs<2"
-mkdocs serve
+npm ci                # install the locked dependencies
+npm run dev           # preview with live reload
+npm run build         # build the site into dist/
+sh scripts/check.sh   # the full check that CI runs
 ```
 
-Then open `http://127.0.0.1:8000`. Pushes to `main` that change `chapters/**` or `mkdocs.yml` rebuild and redeploy the live site automatically through `.github/workflows/deploy-docs.yml`.
+`npm run dev` prints the local address to open (by default `http://localhost:4321`). Every push and pull request runs `sh scripts/check.sh` through `.github/workflows/site.yml`, and pushes to `main` deploy the live site to Cloudflare.
 
 ---
 
 ## 🚀 Getting Started
 
-1. Read [Chapter 0](chapters/00-before-you-begin.md) if you're new to AI tools, then [Chapter 1](chapters/01-foundations/01-introduction.md), or browse the [live site](https://ashwinkrpi.github.io/ai-assisted-development-book/).
+1. Read [Chapter 0](https://book.somaari.in/00-before-you-begin/) if you're new to AI tools, then [Chapter 1](https://book.somaari.in/01-foundations/01-introduction/), or browse the [live site](https://book.somaari.in/).
 2. Do the hands-on lab at the end of each chapter.
 3. Apply the eight-step workflow from Chapter 1 to a small task in your own work.
 
@@ -128,13 +143,13 @@ Pull requests are limited to collaborators, so outside pull requests can't be op
 
 ## 📜 License
 
-- **Book content** (`chapters/`, `images/`, `transcripts/` and this README) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). You may share and adapt it for non-commercial purposes, with attribution, under the same license.
+- **Book content** (`src/content/docs/`, `images/`, `transcripts/` and this README) is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). You may share and adapt it for non-commercial purposes, with attribution, under the same license.
 - **Commercial use**, including selling print or ebook editions, requires written permission from the author.
 - **Code** (`examples/`, `scripts/`, CI and tooling, and the code listings in the chapters that also appear in `examples/`) is licensed under the MIT License.
 
 See [LICENSE](LICENSE) for the full terms, and [CHANGELOG.md](CHANGELOG.md) for how licensing changed between releases.
 
-**How to cite or attribute:** Ashwin Koppam Raghavendra, *AI Assisted Development Book — Volume 1*, 2026, https://ashwinkrpi.github.io/ai-assisted-development-book/, licensed under CC BY-NC-SA 4.0.
+**How to cite or attribute:** Ashwin Koppam Raghavendra, *AI Assisted Development Book — Volume 1*, 2026, https://book.somaari.in/, licensed under CC BY-NC-SA 4.0.
 
 ---
 

@@ -1,0 +1,15 @@
+// Cloudflare Worker that serves the built site (dist/) as static assets.
+// CI deploys it on push to main (.github/workflows/site.yml).
+{
+  "name": "somaari-book",
+  "compatibility_date": "2026-11-17",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true,
+  // Cloudflare creates the DNS record and certificate for book.somaari.in.
+  "routes": [
+    { "pattern": "book.somaari.in", "custom_domain": true }
+  ]
+}

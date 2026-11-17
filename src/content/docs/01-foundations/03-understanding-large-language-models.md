@@ -1,4 +1,7 @@
-# Chapter 3 — Understanding Large Language Models for Software Engineers
+---
+title: Chapter 3 — Understanding Large Language Models for Software Engineers
+description: "You do not need to become an AI researcher to use AI effectively, but you do need to understand how modern language models generate text, where that mechanism breaks down, and what that means for the code you ship."
+---
 
 > *You do not need to become an AI researcher to use AI effectively, but you do need to understand how modern language models generate text, where that mechanism breaks down, and what that means for the code you ship.*
 
@@ -6,10 +9,10 @@
 
 By the end of this chapter, you will be able to:
 
-- Explain what a [Large Language Model (LLM)](../glossary.md#llm) is, precisely enough to be useful.
-- Distinguish between training, [fine-tuning](../glossary.md#fine-tuning), [inference](../glossary.md#inference), and [tool use](../glossary.md#tool-use) — and know which one you interact with day to day.
-- Explain [tokens](../glossary.md#token) and [context windows](../glossary.md#context-window) well enough to reason about why a model "forgot" something earlier in a long session.
-- Recognize why [hallucinations](../glossary.md#hallucination) happen, and predict the situations where they're most likely.
+- Explain what a [Large Language Model (LLM)](/glossary/#llm) is, precisely enough to be useful.
+- Distinguish between training, [fine-tuning](/glossary/#fine-tuning), [inference](/glossary/#inference), and [tool use](/glossary/#tool-use) — and know which one you interact with day to day.
+- Explain [tokens](/glossary/#token) and [context windows](/glossary/#context-window) well enough to reason about why a model "forgot" something earlier in a long session.
+- Recognize why [hallucinations](/glossary/#hallucination) happen, and predict the situations where they're most likely.
 - Apply a concrete, repeatable set of practices for using LLMs safely in professional software engineering.
 
 ---
@@ -30,7 +33,7 @@ A **Large Language Model (LLM)** is a neural network trained on very large colle
 
 When it generates a response, the model doesn't look up stored facts or execute logic. At each step, it computes how likely every token in its vocabulary is to come next, given everything in the context window. The application picks one token from that distribution, appends it, and repeats.
 
-The picking step is called **sampling**. Settings such as **[temperature](../glossary.md#temperature)** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same [prompt](../glossary.md#prompt) can produce different answers on different runs. That's expected, not a malfunction.
+The picking step is called **sampling**. Settings such as **[temperature](/glossary/#temperature)** control how random it is: a low temperature makes the model favor the most likely tokens, and a higher one spreads choices across less likely tokens too. Because most tools sample with some randomness, the same [prompt](/glossary/#prompt) can produce different answers on different runs. That's expected, not a malfunction.
 
 Before any of this happens, text is split into tokens by a **tokenizer**. Each model family has its own, so the same text gives different token counts in different models. Here's a short piece of code run through OpenAI's open-source `tiktoken` library. It's used here only because it's easy to install. Other models, including Claude, split text differently, so the exact numbers illustrate the idea rather than count tokens for the model you use:
 
@@ -81,7 +84,7 @@ The model isn't searching the internet or reading your repository unless a tool 
 | Phase | Purpose | Who does this |
 |---|---|---|
 | Pre-training | Learn language and code patterns from massive datasets | The model provider (e.g., Anthropic, OpenAI) |
-| Fine-tuning / [RLHF](../glossary.md#rlhf) | Shape behavior for helpfulness, safety, and specific tasks | The model provider |
+| Fine-tuning / [RLHF](/glossary/#rlhf) | Shape behavior for helpfulness, safety, and specific tasks | The model provider |
 | Inference | Generate a response to your prompt | You, every time you send a message |
 | Tool use | Access external knowledge or take actions (search, run code, call APIs) | You, by enabling and invoking tools |
 
@@ -148,7 +151,7 @@ NAME          ID              SIZE      PROCESSOR    CONTEXT    UNTIL
 hermes3:8b    4f6b83f30b62    4.9 GB    100% CPU     4096       4 minutes from now
 ```
 
-(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default based on the GPU memory it finds, and a machine with none, like the Pi, gets the smallest: 4,096 tokens. That's the entire budget, shared by the [system prompt](../glossary.md#system-prompt), conversation history, and the generated response. Defaults change between Ollama versions, so check with `ollama ps`.
+(Output from Ollama 0.23.2 on a Raspberry Pi 5 with 8 GB of RAM.) Ollama picks a default based on the GPU memory it finds, and a machine with none, like the Pi, gets the smallest: 4,096 tokens. That's the entire budget, shared by the [system prompt](/glossary/#system-prompt), conversation history, and the generated response. Defaults change between Ollama versions, so check with `ollama ps`.
 
 You can raise the limit for a single session with `/set parameter num_ctx 8192` inside `ollama run`, by passing `num_ctx` in the `options` of an API request, or for the whole server with the `OLLAMA_CONTEXT_LENGTH` environment variable. A larger context needs more memory, though, and on hardware like a Raspberry Pi 5 that's a real limit: a smaller window means shorter conversations, less pasted code and more careful context management than with a cloud model offering 100K+ tokens. If you run models locally (Chapter 5 shows how), plan around the context budget.
 
@@ -201,7 +204,7 @@ The first three boxes are mechanical and probabilistic. The last three are where
 
 ## 3.7 Practical Guidelines
 
-The prompting basics in [Chapter 0, Section 0.5](../00-before-you-begin.md#05-prompting-basics) — give context, state the goal, add constraints, ask for assumptions, iterate — are the starting point. This chapter's mechanics add four more:
+The prompting basics in [Chapter 0, Section 0.5](/00-before-you-begin/#05-prompting-basics) — give context, state the goal, add constraints, ask for assumptions, iterate — are the starting point. This chapter's mechanics add four more:
 
 1. **Request incremental changes** — one function or component at a time. Shorter responses are easier to verify, and less of your context window is spent on code you'll throw away.
 2. **Read every result** — don't just skim that it "looks right." Fluency is not evidence (Section 3.5).

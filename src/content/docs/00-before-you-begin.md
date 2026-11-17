@@ -1,4 +1,7 @@
-# Chapter 0 — Before You Begin
+---
+title: Chapter 0 — Before You Begin
+description: "You don't need to understand everything about AI to start using it well."
+---
 
 > *You don't need to understand everything about AI to start using it well. You need to know what kind of tool you're holding, what it can see, and how to check its work.*
 
@@ -26,19 +29,19 @@ You will get the most from it if you already know:
 | Git | Clone a repository, commit, and push | [*Pro Git*, chapters 1–3](https://git-scm.com/book/en/v2) and [GitHub's Hello World guide](https://docs.github.com/en/get-started/using-github/hello-world) |
 | The command line | Move between folders, run commands, read their output | [MDN's command line crash course](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Environment_setup/Command_line) and [The Missing Semester](https://missing.csail.mit.edu/) |
 
-If a term in this book is new to you, check the [Glossary](glossary.md). Terms are linked to it the first time they appear in each chapter.
+If a term in this book is new to you, check the [Glossary](/glossary/). Terms are linked to it the first time they appear in each chapter.
 
 ---
 
 ## 0.2 Three Kinds of AI Coding Tools
 
-Most AI coding tools are built on a [large language model (LLM)](glossary.md#llm): a program trained on huge amounts of text and code that generates new text in response to your input, which is called a [prompt](glossary.md#prompt). Chapter 3 explains how LLMs work. For now, what matters is how the tool around the model lets you use it. There are three main kinds.
+Most AI coding tools are built on a [large language model (LLM)](/glossary/#llm): a program trained on huge amounts of text and code that generates new text in response to your input, which is called a [prompt](/glossary/#prompt). Chapter 3 explains how LLMs work. For now, what matters is how the tool around the model lets you use it. There are three main kinds.
 
 **Chat assistants.** You type a question or paste some code into a chat window, and the AI replies. Examples include the chat apps for Claude, ChatGPT and Gemini, and the chat panels built into editors. They're good for explaining code, discussing designs, and drafting small pieces of code. The AI only sees what you paste in, and you copy its answers back into your project yourself.
 
 **Inline autocomplete.** As you type in your editor, the tool suggests the rest of the line or the next few lines, and you accept a suggestion with a key press. Examples include GitHub Copilot's code completions and the autocomplete in editors such as Cursor and JetBrains IDEs. Autocomplete is good for repetitive code and for finishing a pattern you've started. Because suggestions arrive constantly and look like your own code, it's easy to accept them without reading them carefully.
 
-**Agentic tools.** You describe a task, and the tool works on it in several steps: it reads files in your repository, runs commands such as your tests, and edits files itself. Examples include Claude Code, Cursor's agent, and GitHub Copilot's agent mode. A tool that acts like this is called an [agent](glossary.md#agent). Agents can complete larger tasks, but they can also make more changes, faster, than you can easily check.
+**Agentic tools.** You describe a task, and the tool works on it in several steps: it reads files in your repository, runs commands such as your tests, and edits files itself. Examples include Claude Code, Cursor's agent, and GitHub Copilot's agent mode. A tool that acts like this is called an [agent](/glossary/#agent). Agents can complete larger tasks, but they can also make more changes, faster, than you can easily check.
 
 | Kind | What the AI can see | Who changes your files | How much to trust it |
 |---|---|---|---|
