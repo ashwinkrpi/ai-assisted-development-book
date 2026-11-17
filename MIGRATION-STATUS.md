@@ -109,3 +109,11 @@ Short notes per sub-task, newest last. The next session reads this instead of th
 - Anchors that needed explicit IDs: the 7 ch6 headings `## 6.N Step N — …` (`{#61-step-1-project-structure}` … `{#67-step-7-documentation}`). All others matched.
 - For review in a browser before merging: Mermaid, Pagefind and the theme picker under the CSP (console errors); compare `public/_headers` with somaari-site's.
 - Open: old `#chapter-N-…` title anchors are gone; Starlight's 3 inline scripts are allowed by hash; `gitignore` language warning; `markdown.remarkPlugins` deprecation.
+
+## Stage 1.5 — Repo, CI and redirects
+
+### DC-01 (2026-11-17)
+
+- Built: `wrangler.jsonc` (name `somaari-book`, `compatibility_date` 2026-11-17, `assets.directory: "./dist"`, `not_found_handling: "404-page"`, `workers_dev: true`; the `book.somaari.in` `custom_domain` route is commented out and starts with `,` so uncommenting the three lines gives valid JSON). `.github/workflows/site.yml`: `build` job on every pull request and push (`setup-node@v4` with `node-version-file: .node-version`, `npm ci`, `sh scripts/check.sh`, uploads `dist/` on push to `main`); `deploy` job on push to `main` only, `needs: build`, downloads `dist/`, runs `npx wrangler deploy` with `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID`. Top-level `permissions: contents: read`. Same action versions and 2-space indentation as `examples.yml`. `deploy-docs.yml` left in place.
+- Checked: the YAML parses (jobs `build`, `deploy`); `wrangler.jsonc` parses as JSON with comments stripped, both as-is and with the route uncommented. Not run: wrangler (not allowed), the workflow itself, the build (no site files changed).
+- Departs from the plan: reading the blog's `wrangler.jsonc` was denied in this session, so the file follows the plan's description, not that file. Compare the two (e.g. `compatibility_date`, `observability`) before LA-02. No package is missing.
