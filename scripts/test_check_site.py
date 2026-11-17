@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Unit tests for scripts/check_site.py. Self-contained: they do not need dist/."""
 
+import gzip
+import json
 import sys
 import tempfile
 import unittest
@@ -67,6 +69,66 @@ class ExternalLoadTest(unittest.TestCase):
                 encoding="utf-8",
             )
             self.assertEqual(len(check_site.check_external(Path(tmp))), 3)
+
+
+THEME_SCRIPT = "(function(){localStorage.getItem('somaari-theme')})();"
+
+
+def headers_with(*sources):
+    return ("# comment\n/*\n  X-Content-Type-Options: nosniff\n"
+            f"  Content-Security-Policy: default-src 'self'; script-src 'self' {' '.join(sources)} "
+            "https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com\n"
+            "/_astro/*\n  Cache-Control: immutable\n")
+
+
+class CspTest(unittest.TestCase):
+    """A change to the theme script fails the check until public/_headers has its new hash."""
+
+    def run_check(self, headers, script):
+        with tempfile.TemporaryDirectory() as tmp:
+            dist = Path(tmp)
+            (dist / "_headers").write_text(headers, encoding="utf-8")
+            (dist / "index.html").write_text(
+                f'<script>{script}</script><script type="module" src="/_astro/a.js"></script>'
+                '<script type="application/ld+json">{}</script>', encoding="utf-8")
+            return check_site.check_csp(dist)
+
+    def test_hash_of_theme_script_passes(self):
+        self.assertEqual(self.run_check(headers_with(check_site.csp_hash(THEME_SCRIPT)), THEME_SCRIPT), [])
+
+    def test_changed_theme_script_fails(self):
+        changed = THEME_SCRIPT.replace("getItem", "removeItem")
+        errors = self.run_check(headers_with(check_site.csp_hash(THEME_SCRIPT)), changed)
+        self.assertEqual(len(errors), 2)  # new script not allowed, old hash unused
+        self.assertIn(check_site.csp_hash(changed), errors[0])
+
+    def test_unsafe_inline_fails(self):
+        errors = self.run_check(headers_with("'unsafe-inline'", check_site.csp_hash(THEME_SCRIPT)), THEME_SCRIPT)
+        self.assertEqual(errors, ["(e) script-src allows 'unsafe-inline'"])
+
+    def test_real_headers_file(self):
+        csp = check_site.csp_directives((check_site.ROOT / "public" / "_headers").read_text(encoding="utf-8"))
+        self.assertIn("'self'", csp["script-src"])
+        self.assertNotIn("'unsafe-inline'", csp["script-src"])
+        for directive, source in check_site.ANALYTICS.items():
+            self.assertIn(source, csp[directive])
+
+
+class SearchTest(unittest.TestCase):
+    def test_finds_glossary_term_in_pagefind_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pagefind = Path(tmp, "pagefind")
+            (pagefind / "index").mkdir(parents=True)
+            (pagefind / "fragment").mkdir()
+            (pagefind / "pagefind-entry.json").write_text("{}", encoding="utf-8")
+            word = check_site.SEARCH_TERM.encode()
+            (pagefind / "index" / "en_1.pf_index").write_bytes(
+                gzip.compress(b"pagefind_dcd\x82" + bytes([0x60 + len(word)]) + word))
+            fragment = {"url": "/glossary/", "content": f"Glossary. {check_site.SEARCH_TERM.upper()} means …"}
+            (pagefind / "fragment" / "en_1.pf_fragment").write_bytes(
+                gzip.compress(b"pagefind_dcd" + json.dumps(fragment).encode()))
+            self.assertEqual(check_site.check_search(Path(tmp)), [])
+            self.assertEqual(len(check_site.check_search(Path(tmp), term="zebra")), 2)
 
 
 if __name__ == "__main__":
