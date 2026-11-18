@@ -20,7 +20,7 @@ fallback, and reference copies of somaari-site's `partials.mjs`, `nav.js` and `s
 
 ### UI polish
 - [x] [simple] Friendly 404 page with links to all sites (from `network.json`). <!-- bg: done haiku 2026-11-18 -->
-- [ ] [moderate] Contrast (WCAG AA), 44 px tap targets, no sideways scroll at 360 px, visible focus outlines, alt text, reduce-motion.
+- [x] [moderate] Contrast (WCAG AA), 44 px tap targets, no sideways scroll at 360 px, visible focus outlines, alt text, reduce-motion. <!-- bg: done sonnet 2026-11-18 -->
 
 ### SEO
 - [ ] [simple] `sitemap.xml`, `robots.txt`, canonical URLs, OG and Twitter tags, title pattern "Page · Somaari Book". Keep what `scripts/check_site.py` checks passing.

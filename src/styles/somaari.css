@@ -118,7 +118,62 @@ pre.mermaid svg .edgeLabel rect {
 	fill: var(--book-bg) !important;
 }
 
+/* Focus: always visible, also on Starlight's own controls (which may set outline: none). */
 :focus-visible {
 	outline: 2px solid var(--focus);
 	outline-offset: 2px;
+}
+
+/* Contrast (WCAG AA): the lighter text steps (placeholders, muted labels) stay at 4.5:1 or more
+   against the page background by mixing more of the text color in. */
+:root {
+	--book-gray-3: color-mix(in srgb, var(--fg) 78%, var(--book-bg));
+	--book-gray-4: color-mix(in srgb, var(--fg) 62%, var(--book-bg));
+}
+
+/* No sideways scroll at 360 px: long words, URLs, tables and wide code scroll inside their box. */
+html,
+body {
+	overflow-x: clip;
+}
+.sl-markdown-content {
+	overflow-wrap: break-word;
+}
+.sl-markdown-content :is(table, pre) {
+	max-width: 100%;
+}
+.sl-markdown-content table {
+	display: block;
+	overflow-x: auto;
+}
+.sl-markdown-content :is(img, svg, video) {
+	max-width: 100%;
+	height: auto;
+}
+
+/* 44 px tap targets for the controls Starlight draws (menu button, search, theme picker, pager). */
+starlight-menu-button button,
+site-search button[data-open-modal],
+starlight-theme-select select,
+.pagination-links a {
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+}
+.sidebar-content a,
+.right-sidebar a {
+	min-height: 2.75rem;
+	display: flex;
+	align-items: center;
+}
+
+/* Reduce motion: no animation, transition or smooth scrolling when the visitor asks for it. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }
