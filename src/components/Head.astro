@@ -3,11 +3,28 @@
 // theme), as in the blog's BaseHead.astro. public/theme/ comes from `npm run sync:common`;
 // themes.css is versioned by its somaari-common commit. The default theme's fonts are preloaded
 // (at the URL themes.css loads them from); a browser downloads the others only when a theme uses them.
-import Default from '@astrojs/starlight/components/Head.astro';
+//
+// SEO: Starlight already writes the canonical URL (from `site` in astro.config.mjs), the sitemap
+// link and the og:url / og:locale / og:site_name tags. This file sets the title pattern
+// "Page · Somaari Book" and carries the same title and description into the OG and Twitter tags.
 import themeData from '../data/themes.json';
+
+const { head, entry } = Astro.locals.starlightRoute;
+const pageTitle = `${entry.data.title} · Somaari Book`;
+const description = entry.data.description;
+
+const seoTitle = (tag) => tag.tag === 'title' || (tag.tag === 'meta' && tag.attrs?.property === 'og:title');
+const tags = head.map((tag) => (seoTitle(tag) ? { ...tag, ...(tag.tag === 'title' ? { content: pageTitle } : { attrs: { ...tag.attrs, content: pageTitle } }) } : tag));
+const hasTwitterTitle = tags.some((tag) => tag.attrs?.name === 'twitter:title');
+const hasTwitterDescription = tags.some((tag) => tag.attrs?.name === 'twitter:description');
+const extra = [
+	...(hasTwitterTitle ? [] : [{ tag: 'meta', attrs: { name: 'twitter:title', content: pageTitle } }]),
+	...(hasTwitterDescription || !description ? [] : [{ tag: 'meta', attrs: { name: 'twitter:description', content: description } }]),
+];
 ---
 
-<Default />
+{tags.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+{extra.map(({ tag: Tag, attrs }) => <Tag {...attrs} />)}
 <link rel="stylesheet" href={`/theme/themes.css?v=${themeData.version}`} />
 {themeData.preload.map((file) => (
 	<link rel="preload" href={`/theme/${file}`} as="font" type="font/woff2" crossorigin />
