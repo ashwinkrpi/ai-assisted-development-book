@@ -21,6 +21,10 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Cross-Origin-Opener-Policy: same-origin
 
+# stats.json (chapter count) is read by somaari.in from another origin, so it allows any origin.
+/stats.json
+  Access-Control-Allow-Origin: *
+
 # Hashed file names: safe to cache for a year.
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

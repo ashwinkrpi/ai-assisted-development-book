@@ -14,6 +14,43 @@ const themeSelectors = (scheme) =>
 const lightThemesSelector = `:is(${[':not([data-theme])', ...themeSelectors('light')].join(',')})`;
 const darkThemesSelector = `:is(${themeSelectors('dark').join(',')})`;
 
+// The sidebar: the labels and order of the MkDocs `nav`. Starlight reads it, and stats.json counts its chapters.
+const sidebar = [
+  { label: 'Home', link: '/' },
+  { label: 'Chapter 0 — Before You Begin', slug: '00-before-you-begin' },
+  {
+    label: 'Part 1 — Foundations',
+    items: [
+      { label: 'Chapter 1 — Introduction', slug: '01-foundations/01-introduction' },
+      { label: 'Chapter 2 — Why AI Is Transforming Software Development', slug: '01-foundations/02-why-ai-is-transforming-software-development' },
+      { label: 'Chapter 3 — Understanding Large Language Models', slug: '01-foundations/03-understanding-large-language-models' },
+      { label: 'Chapter 4 — The AI-Assisted Development Lifecycle', slug: '01-foundations/04-ai-assisted-software-development-lifecycle' },
+      { label: 'Chapter 5 — Building Your Development Environment', slug: '01-foundations/05-building-your-ai-assisted-development-environment' },
+      { label: 'Chapter 6 — Your First AI-Assisted Project', slug: '01-foundations/06-your-first-ai-assisted-software-project' },
+    ],
+  },
+  { label: 'Glossary', slug: 'glossary' },
+];
+
+// Walks the sidebar (groups included) and counts the chapter pages, labelled "Chapter N — …".
+const countChapters = (items) =>
+  items.reduce((n, item) => {
+    if (item.items) return n + countChapters(item.items);
+    return n + (/^Chapter \d+\b/.test(item.label ?? '') && item.slug ? 1 : 0);
+  }, 0);
+
+// Writes dist/stats.json at build time: { "chapters": N }, read by somaari.in's "Explore Somaari" row.
+const statsJson = {
+  name: 'somaari-stats-json',
+  hooks: {
+    'astro:build:done': async ({ dir }) => {
+      const { writeFile } = await import('node:fs/promises');
+      const stats = { chapters: countChapters(sidebar) };
+      await writeFile(new URL('stats.json', dir), `${JSON.stringify(stats)}\n`);
+    },
+  },
+};
+
 export default defineConfig({
   site: 'https://book.somaari.in',
   // Emit every bundled script as a file under /_astro/ instead of inlining small ones, so the
@@ -27,6 +64,7 @@ export default defineConfig({
     remarkPlugins: [remarkCustomHeadingId],
   },
   integrations: [
+    statsJson,
     // Draws the `mermaid` fences in the browser (decision 3). It must come before Starlight.
     // src/styles/somaari.css colors the diagrams from the somaari tokens (LT-03).
     mermaid(),
@@ -67,22 +105,7 @@ export default defineConfig({
         frames: { extractFileNameFromCode: false },
       },
       // The labels and order of the MkDocs `nav`; previous/next links follow this order.
-      sidebar: [
-        { label: 'Home', link: '/' },
-        { label: 'Chapter 0 — Before You Begin', slug: '00-before-you-begin' },
-        {
-          label: 'Part 1 — Foundations',
-          items: [
-            { label: 'Chapter 1 — Introduction', slug: '01-foundations/01-introduction' },
-            { label: 'Chapter 2 — Why AI Is Transforming Software Development', slug: '01-foundations/02-why-ai-is-transforming-software-development' },
-            { label: 'Chapter 3 — Understanding Large Language Models', slug: '01-foundations/03-understanding-large-language-models' },
-            { label: 'Chapter 4 — The AI-Assisted Development Lifecycle', slug: '01-foundations/04-ai-assisted-software-development-lifecycle' },
-            { label: 'Chapter 5 — Building Your Development Environment', slug: '01-foundations/05-building-your-ai-assisted-development-environment' },
-            { label: 'Chapter 6 — Your First AI-Assisted Project', slug: '01-foundations/06-your-first-ai-assisted-software-project' },
-          ],
-        },
-        { label: 'Glossary', slug: 'glossary' },
-      ],
+      sidebar,
       // On-page contents: "On this page" is Starlight's English label; levels 2–3 as in MkDocs.
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
     }),
