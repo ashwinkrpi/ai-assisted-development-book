@@ -15,6 +15,28 @@ const description = entry.data.description;
 
 const seoTitle = (tag) => tag.tag === 'title' || (tag.tag === 'meta' && tag.attrs?.property === 'og:title');
 const tags = head.map((tag) => (seoTitle(tag) ? { ...tag, ...(tag.tag === 'title' ? { content: pageTitle } : { attrs: { ...tag.attrs, content: pageTitle } }) } : tag));
+// JSON-LD (schema.org) for the home page only: the Book, its author and its publisher. The text is
+// data (not a script the browser runs), and "<" is escaped so no value can end the script early.
+const isHome = Astro.url.pathname === '/';
+const bookJsonLd = JSON.stringify(
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Book',
+		'@id': 'https://book.somaari.in/#book',
+		name: 'AI Assisted Development Book — Volume 1',
+		url: 'https://book.somaari.in/',
+		description,
+		author: { '@type': 'Person', name: 'Ashwin Koppam Raghavendra' },
+		publisher: { '@type': 'Organization', name: 'Somaari', url: 'https://somaari.in/' },
+		copyrightHolder: { '@type': 'Person', name: 'Ashwin Koppam Raghavendra' },
+		inLanguage: 'en',
+		isAccessibleForFree: true,
+		license: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+		isPartOf: { '@type': 'WebSite', '@id': 'https://book.somaari.in/#website', url: 'https://book.somaari.in/', name: 'AI Assisted Development Book' },
+	},
+	null,
+	2,
+).replace(/</g, '\\u003c');
 const hasTwitterTitle = tags.some((tag) => tag.attrs?.name === 'twitter:title');
 const hasTwitterDescription = tags.some((tag) => tag.attrs?.name === 'twitter:description');
 const extra = [
@@ -25,6 +47,7 @@ const extra = [
 
 {tags.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
 {extra.map(({ tag: Tag, attrs }) => <Tag {...attrs} />)}
+{isHome && <script type="application/ld+json" set:html={bookJsonLd} />}
 <link rel="stylesheet" href={`/theme/themes.css?v=${themeData.version}`} />
 {themeData.preload.map((file) => (
 	<link rel="preload" href={`/theme/${file}`} as="font" type="font/woff2" crossorigin />

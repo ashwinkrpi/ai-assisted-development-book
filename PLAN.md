@@ -24,7 +24,7 @@ fallback, and reference copies of somaari-site's `partials.mjs`, `nav.js` and `s
 
 ### SEO
 - [x] [simple] `sitemap.xml`, `robots.txt`, canonical URLs, OG and Twitter tags, title pattern "Page · Somaari Book". Keep what `scripts/check_site.py` checks passing. <!-- bg: done haiku 2026-11-18 -->
-- [ ] [simple] Add `Book` JSON-LD on the home page.
+- [x] [simple] Add `Book` JSON-LD on the home page. <!-- bg: done haiku 2026-11-18 -->
 
 ### Manual
 - [ ] [manual] Preview the branch (`npm run build && npm run preview`) on phone and desktop; click through the switcher and footer links.
