@@ -19,7 +19,7 @@ fallback, and reference copies of somaari-site's `partials.mjs`, `nav.js` and `s
 - [x] [simple] Publish `stats.json` at the site root at build time: `{ "chapters": N }`, N = the number of chapter pages in the sidebar (Chapter 0 to Chapter 6 today), counted from the config or content, not hard-coded. somaari.in's "Explore Somaari" row reads it. <!-- bg: done haiku 2026-11-18 -->
 
 ### UI polish
-- [ ] [simple] Friendly 404 page with links to all sites (from `network.json`).
+- [x] [simple] Friendly 404 page with links to all sites (from `network.json`). <!-- bg: done haiku 2026-11-18 -->
 - [ ] [moderate] Contrast (WCAG AA), 44 px tap targets, no sideways scroll at 360 px, visible focus outlines, alt text, reduce-motion.
 
 ### SEO

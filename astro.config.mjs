@@ -72,6 +72,8 @@ export default defineConfig({
       title: 'AI Assisted Development Book',
       // "Last updated" on each page comes from git (needs full git history in CI).
       lastUpdated: true,
+      // src/pages/404.astro replaces Starlight's default 404 page (it lists every Somaari site).
+      disable404Route: true,
       // Fails the build on a broken internal link or heading anchor.
       plugins: [starlightLinksValidator()],
       // Head.astro links somaari-common's themes.css (tokens and fonts); fonts.css points Starlight

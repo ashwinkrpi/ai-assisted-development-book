@@ -1,0 +1,137 @@
+---
+// Friendly 404 page: the Starlight page frame (shared Header and Footer), then every Somaari site
+// from network.json. Starlight's own 404 route is off (disable404Route in astro.config.mjs).
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import network from '../../network.json';
+
+const SITE = 'https://somaari.in';
+const sites = network.sites.map((s) => ({ ...s, href: s.url }));
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Page not found',
+		description: 'This page is not in the book. Try one of the Somaari sites below.',
+		template: 'splash',
+		editUrl: false,
+		pagefind: false,
+	}}
+>
+	<div class="not-found" data-pagefind-ignore>
+		<p class="not-found-lead">This page is not in the book. It may have moved, or the link may be wrong.</p>
+		<p class="not-found-actions">
+			<a class="not-found-button" href="/">Back to the book</a>
+			<a class="not-found-button not-found-button-minimal" href="/00-before-you-begin/">Chapter 0 — Before You Begin</a>
+		</p>
+
+		<h2>Somaari sites</h2>
+		<ul class="not-found-sites" role="list">
+			{
+				sites.map((s) => (
+					<li class={`not-found-site${s.id === 'book' ? ' is-current' : ''}`}>
+						<a href={s.href}>
+							<span class="not-found-site-name">
+								{s.label}
+								{s.group === 'lab' && <span class="not-found-tag">Lab</span>}
+							</span>
+							<span class="not-found-site-desc">{s.description}</span>
+							{s.note && <span class="not-found-site-desc">{s.note}</span>}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<p class="not-found-more">
+			More at <a href={SITE}>somaari.in</a>, or <a href={`mailto:${network.contact.general}`}>{network.contact.general}</a>.
+		</p>
+	</div>
+</StarlightPage>
+
+<style>
+	.not-found-lead {
+		font-size: var(--sl-text-lg);
+		color: var(--sl-color-gray-2);
+		margin-top: 0;
+	}
+	.not-found-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin: 1.25rem 0 2rem;
+	}
+	.not-found-button {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0.5rem 1.1rem;
+		border-radius: 0.5rem;
+		border: 1px solid var(--sl-color-accent-high);
+		background: var(--sl-color-accent);
+		color: var(--sl-color-white);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.not-found-button-minimal {
+		background: transparent;
+		color: var(--sl-color-accent-high);
+	}
+	.not-found-button:focus-visible,
+	.not-found-sites a:focus-visible,
+	.not-found-more a:focus-visible {
+		outline: 3px solid var(--sl-color-accent-high);
+		outline-offset: 2px;
+	}
+	.not-found-sites {
+		list-style: none;
+		margin: 0 0 1.5rem;
+		padding: 0;
+		display: grid;
+		gap: 0.75rem;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+	}
+	.not-found-sites a {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		min-height: 44px;
+		height: 100%;
+		box-sizing: border-box;
+		padding: 0.9rem 1rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.6rem;
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	.not-found-sites a:hover {
+		border-color: var(--sl-color-accent-high);
+	}
+	.not-found-site.is-current a {
+		border-color: var(--sl-color-accent);
+	}
+	.not-found-site-name {
+		font-weight: 600;
+		font-size: var(--sl-text-h5);
+	}
+	.not-found-tag {
+		margin-left: 0.4rem;
+		font-size: 0.8em;
+		font-weight: 400;
+		color: var(--sl-color-gray-3);
+	}
+	.not-found-site-desc {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+	}
+	.not-found-more {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.not-found-more a {
+		color: var(--sl-color-text-accent);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.not-found-sites a {
+			transition: none;
+		}
+	}
+</style>
