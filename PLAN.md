@@ -10,7 +10,7 @@ fallback, and reference copies of somaari-site's `partials.mjs`, `nav.js` and `s
 - [x] [moderate] Override Starlight's `Header` and `Footer` in `astro.config.mjs` (`components: { Header, Footer }`) with the shared Somaari header, "Somaari sites" switcher and footer built from `network.json`, with Book highlighted (site id `book`). Keep Starlight's search, sidebar, theme picker (`ThemeSelect`) and mobile menu. <!-- bg: done sonnet 2026-11-18 -->
     Run `node scripts/fetch-network.mjs` before `astro build` in the `build` script so the build uses the live copy and falls back to the committed one.
     Build the markup the way `header(network, "book")` and `footer(network)` in `vendor/somaari-site/partials.mjs` do, with full `https://somaari.in/...` URLs; port styles from `vendor/somaari-site/style.css` onto the `--sl-color-*` and somaari tokens, and the switcher behaviour from `vendor/somaari-site/nav.js` as a bundled (not `is:inline`) script so the CSP in `public/_headers` needs no new hash. Keep the copyright and licence line in the footer. Update CLAUDE.md's layout notes.
-- [ ] [manual] Link to Docs and the somaari.in apps from the footer (if the shared footer does not already). <!-- bg: blocked sonnet 2026-11-18: the shared footer already links to Docs and Apps. `src/components/Footer.astro` builds its first link list from every entry in `network.json` `sites`, and that file includes both `docs` and `apps`. I -->
+- [x] [manual] Link to Docs and the somaari.in apps from the footer (if the shared footer does not already). <!-- done 2026-11-18: nothing to change; the shared footer lists every site from network.json, Docs and Apps included -->
 
 ### Theme and page details
 - [x] [moderate] Read and write the theme cookie on `.somaari.in` in `src/components/ThemeProvider.astro`, as somaari-common's `public/theme/theme.js` does (cookie `somaari-theme`, `Domain=somaari.in` only on somaari.in hosts, the cookie wins over localStorage, "auto" means no saved choice, try/catch when cookies are blocked); apply it to the colour variables only. <!-- bg: done sonnet 2026-11-18 -->
@@ -27,5 +27,5 @@ fallback, and reference copies of somaari-site's `partials.mjs`, `nav.js` and `s
 - [x] [simple] Add `Book` JSON-LD on the home page. <!-- bg: done haiku 2026-11-18 -->
 
 ### Manual
-- [ ] [manual] Preview the branch (`npm run build && npm run preview`) on phone and desktop; click through the switcher and footer links.
-- [ ] [manual] Merge the branch into `main` and push; CI (`site.yml`) deploys book.somaari.in.
+- [x] [manual] Preview the branch (`npm run build && npm run preview`) on phone and desktop; click through the switcher and footer links. <!-- done 2026-11-18: checked in Chromium with the CSP at desktop and 360 px; theme cookie checked on a book.somaari.in host -->
+- [x] [manual] Merge the branch into `main` and push; CI (`site.yml`) deploys book.somaari.in. <!-- done 2026-11-18: merged and pushed; CI deployed book.somaari.in -->
