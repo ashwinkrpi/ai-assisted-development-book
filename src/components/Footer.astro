@@ -1,19 +1,51 @@
 ---
-// Starlight's footer (edit link, last updated, previous/next), then the book's copyright and
-// licence line (the old site's `copyright` text) and a link to the somaari blog (TH-03).
+// Starlight's footer (edit link, last updated, previous/next), then the shared Somaari footer built
+// from network.json the way footer(network) in vendor/somaari-site/partials.mjs builds it (full
+// https://somaari.in URLs), then the book's copyright and licence line (the old site's `copyright` text).
 // Starlight has no option for footer text, so Footer is overridden.
 import Default from '@astrojs/starlight/components/Footer.astro';
+import network from '../../network.json';
+
+const SITE = 'https://somaari.in';
+const blog = network.sites.find((s) => s.id === 'blog');
+const rss = blog ? new URL('rss.xml', blog.url).href : undefined;
 ---
 
 <Default><slot /></Default>
-<div class="somaari-footer">
+<footer class="somaari-footer">
+	<nav class="footer-cols" aria-label="Somaari footer">
+		<ul class="footer-links" role="list">
+			{
+				network.sites.map((s) => (
+					<li>
+						<a href={s.url}>{s.label}</a>
+						{s.group === 'lab' && <span class="footer-tag">(Lab)</span>}
+					</li>
+				))
+			}
+		</ul>
+		<ul class="footer-links" role="list">
+			<li><a href={network.social.github}>GitHub</a></li>
+			<li><a href={network.social.youtube} target="_blank" rel="noopener">YouTube</a></li>
+			{rss && <li><a href={rss}>RSS</a></li>}
+		</ul>
+		<ul class="footer-links" role="list">
+			<li><a href={`mailto:${network.contact.general}`}>{network.contact.general}</a> <span class="footer-tag">General</span></li>
+			<li><a href={`mailto:${network.contact.apps}`}>{network.contact.apps}</a> <span class="footer-tag">App support</span></li>
+		</ul>
+		<ul class="footer-links" role="list">
+			<li><a href={`${SITE}/about/`}>About</a></li>
+			<li><a href={`${SITE}/privacy/`}>Privacy</a></li>
+			<li><a href={`${SITE}/terms/`}>Terms</a></li>
+		</ul>
+	</nav>
+	<p class="footer-author">Built by {network.author}</p>
 	<p>
 		&copy; 2026 Ashwin Koppam Raghavendra. Book content licensed under
 		<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>; code under MIT.
 		<a href="https://github.com/ashwinkrpi/ai-assisted-development-book/blob/main/LICENSE">License details</a>.
 	</p>
-	<p><a href="https://blog.somaari.in">Somaari blog</a></p>
-</div>
+</footer>
 
 <style>
 	.somaari-footer {
@@ -26,10 +58,38 @@ import Default from '@astrojs/starlight/components/Footer.astro';
 	.somaari-footer p {
 		margin: 0;
 	}
-	.somaari-footer p + p {
+	.somaari-footer p + p,
+	.footer-cols + p {
 		margin-top: 0.5rem;
 	}
 	.somaari-footer a {
 		color: var(--sl-color-text-accent);
+	}
+	.footer-cols {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 2.5rem;
+	}
+	.footer-links {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 1.25rem;
+	}
+	.footer-links li {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin: 0;
+	}
+	.footer-links a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 2.75rem;
+	}
+	.footer-tag {
+		font-size: 0.82em;
 	}
 </style>

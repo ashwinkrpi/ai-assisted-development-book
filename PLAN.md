@@ -7,7 +7,7 @@ fallback, and reference copies of somaari-site's `partials.mjs`, `nav.js` and `s
 `vendor/somaari-site/` (see its README).
 
 ### Shared header and footer
-- [ ] [moderate] Override Starlight's `Header` and `Footer` in `astro.config.mjs` (`components: { Header, Footer }`) with the shared Somaari header, "Somaari sites" switcher and footer built from `network.json`, with Book highlighted (site id `book`). Keep Starlight's search, sidebar, theme picker (`ThemeSelect`) and mobile menu.
+- [x] [moderate] Override Starlight's `Header` and `Footer` in `astro.config.mjs` (`components: { Header, Footer }`) with the shared Somaari header, "Somaari sites" switcher and footer built from `network.json`, with Book highlighted (site id `book`). Keep Starlight's search, sidebar, theme picker (`ThemeSelect`) and mobile menu. <!-- bg: done sonnet 2026-11-18 -->
     Run `node scripts/fetch-network.mjs` before `astro build` in the `build` script so the build uses the live copy and falls back to the committed one.
     Build the markup the way `header(network, "book")` and `footer(network)` in `vendor/somaari-site/partials.mjs` do, with full `https://somaari.in/...` URLs; port styles from `vendor/somaari-site/style.css` onto the `--sl-color-*` and somaari tokens, and the switcher behaviour from `vendor/somaari-site/nav.js` as a bundled (not `is:inline`) script so the CSP in `public/_headers` needs no new hash. Keep the copyright and licence line in the footer. Update CLAUDE.md's layout notes.
 - [ ] [simple] Link to Docs and the somaari.in apps from the footer (if the shared footer does not already).
