@@ -32,6 +32,8 @@ export default defineConfig({
     mermaid(),
     starlight({
       title: 'AI Assisted Development Book',
+      // "Last updated" on each page comes from git (needs full git history in CI).
+      lastUpdated: true,
       // Fails the build on a broken internal link or heading anchor.
       plugins: [starlightLinksValidator()],
       // Head.astro links somaari-common's themes.css (tokens and fonts); fonts.css points Starlight
@@ -49,6 +51,7 @@ export default defineConfig({
         Header: './src/components/Header.astro',
         SocialIcons: './src/components/SocialIcons.astro',
         Footer: './src/components/Footer.astro',
+        PageTitle: './src/components/PageTitle.astro',
         ThemeProvider: './src/components/ThemeProvider.astro',
         ThemeSelect: './src/components/ThemeSelect.astro',
       },

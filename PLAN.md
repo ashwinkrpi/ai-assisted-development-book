@@ -15,7 +15,7 @@ fallback, and reference copies of somaari-site's `partials.mjs`, `nav.js` and `s
 ### Theme and page details
 - [x] [moderate] Read and write the theme cookie on `.somaari.in` in `src/components/ThemeProvider.astro`, as somaari-common's `public/theme/theme.js` does (cookie `somaari-theme`, `Domain=somaari.in` only on somaari.in hosts, the cookie wins over localStorage, "auto" means no saved choice, try/catch when cookies are blocked); apply it to the colour variables only. <!-- bg: done sonnet 2026-11-18 -->
     ThemeProvider's script is inline, so after changing it run `sh scripts/check.sh` and paste the new hash it prints into the CSP in `public/_headers`.
-- [ ] [moderate] Show a "somaari / book / <chapter>" breadcrumb above each page title, and a "Last updated" date taken from git on each page (Starlight's `lastUpdated: true`).
+- [x] [moderate] Show a "somaari / book / <chapter>" breadcrumb above each page title, and a "Last updated" date taken from git on each page (Starlight's `lastUpdated: true`). <!-- bg: done sonnet 2026-11-18 -->
 - [ ] [simple] Publish `stats.json` at the site root at build time: `{ "chapters": N }`, N = the number of chapter pages in the sidebar (Chapter 0 to Chapter 6 today), counted from the config or content, not hard-coded. somaari.in's "Explore Somaari" row reads it.
 
 ### UI polish
