@@ -113,6 +113,15 @@ const groups = [
 			margin: -0.25rem;
 			min-width: 0;
 		}
+		/* Phones: the switcher and menu buttons leave too little room for the title on one line,
+		   so let it wrap to two smaller lines instead of being cut off. */
+		@media (max-width: 49.99rem) {
+			.title-wrapper :global(.site-title) {
+				white-space: normal;
+				font-size: var(--sl-text-base);
+				line-height: 1.15;
+			}
+		}
 
 		.right-group,
 		.social-icons {
