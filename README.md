@@ -40,11 +40,16 @@ Developers who have written some code but are new to using AI tools in their wor
 
 ## 📖 Release Plan
 
-| Volume | Part | Status |
-|---|---|---|
-| **Volume 1** | **Part 1 — Foundations** (Chapters 0–6) | ✅ Released — v1.0.0 (October 2026) |
-| Volume 2 | Part 2 — Prompt Engineering and Communicating with AI | 🔜 Planned |
-| Later volumes | Further parts | 🔜 Planned |
+| Volume | Part | Chapters | Status |
+|---|---|---|---|
+| **Volume 1** | **Part 1 — Foundations** | 0–6 | ✅ Released — v1.0.0 (October 2026) |
+| Volume 2 | Part 2 — Prompting and Core Development Tasks | 7–15 | 🔜 Planned (in progress) |
+| Volume 3 | Part 3 — Choosing and Using AI Tools | 16–23 | 🔜 Planned |
+| Volume 4 | Part 4 — Advanced AI Engineering | 24–30 | 🔜 Planned |
+| Volume 5 | Part 5 — Real-World Projects | 31–35 | 🔜 Planned |
+| Volume 6 | Part 6 — Best Practices and the Future | 36 | 🔜 Planned |
+
+Chapter titles for Volumes 2–6 come from the original outline and may change before each volume is written.
 
 Each volume stands on its own. You don't need later volumes to get value from earlier ones.
 
@@ -63,6 +68,33 @@ Each volume stands on its own. You don't need later volumes to get value from ea
 | [6 — Your First AI-Assisted Software Project](https://book.somaari.in/01-foundations/06-your-first-ai-assisted-software-project/) | Building a command-line Notes Manager in a real, reviewed AI session, with tests and documentation |
 
 Every chapter ends with a hands-on lab and review questions. A [glossary](https://book.somaari.in/glossary/) defines the AI terms used throughout.
+
+---
+
+## 🔜 What's Planned for Volume 2
+
+**Part 2 — Prompting and Core Development Tasks.** It starts with prompt engineering and communicating with AI, then applies those skills to requirements, design, code, debugging and testing. None of these chapters are published yet; the titles below are the planned outline.
+
+| Chapter | Covers |
+|---|---|
+| 7 — Prompt Engineering for Software Engineers | How to write prompts that give the AI the context, goal and constraints it needs |
+| 8 — Advanced Prompting Techniques | Alternatives to chain-of-thought, task decomposition, structured outputs and prompt libraries |
+| 9 — Context Management for AI-Assisted Development | How project context shapes what the AI produces, and how to supply and trim it |
+| 10 — Conversational Workflows | Working with AI across long, multi-step conversations |
+| 11 — AI-Assisted Requirements Engineering | Turning vague requests into clear, checkable requirements |
+| 12 — AI-Assisted Architecture and System Design | Comparing design alternatives and trade-offs with AI |
+| 13 — AI-Assisted Code Generation | Turning approved designs into production-quality code |
+| 14 — AI-Assisted Debugging and Troubleshooting | Diagnosing failures with AI and verifying the fix |
+| 15 — AI-Assisted Testing and Quality Assurance | Generating and reviewing tests, and checking what they cover |
+
+## 🗺️ Later Volumes
+
+| Volume | Chapters |
+|---|---|
+| 3 — Choosing and Using AI Tools | 16 Choosing a tool by task and trade-offs · 17 Chat assistants · 18 Inline autocomplete and editor chat · 19 Agentic coding tools · 20 Project instructions and rules files · 21 Comparing tools on your own code · 22 Using several tools together · 23 Team, cost and privacy decisions |
+| 4 — Advanced AI Engineering | 24 Agents and autonomous workflows · 25 Model Context Protocol · 26 Retrieval-augmented generation · 27 Context engineering · 28 Memory and knowledge management · 29 Evaluating AI-assisted development · 30 Governance, security and responsible use |
+| 5 — Real-World Projects | 31 Personal task manager · 32 Production REST API · 33 Full-stack web application · 34 AI-native application · 35 Deploying AI-native applications |
+| 6 — Best Practices and the Future | 36 Best practices and the future of AI-assisted software development |
 
 ---
 
