@@ -35,9 +35,9 @@ Every image is inserted as `![Alt text that says what it shows](../../../assets/
 
 ## Decisions
 
-- [ ] [manual] D1: Which project do the Volume 2 examples build on? Recommended: continue the Chapter 6 Notes Manager (`examples/ch06-notes-manager`), so readers keep one project from Part 1 into Part 2. Record the answer here: ______
-- [ ] [manual] D2: Which tool(s) appear in screenshots? Pick one chat assistant and one editor assistant as *examples of their kinds*, and record names and versions here: ______
-- [ ] [manual] D3: Confirm the Part 2 name "Prompting and Core Development Tasks" and the folder `02-prompting-and-core-tasks`. Record the answer here: ______
+- [x] [manual] D1: Which project do the Volume 2 examples build on? Recommended: continue the Chapter 6 Notes Manager (`examples/ch06-notes-manager`), so readers keep one project from Part 1 into Part 2. Answer: continue the Chapter 6 Notes Manager. <!-- done 2026-11-19 -->
+- [x] [manual] D2: Which tool(s) appear in screenshots? Pick one chat assistant and one editor assistant as *examples of their kinds*. Answer: Claude's chat app for chat screenshots and VS Code with a coding assistant extension for editor screenshots, as examples of their kinds. Record the exact names and versions when each screenshot is captured. <!-- done 2026-11-19 -->
+- [x] [manual] D3: Confirm the Part 2 name "Prompting and Core Development Tasks" and the folder `02-prompting-and-core-tasks`. Answer: keep "Prompting and Core Development Tasks" and the folder `02-prompting-and-core-tasks`. <!-- done 2026-11-19 -->
 
 ## Stage 1 — Scaffolding
 
