@@ -33,7 +33,7 @@ New to AI tools? Start with [Chapter 0 — Before You Begin](/00-before-you-begi
 
 Reference: [Glossary](/glossary/)
 
-Every chapter ends with a hands-on lab and review questions. Volume 2 (Part 2) continues with prompt engineering and communicating effectively with AI.
+Every chapter ends with a hands-on lab and review questions. Volume 2 (Part 2, Prompting and Core Development Tasks) is planned. It starts with prompt engineering and communicating effectively with AI, then applies that to requirements, design, code, debugging and testing.
 
 ## License
 
