@@ -11,12 +11,12 @@ categoriser = "haiku"
 # The full check: examples, script tests, build (fails on broken links), site checks incl. CSP hashes.
 test_cmd   = ["sh", "scripts/check.sh"]
 max_cost_usd_per_run = 5
-on_manual  = "skip"
+on_manual  = "pause"   # Volume 2: screenshots and real AI sessions come from Ashwin before the tasks that use them
 on_fail    = "stop"
 
 [permissions]
 allowed_bash    = ["sh scripts/check.sh*", "npm run build*", "npm run astro*", "node scripts/*", "python3 scripts/*",
-                   "npx astro*", "ls*", "echo *", "git status*", "git diff*", "git log*"]
+                   "npx astro*", "ls*", "echo *", "git status*", "git diff*", "git log*", "git show*"]
 disallowed_bash = ["git add*", "git commit*", "git push*", "git reset*", "git checkout*", "git switch*",
                    "git merge*", "git rebase*", "sudo *", "curl *", "wget *", "ssh *", "npx wrangler*", "wrangler*"]
 disallowed_read = ["./.env*"]
