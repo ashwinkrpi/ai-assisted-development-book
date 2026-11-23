@@ -49,6 +49,7 @@ const extra = [
 {extra.map(({ tag: Tag, attrs }) => <Tag {...attrs} />)}
 {isHome && <script type="application/ld+json" set:html={bookJsonLd} />}
 <link rel="stylesheet" href={`/theme/themes.css?v=${themeData.version}`} />
+<link rel="stylesheet" href={`/theme/footer.css?v=${themeData.version}`} />
 {themeData.preload.map((file) => (
 	<link rel="preload" href={`/theme/${file}`} as="font" type="font/woff2" crossorigin />
 ))}
