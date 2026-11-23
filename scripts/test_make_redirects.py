@@ -28,6 +28,7 @@ EXPECTED = {
         "https://book.somaari.in/01-foundations/05-building-your-ai-assisted-development-environment/",
     "01-foundations/06-your-first-ai-assisted-software-project/index.html":
         "https://book.somaari.in/01-foundations/06-your-first-ai-assisted-software-project/",
+    "ai-assisted-development/index.html": "https://book.somaari.in/ai-assisted-development/",
     "glossary/index.html": "https://book.somaari.in/glossary/",
     "404.html": "https://book.somaari.in/",
 }
@@ -38,7 +39,7 @@ class MakeRedirectsTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             result = subprocess.run([sys.executable, str(SCRIPT), tmp],
                                     capture_output=True, text=True, check=True)
-            self.assertIn("wrote 10 pages", result.stdout)
+            self.assertIn("wrote 11 pages", result.stdout)
             files = sorted(p.relative_to(tmp).as_posix() for p in Path(tmp).rglob("*") if p.is_file())
             self.assertEqual(files, sorted(EXPECTED))
             for rel, new_url in EXPECTED.items():
