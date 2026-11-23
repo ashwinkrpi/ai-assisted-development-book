@@ -1,10 +1,9 @@
 ---
 // Starlight's header (site title, search, social icons, theme picker) with the shared Somaari header
-// added: the site links and the "Somaari sites" switcher, built from network.json the way
-// header(network, "book") in vendor/somaari-site/partials.mjs builds them, with full https://somaari.in
-// URLs. The current site (id `book`) is marked aria-current. Starlight's mobile menu (sidebar toggle,
-// search, theme picker) is unchanged; on narrow screens the switcher lists every site.
-// The switcher script is bundled (a file under /_astro/), so the CSP needs no new hash.
+// added: the site links, built from network.json the way header(network, "book") in
+// vendor/somaari-site/partials.mjs builds them, with full https://somaari.in URLs. The current site
+// (id `book`) is marked aria-current. Starlight's mobile menu (sidebar toggle, search, theme picker) is
+// unchanged; on narrow screens the site links are in the footer.
 import config from 'virtual:starlight/user-config';
 import LanguageSelect from 'virtual:starlight/components/LanguageSelect';
 import Search from 'virtual:starlight/components/Search';
@@ -17,12 +16,7 @@ const CURRENT = 'book';
 const shouldRenderSearch =
 	config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 
-type Site = { id: string; label: string; url: string; description: string; note?: string; group?: string };
-const sites: Site[] = network.sites;
-const groups = [
-	{ title: 'Somaari sites', items: sites.filter((s) => (s.group ?? 'main') === 'main') },
-	{ title: 'Lab', items: sites.filter((s) => s.group === 'lab') },
-].filter((g) => g.items.length);
+const sites = network.sites;
 ---
 
 <div class="header">
@@ -46,45 +40,6 @@ const groups = [
 				}
 			</ul>
 		</nav>
-		<div class="switcher" id="site-switcher" hidden>
-			<button
-				type="button"
-				class="switcher-toggle"
-				id="switcher-toggle"
-				aria-expanded="false"
-				aria-controls="switcher-menu"
-			>
-				<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-					<g fill="currentColor">
-						{
-							[4, 9.75, 15.5].flatMap((y) =>
-								[4, 9.75, 15.5].map((x) => <rect x={x} y={y} width="4.5" height="4.5" rx="1" />),
-							)
-						}
-					</g>
-				</svg>
-				<span class="visually-hidden">Somaari sites</span>
-			</button>
-			<div class="switcher-menu" id="switcher-menu" role="group" aria-label="Somaari sites" hidden>
-				{
-					groups.map((g) => (
-						<section class="switcher-group">
-							<h2>{g.title}</h2>
-							<ul role="list">
-								{g.items.map((s) => (
-									<li>
-										<a href={s.url} aria-current={s.id === CURRENT ? 'true' : undefined}>
-											<strong>{s.label}</strong> <span>{s.description}</span>
-											{s.note && <em>{s.note}</em>}
-										</a>
-									</li>
-								))}
-							</ul>
-						</section>
-					))
-				}
-			</div>
-		</div>
 		<div class="sl-hidden md:sl-flex right-group">
 			<div class="sl-flex social-icons">
 				<SocialIcons />
@@ -113,7 +68,7 @@ const groups = [
 			margin: -0.25rem;
 			min-width: 0;
 		}
-		/* Phones: the switcher and menu buttons leave too little room for the title on one line,
+		/* Phones: the menu button leaves too little room for the title on one line,
 		   so let it wrap to two smaller lines instead of being cut off. */
 		@media (max-width: 49.99rem) {
 			.title-wrapper :global(.site-title) {
@@ -175,7 +130,7 @@ const groups = [
 		border: 0;
 	}
 
-	/* The site links: wide screens only; narrower ones use the switcher. */
+	/* The site links: wide screens only; narrower ones use the footer. */
 	.site-nav {
 		display: none;
 	}
@@ -211,132 +166,4 @@ const groups = [
 			display: block;
 		}
 	}
-
-	/* "Somaari sites" switcher: a grid button (shown by the script below) and a panel of every site. */
-	.switcher {
-		position: relative;
-	}
-	.switcher[hidden],
-	.switcher-menu[hidden] {
-		display: none;
-	}
-	.switcher-toggle {
-		display: inline-grid;
-		place-items: center;
-		width: 2.75rem;
-		height: 2.75rem;
-		padding: 0;
-		color: var(--sl-color-text);
-		background: var(--sl-color-bg-nav);
-		border: 1px solid var(--sl-color-hairline-light);
-		border-radius: var(--btn-radius);
-		cursor: pointer;
-	}
-	.switcher-toggle:hover,
-	.switcher-toggle[aria-expanded='true'] {
-		border-color: var(--sl-color-text-accent);
-		color: var(--sl-color-text-accent);
-	}
-	.switcher-menu {
-		position: absolute;
-		inset-inline-end: 0;
-		top: calc(100% + 0.5rem);
-		z-index: var(--sl-z-index-menu);
-		width: 22rem;
-		max-width: calc(100vw - 2rem);
-		max-height: 80vh;
-		overflow-y: auto;
-		padding: 0.75rem;
-		color: var(--sl-color-text);
-		background: var(--sl-color-bg-nav);
-		border: 1px solid var(--sl-color-hairline-light);
-		border-radius: 0.5rem;
-		box-shadow: var(--sl-shadow-md);
-	}
-	.switcher-group + .switcher-group {
-		margin-top: 0.75rem;
-		padding-top: 0.75rem;
-		border-top: 1px solid var(--sl-color-hairline-light);
-	}
-	.switcher-group h2 {
-		margin: 0 0 0.35rem;
-		font-size: var(--sl-text-xs);
-		font-weight: 600;
-		color: var(--sl-color-gray-3);
-	}
-	.switcher-group ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
-		gap: 0.4rem;
-	}
-	.switcher-group a {
-		display: block;
-		height: 100%;
-		min-height: 2.75rem;
-		padding: 0.5rem 0.6rem;
-		color: var(--sl-color-text);
-		text-decoration: none;
-		border: 1px solid var(--sl-color-hairline-light);
-		border-radius: 0.5rem;
-	}
-	.switcher-group a:hover,
-	.switcher-group a[aria-current] {
-		border-color: var(--sl-color-text-accent);
-	}
-	.switcher-group strong {
-		display: block;
-		color: var(--sl-color-text-accent);
-	}
-	.switcher-group span,
-	.switcher-group em {
-		display: block;
-		font-size: var(--sl-text-xs);
-		font-style: normal;
-		color: var(--sl-color-gray-3);
-	}
 </style>
-
-<script>
-	// The switcher (ported from vendor/somaari-site/nav.js). Hidden without JavaScript; the site links
-	// are there instead on wide screens. Escape closes and returns focus; clicking outside or choosing
-	// a link closes; Tab stays inside the open panel.
-	const box = document.getElementById('site-switcher');
-	const btn = document.getElementById('switcher-toggle');
-	const menu = document.getElementById('switcher-menu');
-
-	if (box && btn && menu) {
-		box.hidden = false;
-		const links = () => Array.from(menu.querySelectorAll<HTMLAnchorElement>('a[href]'));
-		const set = (open: boolean, returnFocus: boolean) => {
-			menu.hidden = !open;
-			btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-			if (open) links()[0]?.focus();
-			else if (returnFocus) btn.focus();
-		};
-		btn.addEventListener('click', () => set(menu.hidden, true));
-		document.addEventListener('click', (e) => {
-			if (!menu.hidden && e.target instanceof Node && !box.contains(e.target)) set(false, false);
-		});
-		document.addEventListener('keydown', (e) => {
-			if (menu.hidden) return;
-			if (e.key === 'Escape') {
-				e.preventDefault();
-				set(false, true);
-			} else if (e.key === 'Tab') {
-				const items: HTMLElement[] = [...links(), btn];
-				const first = items[0];
-				const last = items[items.length - 1];
-				if (e.shiftKey && document.activeElement === first) {
-					e.preventDefault();
-					last.focus();
-				} else if (!e.shiftKey && document.activeElement === last) {
-					e.preventDefault();
-					first.focus();
-				}
-			}
-		});
-	}
-</script>

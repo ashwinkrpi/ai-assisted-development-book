@@ -82,7 +82,7 @@ export default defineConfig({
       // ThemeProvider and ThemeSelect replace Starlight's light/dark logic with the somaari themes;
       // somaari.css maps the somaari tokens onto --sl-color-*.
       // SocialIcons adds the Somaari link before the GitHub icon. Header adds the shared Somaari site
-      // links and "Somaari sites" switcher; Footer adds the shared footer and the copyright line
+      // links; Footer adds the shared footer and the copyright line
       // (both built from network.json).
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/ashwinkrpi/ai-assisted-development-book' },
