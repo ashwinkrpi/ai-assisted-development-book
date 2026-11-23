@@ -7,7 +7,7 @@
 		"liquid-glass": "Liquid Glass"
 	},
 	"schedule": [],
-	"version": "fc59443",
+	"version": "fce56d4",
 	"preload": [
 		"fonts/Inter.woff2",
 		"fonts/InterTight.woff2"
