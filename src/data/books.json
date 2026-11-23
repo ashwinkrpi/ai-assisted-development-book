@@ -1,0 +1,13 @@
+[
+  {
+    "id": "ai-assisted-development",
+    "title": "AI Assisted Development Book",
+    "volume": "Volume 1",
+    "subtitle": "Part 1: Foundations of AI-Assisted Software Development",
+    "description": "Use AI tools to write software while keeping the practices that make software reliable: clear requirements, small steps, automated tests, and human review.",
+    "href": "/ai-assisted-development/",
+    "start": { "label": "Start with Chapter 0", "href": "/00-before-you-begin/" },
+    "status": "live",
+    "meta": "7 chapters + glossary · Free · CC BY-NC-SA 4.0"
+  }
+]

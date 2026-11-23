@@ -16,7 +16,8 @@ const darkThemesSelector = `:is(${themeSelectors('dark').join(',')})`;
 
 // The sidebar: the labels and order of the MkDocs `nav`. Starlight reads it, and stats.json counts its chapters.
 const sidebar = [
-  { label: 'Home', link: '/' },
+  { label: 'All books', link: '/' },
+  { label: 'Volume 1 overview', link: '/ai-assisted-development/' },
   { label: 'Chapter 0 — Before You Begin', slug: '00-before-you-begin' },
   {
     label: 'Part 1 — Foundations',

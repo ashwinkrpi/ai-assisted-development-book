@@ -38,6 +38,7 @@ DIST = ROOT / "dist"
 # MIGRATION-PLAN.md section 2.2.
 PAGE_PATHS = [
     "/",
+    "/ai-assisted-development/",
     "/00-before-you-begin/",
     "/01-foundations/01-introduction/",
     "/01-foundations/02-why-ai-is-transforming-software-development/",

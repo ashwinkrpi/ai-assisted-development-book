@@ -17,14 +17,14 @@ const seoTitle = (tag) => tag.tag === 'title' || (tag.tag === 'meta' && tag.attr
 const tags = head.map((tag) => (seoTitle(tag) ? { ...tag, ...(tag.tag === 'title' ? { content: pageTitle } : { attrs: { ...tag.attrs, content: pageTitle } }) } : tag));
 // JSON-LD (schema.org) for the home page only: the Book, its author and its publisher. The text is
 // data (not a script the browser runs), and "<" is escaped so no value can end the script early.
-const isHome = Astro.url.pathname === '/';
+const isHome = Astro.url.pathname === '/ai-assisted-development/';
 const bookJsonLd = JSON.stringify(
 	{
 		'@context': 'https://schema.org',
 		'@type': 'Book',
 		'@id': 'https://book.somaari.in/#book',
 		name: 'AI Assisted Development Book — Volume 1',
-		url: 'https://book.somaari.in/',
+		url: 'https://book.somaari.in/ai-assisted-development/',
 		description,
 		author: { '@type': 'Person', name: 'Ashwin Koppam Raghavendra' },
 		publisher: { '@type': 'Organization', name: 'Somaari', url: 'https://somaari.in/' },
