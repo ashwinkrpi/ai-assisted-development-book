@@ -1,6 +1,6 @@
 ---
-// Starlight's page title with a "somaari / book / <chapter>" breadcrumb above it. The chapter is the
-// page's title; the home page shows only "somaari / book".
+// Starlight's page title with a "book / <chapter>" breadcrumb above it. The chapter is the
+// page's title; the home page shows only "book".
 import network from '../../network.json';
 
 const { entry, id } = Astro.locals.starlightRoute;
@@ -11,7 +11,6 @@ const home = import.meta.env.BASE_URL;
 
 <nav class="crumbs" aria-label="Breadcrumb">
 	<ol>
-		<li><a href="https://somaari.in/">somaari</a></li>
 		<li>
 			{isHome ? <span aria-current="page">{book?.label ?? 'book'}</span> : <a href={home}>{book?.label ?? 'book'}</a>}
 		</li>
