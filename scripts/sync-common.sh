@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copy somaari-common's theme (from its main branch) into this repo, the same way as somaari-blog.
 # The copies are committed, so builds need no network or sibling repo. Never edit them by hand.
-# Usage: scripts/sync-common.sh            (somaari-common at $HOME/code/ai-projects/somaari-common)
+# Usage: scripts/sync-common.sh            (somaari-common at $HOME/code/ai-projects/somaari-site/common)
 #        SOMAARI_COMMON=/path scripts/sync-common.sh
 #
 # Writes:
@@ -14,9 +14,9 @@
 set -eu
 
 here=$(cd "$(dirname "$0")/.." && pwd)
-common=${SOMAARI_COMMON:-"$HOME/code/ai-projects/somaari-common"}
+common=${SOMAARI_COMMON:-"$HOME/code/ai-projects/somaari-site/common"}
 
-if [ ! -d "$common/.git" ]; then
+if ! git -C "$common" rev-parse --git-dir >/dev/null 2>&1; then
     echo "error: somaari-common not found at $common (set SOMAARI_COMMON)" >&2
     exit 1
 fi
@@ -26,7 +26,7 @@ if [ -n "$(git -C "$common" status --porcelain -- theme/)" ]; then
     echo "error: $common has uncommitted changes under theme/. Commit them to main first." >&2
     exit 1
 fi
-list=$(git -C "$common" show main:theme/files.json | sed -n 's/^[[:space:]]*"\([^"]*\)",\{0,1\}[[:space:]]*$/\1/p')
+list=$(git -C "$common" show main:./theme/files.json | sed -n 's/^[[:space:]]*"\([^"]*\)",\{0,1\}[[:space:]]*$/\1/p')
 if [ -z "$list" ]; then
     echo "error: no files listed in theme/files.json" >&2
     exit 1
@@ -41,9 +41,9 @@ for f in $list; do
         /*|*..*) echo "error: bad path in files.json: $f" >&2; rm -rf "$theme.tmp"; exit 1 ;;
     esac
     mkdir -p "$theme.tmp/$(dirname "$f")"
-    git -C "$common" show "main:theme/$f" > "$theme.tmp/$f"
+    git -C "$common" show "main:./theme/$f" > "$theme.tmp/$f"
 done
-git -C "$common" show main:theme/files.json > "$theme.tmp/files.json"
+git -C "$common" show main:./theme/files.json > "$theme.tmp/files.json"
 version=$(git -C "$common" rev-parse --short main)
 
 # theme.js exports its THEMES, SCHEDULE and DEFAULT_THEME when it finds a CommonJS `module`. The
